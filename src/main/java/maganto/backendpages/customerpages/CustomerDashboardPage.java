@@ -17,6 +17,7 @@ public class CustomerDashboardPage {
 
     @FindBy(xpath = "//span[text()='Customers']")
     WebElement customersLink;
+
     @FindBy(xpath = "//span[text()='Manage Customers']")
     WebElement manageCustomersLink;
     @FindBy(xpath = "//span[text()='Customer Groups']")

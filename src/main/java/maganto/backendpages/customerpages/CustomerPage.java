@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-import java.io.File;
 public class CustomerPage {
     WebDriver driver;
     TestUtility testUtility;
@@ -20,11 +19,9 @@ public class CustomerPage {
         this.driver = driver;
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
         email = testUtility.generateEmailAddress();
     }
-
-    @FindBy(xpath = " (//span[text()='Add New Customer'])[1]")
+    @FindBy(xpath="(//button[@title='Add New Customer'])[1]")
     WebElement addNewCustomerButton;
     @FindBy(id = "_accountfirstname")
     WebElement firstNameField;
@@ -67,7 +64,7 @@ public class CustomerPage {
 
     public void addNewCustomer() {
         testUtility.waitForElementPresent(addNewCustomerButton);
-        addNewCustomerButton.click();
+       addNewCustomerButton.click();
         testUtility.waitForElementPresent(firstNameField);
         firstNameField.sendKeys(testUtility.generateFirstName());
         testUtility.waitForElementPresent(lastNameField);
@@ -86,10 +83,11 @@ public class CustomerPage {
         return email;
     }
 
+
     public boolean verifyNewCustomerAdded() {
         testUtility.waitForElementPresent(successMessage);
         if (driver.getPageSource().contains(successMessage.getText())) ;
-        System.out.println("The customer has been saved.");
+        System.out.println("The customer has been added successfully.");
         return true;
     }
     public void updateCustomer() {

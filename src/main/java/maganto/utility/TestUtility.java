@@ -36,10 +36,6 @@ public class TestUtility {
         String lastName=faker.name().lastName();
         return lastName;
     }
-    public String generateMiddleName(){
-        String middleName=faker.name().nameWithMiddle();
-        return middleName;
-    }
     public String generateEmailAddress(){
         String emailAddress=faker.internet().emailAddress();
         return emailAddress;

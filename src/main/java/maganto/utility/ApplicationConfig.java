@@ -4,8 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 public class ApplicationConfig {
-    //method to read a specific key value pair from config file
-
     public static String readFromConfigProperties(String fileName,String key){
         Properties properties=new Properties();
         String workingDirectory=System.getProperty("user.dir");

@@ -9,27 +9,22 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class CustomerPage {
+public class CustomerPage{
     WebDriver driver;
     TestUtility testUtility;
     String config = "config.properties";
     String email;
 
-    public CustomerPage(WebDriver driver) {
-        this.driver = driver;
-        testUtility = new TestUtility(driver);
-        PageFactory.initElements(driver, this);
-        email = testUtility.generateEmailAddress();
-    }
-    @FindBy(xpath="(//button[@title='Add New Customer'])[1]")
+
+    @FindBy(xpath="//*[contains(text(),'Add New Customer')])[1]")
     WebElement addNewCustomerButton;
-    @FindBy(id = "_accountfirstname")
+    @FindBy(id ="_accountfirstname")
     WebElement firstNameField;
-    @FindBy(id = "_accountlastname")
+    @FindBy(id ="_accountlastname")
     WebElement lastNameField;
-    @FindBy(name = "account[email]")
+    @FindBy(id ="_accountemail")
     WebElement emailField;
-    @FindBy(id = "_accountpassword")
+    @FindBy(id ="_accountpassword")
     WebElement passwordField;
     @FindBy(xpath = "//div[@id='anchor-content']//p/button[4]")
     WebElement saveCustomerButton;
@@ -61,9 +56,14 @@ public class CustomerPage {
     WebElement searchButton;
     @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
     WebElement emailAddressAfterSearched;
-
-    public void addNewCustomer() {
-        testUtility.waitForElementPresent(addNewCustomerButton);
+    public CustomerPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+        email = testUtility.generateEmailAddress();
+    }
+    public void addNewCustomerMethod() {
+       testUtility.waitForElementPresent(addNewCustomerButton);
        addNewCustomerButton.click();
         testUtility.waitForElementPresent(firstNameField);
         firstNameField.sendKeys(testUtility.generateFirstName());

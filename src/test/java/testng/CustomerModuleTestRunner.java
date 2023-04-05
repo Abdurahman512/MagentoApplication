@@ -3,11 +3,9 @@ package testng;
 import maganto.backendpages.BackEndLogin;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
-import maganto.utility.TestResultListener;
 import maganto.utility.TestUtility;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import maganto.backendpages.customerpages.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -15,8 +13,8 @@ import org.testng.annotations.*;
 
 
 
-@Listeners(TestResultListener.class)
-public class CustomerModuleTestRunner extends TestBase {
+//@Listeners(TestResultListener.class)
+public class CustomerModuleTestRunner extends TestBase{
     TestUtility utility;
     BackEndLogin login;
     final static String configFile = "config.properties";
@@ -35,7 +33,8 @@ public class CustomerModuleTestRunner extends TestBase {
     public void addNewCustomer() {
         login.VerifyLoginSuccessfully();
         utility.sleep(3);
-        customerPage.addNewCustomer();
+        customerDashboardPage.clickOnManageCustomers();
+        customerPage.addNewCustomerMethod();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
       //  Assert.assertTrue(dataAccess.getNewlyAddedCustomer(customerPage.email(), connection));
     }

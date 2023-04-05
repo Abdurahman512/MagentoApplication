@@ -50,6 +50,13 @@ public class CustomerModuleTestRunner extends TestBase {
         customerPage.deleteCustomer();
         Assert.assertTrue(customerPage.verifyDeleteCustomer());
     }
+    @Test(groups = "regression test",description ="Customer Maneger can Export customer" )
+    public void ExportCustomers(){
+        login.VerifyLoginSuccessfully();
+        customerPage=new CustomerPage(driver);
+        customerPage.ExportCustomer();
+        Assert.assertTrue(customerPage.verifyClickExportButton());
+    }
     @AfterClass
     public void tearDown() {
         closeBrowser();

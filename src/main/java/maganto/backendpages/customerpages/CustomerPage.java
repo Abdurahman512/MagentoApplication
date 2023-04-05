@@ -61,7 +61,7 @@ public class CustomerPage {
     WebElement searchButton;
     @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
     WebElement emailAddressAfterSearched;
-    @FindBy(id="id_731f64258af1a20d1722f344b7c7688f")
+    @FindBy(xpath = "//span[text()='Export']")
     WebElement ExportButton;
 
     public void addNewCustomer() {

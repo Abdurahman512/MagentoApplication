@@ -3,6 +3,7 @@ package testng;
 import maganto.backendpages.BackEndLogin;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
+import maganto.utility.TestResultListener;
 import maganto.utility.TestUtility;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +14,7 @@ import org.testng.annotations.*;
 
 
 
-//@Listeners(TestResultListener.class)
+@Listeners(TestResultListener.class)
 public class CustomerModuleTestRunner extends TestBase{
     TestUtility utility;
     BackEndLogin login;
@@ -33,11 +34,10 @@ public class CustomerModuleTestRunner extends TestBase{
     public void addNewCustomer() {
         login.VerifyLoginSuccessfully();
         utility.sleep(3);
-       customerDashboardPage.clickOnManageCustomers();
-        utility.sleep(5);
+      // customerDashboardPage.clickOnManageCustomers();
         customerPage.addNewCustomerMethod();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
-      //  Assert.assertTrue(dataAccess.getNewlyAddedCustomer(customerPage.email(), connection));
+
     }
     @Test(groups = "regression test",description = "Customer Manager can update an existing customer ")
     public void updateCustomer() {

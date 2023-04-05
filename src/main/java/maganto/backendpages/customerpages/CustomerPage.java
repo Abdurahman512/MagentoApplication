@@ -1,7 +1,6 @@
 package maganto.backendpages.customerpages;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestUtility;
-import org.apache.xmlbeans.impl.xb.xsdschema.FieldDocument;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,8 +22,6 @@ public class CustomerPage{
         testUtility = new TestUtility(driver);
         email = testUtility.generateEmailAddress();
     }
-
-  //  @FindBy(xpath = "(//span[text()='Add New Customer'])[1]")
   @FindBy(xpath = "(//button[@title='Add New Customer'])[1]")
     WebElement addNewCustomerButton;
     @FindBy(id = "_accountfirstname")
@@ -49,14 +46,13 @@ public class CustomerPage{
 
     public void addNewCustomerMethod() {
         testUtility.waitForElementPresent(addNewCustomerButton);
-        addNewCustomerButton.click();
+        testUtility.javaScriptClick(addNewCustomerButton);
         testUtility.waitForElementPresent(firstNameField);
         firstNameField.sendKeys(testUtility.generateFirstName());
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.sendKeys(testUtility.generateLastName());
         testUtility.waitForElementPresent(emailField);
         emailField.sendKeys(email);
-        System.out.println(email);
         testUtility.waitForElementPresent(passwordField);
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
         testUtility.waitForElementPresent(saveCustomerButton);

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Random;
 
 public class ShoppingCartPage {
     // A user should be able to add products to shopping cart
@@ -58,8 +59,10 @@ public class ShoppingCartPage {
     public void addProductsToShoppingCart(){
         utility.waitForElementPresent(titleLink);
         titleLink.click();
-        utility.waitForElementPresent(selectedProduct);
-        selectedProduct.click();
+        WebElement random=products.get(new Random().nextInt(products.size()));
+        random.click();
+       // utility.waitForElementPresent(selectedProduct);
+       // selectedProduct.click();
         utility.waitForElementPresent(addToCartLink);
         addToCartLink.click();
     }
@@ -76,8 +79,13 @@ public class ShoppingCartPage {
         utility.waitForElementPresent(updateLink);
         updateLink.click();
     }
-    public boolean verifyUpdateSuccessfully(){
+    public boolean verifyUpdateSuccessfully(String expectedText){
+        String observedText= subTotal.getText();
+        if(observedText.equalsIgnoreCase(expectedText)){
         return true;
+        }
+        else
+            return false;
     }
     public void checkOutOrder(String address,String city,String zipCode,String telephone){
         utility.waitForElementPresent(checkoutLink);
@@ -95,7 +103,6 @@ public class ShoppingCartPage {
         select2.selectByVisibleText("");
         utility.waitForElementPresent(telephoneField);
         telephoneField.sendKeys(telephone);
-
     }
 
 }

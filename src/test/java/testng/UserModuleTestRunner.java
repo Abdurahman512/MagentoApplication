@@ -1,6 +1,7 @@
 package testng;
 
 import maganto.frontendpages.AccountInfoPage;
+import maganto.frontendpages.WishListPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -14,6 +15,8 @@ public class UserModuleTestRunner extends TestBase {
 
     TestUtility utility;
     AccountInfoPage accountInfoPage;
+
+    WishListPage wishListPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -39,6 +42,12 @@ public class UserModuleTestRunner extends TestBase {
     public void viewAccountInfo(){
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
+    }
+
+    @Test
+    public void viewWishList(){
+        wishListPage.viewMyWishList();
+        Assert.assertTrue(wishListPage.isMyWishListAbleToView());
     }
 
     @AfterClass

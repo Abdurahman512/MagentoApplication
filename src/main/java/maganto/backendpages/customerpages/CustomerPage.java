@@ -61,6 +61,8 @@ public class CustomerPage {
     WebElement searchButton;
     @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
     WebElement emailAddressAfterSearched;
+    @FindBy(id="id_731f64258af1a20d1722f344b7c7688f")
+    WebElement ExportButton;
 
     public void addNewCustomer() {
         testUtility.waitForElementPresent(addNewCustomerButton);
@@ -133,6 +135,18 @@ public class CustomerPage {
         testUtility.waitForElementPresent(deleteSuccessMessage);
         if (deleteSuccessMessage.isDisplayed())
             System.out.println("The customer has been deleted.");
+        return true;
+    }
+
+    public void ExportCustomer() {
+        testUtility.waitForElementPresent(ExportButton);
+        ExportButton.click();
+
+    }
+    public  boolean  verifyClickExportButton(){
+        testUtility.waitForElementPresent(ExportButton);
+        if (ExportButton.isEnabled())
+            System.out.println("download symbol down right also appeared");
         return true;
     }
 

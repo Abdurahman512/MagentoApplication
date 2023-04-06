@@ -1,9 +1,12 @@
 package testng;
 
 import maganto.frontendpages.AccountInfoPage;
+import maganto.frontendpages.DashboardPage;
 import maganto.frontendpages.NewsLetterSubscriptionsPage;
 import maganto.frontendpages.ProductReviewsPage;
 import maganto.utility.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -24,6 +27,8 @@ public class UserModuleTestRunner extends TestBase {
     public void setUp(ITestContext context) {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
+        newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
+        productReviewsPage=new ProductReviewsPage(driver);
         utility = new TestUtility(driver);
         context.setAttribute("driver",driver);
     }
@@ -45,12 +50,22 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
 
+    @Test(dependsOnMethods ={"createAccount"})
+    public void viewNewsLetterSubscription(){
+      newsLetterSubscriptionsPage.viewNewsLetterSubscription(driver);
+        Assert.assertTrue(newsLetterSubscriptionsPage.verifyViewNewsletterContent());
 
 
-
-    @AfterClass
-    public void tearDown(){
-        closeBrowser();
+    }
+    @Test(dependsOnMethods ={"createAccount"})
+    public void ProductReviews() {
+        productReviewsPage.ProductReviews(driver);
+        Assert.assertTrue(productReviewsPage.verifyProductReviews());
     }
 
-}
+        @AfterClass
+        public void tearDown() {
+            closeBrowser();
+        }
+
+    }

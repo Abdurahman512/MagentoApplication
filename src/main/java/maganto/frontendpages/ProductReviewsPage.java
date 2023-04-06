@@ -26,7 +26,7 @@ public class ProductReviewsPage {
     @FindBy(xpath = "//p[contains(text(),'You have submitted no reviews.')]")
     WebElement noReviewText;
 
-    public void ProductReviewsPage(WebDriver driver) {
+    public void ProductReviews(WebDriver driver) {
         utility.waitForElementPresent(myProductReviews);
         myProductReviews.click();
     }

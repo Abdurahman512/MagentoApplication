@@ -2,6 +2,7 @@ package testng;
 
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.CategoriesPage;
+import maganto.backendpages.catalogpages.ProductPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
@@ -19,6 +20,8 @@ public class CatalogModuleTestRunner extends TestBase {
     TestUtility utility;
     CategoriesPage categoriesPage;
     final static String configFile = "config.properties";
+    ProductPage productPage;
+    BackEndLogin login;
 
     @BeforeClass
     public void setUp(ITestContext context) {
@@ -27,6 +30,7 @@ public class CatalogModuleTestRunner extends TestBase {
         login.catalogPageLogin();
         categoriesPage = new CategoriesPage(driver);
         utility = new TestUtility(driver);
+        productPage=new ProductPage(driver);
         context.setAttribute("driver",driver);
     }
     @Test
@@ -48,7 +52,7 @@ public class CatalogModuleTestRunner extends TestBase {
     public void editSubCategoryTest(){
         categoriesPage.editSubCategory("TastData/CategoryTestData.xlsx","Sheet1",1,2);
         Assert.assertTrue(categoriesPage.isSubCategoryEdited());
-    }
+    }      
     @Test(dependsOnMethods ={"editSubCategoryTest"})
     public void deleteSubCategoryTest(){
         categoriesPage.deleteSubCategory();
@@ -59,6 +63,16 @@ public class CatalogModuleTestRunner extends TestBase {
     public void deleteRootCategoryTest(){
         categoriesPage.deleteRootCategory();
         Assert.assertTrue(categoriesPage.isRootCategoryDeleted());
+
+    }
+
+    @Test
+    public void addProductTest(){
+        //login.VerifyLoginSuccessfully();
+        utility.sleep(3);
+
+        productPage.userAddProduct();
+
 
     }
 
@@ -73,4 +87,8 @@ public class CatalogModuleTestRunner extends TestBase {
     }
 
 
-}
+
+    }
+
+
+

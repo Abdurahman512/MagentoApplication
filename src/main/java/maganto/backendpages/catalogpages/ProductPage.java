@@ -5,15 +5,17 @@ import maganto.utility.TestUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class ProductPage {
+public class ProductPage  {
 
     // Add product
 
     WebDriver driver;
+
 
     @FindBy(xpath = "//span[text()='Catalog']")
     WebElement catalogLink;
@@ -27,7 +29,7 @@ public class ProductPage {
     @FindBy(xpath = "(//span[.='Continue'])[2]")
     WebElement continueLink;
 
-    @FindBy(id = "input[id='name']")
+    @FindBy(id = "//div[@class='wrapper']//input[@id='name'] [@class=' required-entry input-text required-entry'][@type='text']")
     WebElement nameFiled;
 
     @FindBy(id = "textarea[id='description']")
@@ -65,10 +67,23 @@ public class ProductPage {
     WebElement addProductSuccessMessage;
 
     TestUtility testUtility;
+    CatalogDashboardPage dashboardPage;
     Faker faker=new Faker();
     public String generateProductName(){
         String productName=faker.book().title();
         return productName;
+    }
+    public String generateShortDescription(){
+        String productShortDescription=faker.educator().toString();
+        return productShortDescription;
+    }
+    public String generatesku(){
+        String productsku=faker.number().digit();
+        return productsku;
+    }
+    public String generateweight(){
+        String productweight=faker.number().digit();
+        return productweight;
     }
 
     public String generateDescription(){
@@ -82,11 +97,13 @@ public class ProductPage {
     }
 
     public ProductPage(WebDriver driver) {
+        //super(driver);
         this.driver = driver;
         PageFactory.initElements(driver,this);
         testUtility=new TestUtility(driver);
+        dashboardPage=new CatalogDashboardPage(driver);
     }
-    public void userCreateAccount(String name, String description, String shortDiscription,String sku,String weight){
+    public void userAddProduct(){
         testUtility.waitForElementPresent(catalogLink);
         catalogLink.click();
         testUtility.waitForElementPresent(manageProductsLink);

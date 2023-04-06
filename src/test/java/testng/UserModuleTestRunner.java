@@ -5,10 +5,7 @@ import maganto.frontendpages.WishListPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 @Listeners(TestResultListener.class)
 public class UserModuleTestRunner extends TestBase {
@@ -24,6 +21,7 @@ public class UserModuleTestRunner extends TestBase {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
         utility = new TestUtility(driver);
+        wishListPage=new WishListPage(driver);
         context.setAttribute("driver",driver);
     }
 
@@ -44,7 +42,7 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
 
-    @Test
+    @Test (dependsOnMethods ={"createAccount"})
     public void viewWishList(){
         wishListPage.viewMyWishList();
         Assert.assertTrue(wishListPage.isMyWishListAbleToView());

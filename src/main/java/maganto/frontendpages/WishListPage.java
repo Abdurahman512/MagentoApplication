@@ -4,6 +4,8 @@ import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
 public class WishListPage {
 
     // view wishlist
@@ -12,7 +14,7 @@ public class WishListPage {
     @FindBy(xpath = "//span[@class='label' and text()='Account']")
     WebElement accountLink;
 
-    @FindBy(linkText = "My Wishlist (1 item)")
+    @FindBy(xpath = "(//a[contains(text(),'My Wishlist')])[2]")
     WebElement myWishlist;
 
     @FindBy(xpath = "//h1[text()='My Wishlist']")
@@ -21,11 +23,14 @@ public class WishListPage {
 
     TestUtility utility;
 
-
-
+    public WishListPage(WebDriver driver){
+        this.driver=driver;
+        utility=new TestUtility(driver);
+        PageFactory.initElements(driver,this);
+    }
     public void viewMyWishList(){
-        utility.waitForElementPresent(accountLink);
-        accountLink.click();
+       // utility.waitForElementPresent(accountLink);
+        //accountLink.click();
         utility.waitForElementPresent(myWishlist);
         myWishlist.click();
     }

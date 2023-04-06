@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.Test;
 
 
 public class AttributesPage {
@@ -48,7 +49,6 @@ public class AttributesPage {
     WebElement successfulMessage;
 
 
-
     public void clickOnAddNewAttributeButton(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).moveToElement(attributes).moveToElement(manageAttributes).click().build().perform();
@@ -62,6 +62,7 @@ public class AttributesPage {
         savaAttributeBTN.click();
 
     }
+
     public boolean verifyAttributeAddedSuccessfully(){
         testUtility.waitForElementPresent(successfulMessage);
         return successfulMessage.isDisplayed();

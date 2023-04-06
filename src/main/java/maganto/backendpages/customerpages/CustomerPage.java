@@ -99,20 +99,6 @@ public class CustomerPage{
         return true;
     }
 
-
-    //Update Customer
-
-    @FindBy(xpath = "//a[@id='customer_info_tabs_account' and @class='tab-item-link'][1]")
-    WebElement accountInformationLink;
-    @FindBy(xpath = "(//select[@id=_accountgender])[1]")
-    WebElement selectGender;
-    @FindBy(css = "input[name='email']")
-    WebElement emailFieldBox;
-    @FindBy(css = "button[title='Search']")
-    WebElement searchButton;
-    @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
-    WebElement emailAddressAfterSearched;
-
     public void updateCustomer() {
         CustomerDashboardPage customerDashboardPage = new CustomerDashboardPage(driver);
         customerDashboardPage.clickOnManageCustomers();

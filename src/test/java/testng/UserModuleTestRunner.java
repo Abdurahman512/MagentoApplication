@@ -1,7 +1,7 @@
 package testng;
 
 import maganto.frontendpages.AccountInfoPage;
-import maganto.frontendpages.WishListPage;
+import maganto.frontendpages.ShoppingCartPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -12,16 +12,15 @@ public class UserModuleTestRunner extends TestBase {
 
     TestUtility utility;
     AccountInfoPage accountInfoPage;
-
-    WishListPage wishListPage;
+    ShoppingCartPage shoppingCartPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
     public void setUp(ITestContext context) {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
+        shoppingCartPage=new ShoppingCartPage(driver);
         utility = new TestUtility(driver);
-        wishListPage=new WishListPage(driver);
         context.setAttribute("driver",driver);
     }
 
@@ -41,13 +40,24 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
-
-    @Test (dependsOnMethods ={"createAccount"})
-    public void viewWishList(){
-        wishListPage.viewMyWishList();
-        Assert.assertTrue(wishListPage.isMyWishListAbleToView());
+    @Test(dependsOnMethods ={"createAccount"})
+    public void addProductToShoppingCart(){
+        shoppingCartPage.addProductsToShoppingCart();
+        Assert.assertTrue(shoppingCartPage.verifyAddedToShoppingCartSuccessfully());
     }
+    @Test(dependsOnMethods = {"addProductToShoppingCart"})
+    public void updateExistingShoppingCart(){
+        shoppingCartPage.updateShoppingCart("5");
+        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully("5"));
 
+    }
+    @Test(dependsOnMethods = {"updateExistingShoppingCart"})
+    public void checkOutOrderTest(){
+        shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
+                utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
+        Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
+
+    }
     @AfterClass
     public void tearDown(){
         closeBrowser();

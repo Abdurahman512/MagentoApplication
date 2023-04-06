@@ -11,7 +11,14 @@ public class ProductReviewsPage {
  WebDriver driver;
  TestUtility utility;
 
- //my product reviews
+    public ProductReviewsPage(WebDriver driver, TestUtility utility, WebElement myProductReviews, WebElement noReviewText) {
+        this.driver = driver;
+        this.utility = utility;
+        this.myProductReviews = myProductReviews;
+        this.noReviewText = noReviewText;
+    }
+
+    //my product reviews
     @FindBy(xpath ="//strong[contains(text(),'My Product Reviews')]")
     WebElement myProductReviews;
     @FindBy(xpath="//p[contains(text(),'You have submitted no reviews.')]")

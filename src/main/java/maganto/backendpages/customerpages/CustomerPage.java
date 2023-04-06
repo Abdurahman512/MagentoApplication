@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 
 public class CustomerPage {
@@ -63,6 +64,17 @@ public class CustomerPage {
     WebElement emailAddressAfterSearched;
     @FindBy(xpath = "//span[text()='Export']")
     WebElement ExportButton;
+    @FindBy (name = "customer")
+    WebElement checkbox;
+    @FindBy(id = "customerGrid_massaction-select")
+    WebElement ActionsButton;
+    @FindBy(name ="group")
+    WebElement Groups;
+    @FindBy(xpath="//span[text()='Submit']" )
+    WebElement SubmitButton;
+    @FindBy(xpath = "//span[text()='Total of 1 record(s) were updated.']")
+    WebElement VerifySubmitbuttonClick;
+
 
     public void addNewCustomer() {
         testUtility.waitForElementPresent(addNewCustomerButton);
@@ -147,6 +159,28 @@ public class CustomerPage {
         testUtility.waitForElementPresent(ExportButton);
         if (ExportButton.isEnabled())
             System.out.println("download symbol down right also appeared");
+        return true;
+    }
+public void AssignCustomer(){
+        testUtility.waitForElementPresent(checkbox);
+        checkbox.click();
+        testUtility.waitForElementPresent(ActionsButton);
+        Select select=new Select(ActionsButton);
+        select.selectByValue("assign_group");
+        ActionsButton.click();
+        testUtility.waitForElementPresent(Groups);
+        Select group=new Select(Groups);
+        group.selectByValue("264");
+        Groups.click();
+
+        Groups.click();
+        testUtility.waitForElementPresent(SubmitButton);
+       SubmitButton.click();
+    }
+    public boolean verifyAssigncustomer(){
+        testUtility.waitForElementPresent(VerifySubmitbuttonClick);
+        if (VerifySubmitbuttonClick.isDisplayed());
+        System.out.println("Total of 1 record(s) were updated.");
         return true;
     }
 

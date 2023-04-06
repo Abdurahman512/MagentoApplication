@@ -61,12 +61,6 @@ public class CatalogModuleTestRunner extends TestBase {
         Assert.assertTrue(categoriesPage.isRootCategoryDeleted());
 
     }
-
-
-
-
-
-
     @AfterClass
     public void tearDown(){
         closeBrowser();

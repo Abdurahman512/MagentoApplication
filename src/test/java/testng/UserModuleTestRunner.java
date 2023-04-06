@@ -3,7 +3,6 @@ package testng;
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.ShoppingCartPage;
 import maganto.utility.*;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -15,7 +14,6 @@ public class UserModuleTestRunner extends TestBase {
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
     final static String configFile = "config.properties";
-    //Actions actions;
 
     @BeforeClass
     public void setUp(ITestContext context) {
@@ -23,7 +21,6 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage = new AccountInfoPage(driver);
         shoppingCartPage=new ShoppingCartPage(driver);
         utility = new TestUtility(driver);
-       // actions=new Actions(driver);
         context.setAttribute("driver",driver);
     }
 

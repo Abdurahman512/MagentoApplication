@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
+
 
 public class AttributesPage {
     WebDriver driver;
@@ -32,6 +32,20 @@ public class AttributesPage {
     @FindBy(xpath = "//div[@class='wrapper']//*[@title='Add New Attribute']")
     WebElement addNewAttributeButton;
 
+    @FindBy(xpath ="//input[@id='attribute_code']" )
+    WebElement attributeCode;
+
+    @FindBy(xpath = "(//span[text()='Save Attribute'])[1]")
+    WebElement saveAttributeButton;
+
+    @FindBy(xpath = "//input[@name=\"frontend_label[0]\"]")
+    WebElement adminField;
+
+    @FindBy(xpath = "//span[text()='Save Attribute']")
+    WebElement savaAttributeBTN;
+
+    @FindBy(xpath = "//span[text()='The product attribute has been saved.']")
+    WebElement successfulMessage;
 
 
 
@@ -40,5 +54,16 @@ public class AttributesPage {
         actions.moveToElement(catalogLink).moveToElement(attributes).moveToElement(manageAttributes).click().build().perform();
         testUtility.waitForElementPresent(addNewAttributeButton);
         addNewAttributeButton.click();
+        testUtility.waitForElementPresent(attributeCode);
+        attributeCode.sendKeys("Leyla"+testUtility.generateNumber());
+        saveAttributeButton.click();
+        testUtility.waitForElementPresent(adminField);
+        adminField.sendKeys(testUtility.generateAdminName());
+        savaAttributeBTN.click();
+
+    }
+    public boolean verifyAttributeAddedSuccessfully(){
+        testUtility.waitForElementPresent(successfulMessage);
+        return successfulMessage.isDisplayed();
     }
 }

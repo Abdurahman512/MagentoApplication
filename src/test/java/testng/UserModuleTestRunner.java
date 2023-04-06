@@ -41,6 +41,7 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
 
+
     @AfterClass
     public void tearDown(){
         closeBrowser();

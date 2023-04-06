@@ -8,34 +8,22 @@ import org.openqa.selenium.support.FindBy;
 
 public class ProductReviewsPage {
 
- //account link
- @FindBy(xpath = "//span[@class='label' and text()='Account']")
- WebElement accountLink;
+ WebDriver driver;
+ TestUtility utility;
 
-
-   //my product reviews
+ //my product reviews
     @FindBy(xpath ="//strong[contains(text(),'My Product Reviews')]")
     WebElement myProductReviews;
-
-    //Newsletter Subscriptions
-    @FindBy(xpath = "//amyProductReviews[text()='Newsletter Subscriptions']")
-    WebElement newsletterLink;
+    @FindBy(xpath="//p[contains(text(),'You have submitted no reviews.')]")
+    WebElement noReviewText;
 
 
-    WebDriver driver;
-    TestUtility utility;
 
- public void myProductReviews() {
-  utility.waitForElementPresent(accountLink);
-  accountLink.click();
-utility.waitForElementPresent(myProductReviews);
-  myProductReviews.click();
- }
 
- public void clickOnNewsletterLink() {
-  utility.waitForElementPresent(newsletterLink);
-  newsletterLink.click();
- }
+
+
+
+
 
 
 

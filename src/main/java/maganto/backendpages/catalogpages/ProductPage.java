@@ -18,53 +18,53 @@ public class ProductPage  {
 
 
     @FindBy(xpath = "//span[text()='Catalog']")
-    WebElement catalogLink;
+    public WebElement catalogLink;
 
     @FindBy(xpath = "//span[text()='Manage Products']")
-    WebElement manageProductsLink;
+    public WebElement manageProductsLink;
 
     @FindBy(xpath = "(//span[text()='Add Product'])[1]")
-    WebElement addProductLink;
+    public WebElement addProductLink;
 
     @FindBy(xpath = "(//span[.='Continue'])[2]")
-    WebElement continueLink;
+    public WebElement continueLink;
 
-    @FindBy(id = "//div[@class='wrapper']//input[@id='name'] [@class=' required-entry input-text required-entry'][@type='text']")
-    WebElement nameFiled;
+    @FindBy(xpath = "//input[@id='name'] ")
+     public WebElement nameFiled;
 
-    @FindBy(id = "textarea[id='description']")
-    WebElement descriptionFiled;
+    @FindBy(id = "description")
+    public WebElement descriptionFiled;
 
-    @FindBy(id = "textarea[id='short_description']")
-    WebElement shortDescriptionFiled;
+    @FindBy(id = "short_description")
+   public WebElement shortDescriptionFiled;
 
-    @FindBy(id = "input[id='sku']")
-    WebElement skuFiled;
+    @FindBy(id = "sku")
+    public WebElement skuFiled;
 
-    @FindBy(id = "input[id='weight']")
-    WebElement weightFiled;
+    @FindBy(id = "weight")
+   public  WebElement weightFiled;
 
-    @FindBy(id = "select[id='status']")
-    WebElement statusDropdown;
+    @FindBy(id = "status")
+    public WebElement statusDropdown;
 
-    @FindBy(id = "select[id='visibility']")
-    WebElement visibiltyDropdown;
+    @FindBy(id = "visibility")
+    public WebElement visibiltyDropdown;
 
-    @FindBy(id = "//span[text()='Save']")
-    WebElement saveButton;
+    @FindBy(xpath = "//span[text()='Save']")
+    public WebElement saveButton;
 
-    @FindBy(id = "input[id='price']")
-    WebElement priceField;
+    @FindBy(id ="price")
+    public WebElement priceField;
 
-    @FindBy(id = "select[id='tax_class_id']")
-    WebElement taxClassField;
+    @FindBy(id = "tax_class_id")
+   public WebElement taxClassField;
 
 
-    @FindBy(id = "(//span[text()='Save'])[1]")
-    WebElement savePriceButton;
+    @FindBy(xpath = "(//span[text()='Save'])[1]")
+    public WebElement savePriceButton;
 
     @FindBy(xpath = "//div[@class='wrapper']//span[.='The product has been saved.']")
-    WebElement addProductSuccessMessage;
+    public WebElement addProductSuccessMessage;
 
     TestUtility testUtility;
     CatalogDashboardPage dashboardPage;
@@ -115,6 +115,9 @@ public class ProductPage  {
         nameFiled.sendKeys(generateProductName());
         descriptionFiled.sendKeys(generateDescription());
         shortDescriptionFiled.sendKeys(generateDescription());
+        skuFiled.sendKeys(generatesku());
+        weightFiled.sendKeys(generateweight());
+
         Select select=new Select(statusDropdown);
         select.selectByVisibleText("Enabled");
         Select select1=new Select(visibiltyDropdown);

@@ -50,9 +50,34 @@ public class CustomerModuleTestRunner extends TestBase {
         customerPage.deleteCustomer();
         Assert.assertTrue(customerPage.verifyDeleteCustomer());
     }
+    @Test(groups = "regression test",description = "Customer Manager can filter customers by email")
+    public void filterCustomersByEmail(){
+        customerDashboardPage.filterCustomersByEmail();
+        Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByEmail());
+    }
+    @Test(groups = "regression test",description = "Customer Manager can filter customers by group")
+    public void filterCustomersByGroup(){
+        customerDashboardPage.filterCustomersByGroup();
+        Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
+    }
+    @Test(dataProvider = "filterData",groups = "regression test",
+            description = "Customer Manager can filter by Country,State,Website")
+    public void filterCustomerByCountryStateWebsite(String state){
+        customerDashboardPage.filterCustomersByCountryStateWebsite(state);
+        Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
+    }
     @AfterClass
     public void tearDown() {
         closeBrowser();
+    }
+
+
+    @DataProvider
+    public Object[][] filterData(){
+        Object[][] data=new Object[][]{
+                {"New York"}
+        };
+        return data;
     }
 
 }

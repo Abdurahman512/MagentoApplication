@@ -29,22 +29,21 @@ public class CustomerModuleTestRunner extends TestBase{
         customerDashboardPage = new CustomerDashboardPage(driver);
         login = new BackEndLogin(driver);
         login.customerPageLogin();
+        customerPage=new CustomerPage(driver);
     }
     @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
     public void addNewCustomer() {
         login.VerifyLoginSuccessfully();
-        utility.sleep(3);
-      // customerDashboardPage.clickOnManageCustomers();
         customerPage.addNewCustomerMethod();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
 
     }
-    @Test(groups = "regression test",description = "Customer Manager can update an existing customer ")
+    @Test(groups = "regression test",description = "Customer Manager can update an existing customer ",dependsOnMethods = "addNewCustomer")
     public void updateCustomer() {
         customerPage.updateCustomer();
         Assert.assertTrue(customerPage.verifyUpdateCustomer());
     }
-    @Test(groups = "regression test",description = "Customer Manager can delete an existing customer",dependsOnMethods = "updateCustomer")
+    @Test(groups = "regression test",description = "Customer Manager can delete an existing customer",dependsOnMethods = "addNewCustomer")
     public void deleteExistingCustomer() {
         customerDashboardPage.clickOnManageCustomers();
         customerPage.deleteCustomer();

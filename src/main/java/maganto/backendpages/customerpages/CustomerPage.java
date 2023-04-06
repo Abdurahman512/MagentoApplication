@@ -22,8 +22,7 @@ public class CustomerPage{
         testUtility = new TestUtility(driver);
         email = testUtility.generateEmailAddress();
     }
- // @FindBy(xpath = "(//button[@title='Add New Customer'])[1]")
-          @FindBy(css = ".scalable.add >span span span")
+  @FindBy(xpath = "(//button[@title='Add New Customer'])[1]")
     WebElement addNewCustomerButton;
     @FindBy(id = "_accountfirstname")
     WebElement firstNameField;
@@ -47,7 +46,7 @@ public class CustomerPage{
 
     public void addNewCustomerMethod() {
         testUtility.waitForElementPresent(addNewCustomerButton);
-        testUtility.javaScriptClick(addNewCustomerButton);
+        addNewCustomerButton.click();
         testUtility.waitForElementPresent(firstNameField);
         firstNameField.sendKeys(testUtility.generateFirstName());
         testUtility.waitForElementPresent(lastNameField);

@@ -40,6 +40,12 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
+    @Test(dependsOnMethods = {"createAccount"})
+    public void changePasswordTest(){
+        accountInfoPage.changePassword(ApplicationConfig.readFromConfigProperties(configFile,"password"),
+                ApplicationConfig.readFromConfigProperties(configFile,"newPassword"),
+                ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
+    }
 
     @AfterClass
     public void tearDown(){

@@ -42,6 +42,14 @@ public class AccountInfoPage {
     //view account
     @FindBy(xpath = "//h2[text()='Account Information']")
     WebElement accountInfoPage;
+    @FindBy(id = "change_password")
+     WebElement changepasswordChechbox;
+    @FindBy(id = "password")
+     WebElement newPassword;
+    @FindBy(id = "confirmation")
+     WebElement getConfirmNewPassword;
+
+
 
     TestUtility utility;
 
@@ -97,6 +105,19 @@ public class AccountInfoPage {
         if(accountInfoPage.isDisplayed())
             return true;
         else return false;
+    }
+    public void changePassword(String password,String NewPassword,String ConfirmNewPassword){
+        utility.waitForElementPresent(accountInfoLink);
+        accountInfoLink.click();
+        utility.waitForElementPresent(currentPasswordField);
+        currentPasswordField.sendKeys(password);
+        utility.waitForElementPresent(changepasswordChechbox);
+        changepasswordChechbox.click();
+        utility.waitForElementPresent(newPassword);
+        newPassword.sendKeys(NewPassword);
+        utility.waitForElementPresent(getConfirmNewPassword);
+        getConfirmNewPassword.sendKeys(ConfirmNewPassword);
+
     }
 
 

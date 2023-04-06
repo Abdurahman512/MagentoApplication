@@ -55,7 +55,7 @@ public class AttributesPage {
         testUtility.waitForElementPresent(addNewAttributeButton);
         addNewAttributeButton.click();
         testUtility.waitForElementPresent(attributeCode);
-        attributeCode.sendKeys("Leyla"+testUtility.generateNumber());
+        attributeCode.sendKeys("leyla"+testUtility.generateNumber());
         saveAttributeButton.click();
         testUtility.waitForElementPresent(adminField);
         adminField.sendKeys(testUtility.generateAdminName());

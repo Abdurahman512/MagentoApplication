@@ -4,30 +4,43 @@ import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 
 public class ProductReviewsPage {
 
- WebDriver driver;
- TestUtility utility;
+    WebDriver driver;
+    TestUtility utility;
 
-    public ProductReviewsPage(WebDriver driver, TestUtility utility, WebElement myProductReviews, WebElement noReviewText) {
+    public ProductReviewsPage(WebDriver driver) {
         this.driver = driver;
-        this.utility = utility;
-        this.myProductReviews = myProductReviews;
-        this.noReviewText = noReviewText;
+        PageFactory.initElements(driver, this);
+        utility = new TestUtility(driver);
+
     }
 
+
     //my product reviews
-    @FindBy(xpath ="//strong[contains(text(),'My Product Reviews')]")
+    @FindBy(xpath = "//strong[contains(text(),'My Product Reviews')]")
     WebElement myProductReviews;
-    @FindBy(xpath="//p[contains(text(),'You have submitted no reviews.')]")
+    @FindBy(xpath = "//p[contains(text(),'You have submitted no reviews.')]")
     WebElement noReviewText;
 
+    public void ProductReviewsPage(WebDriver driver) {
+        utility.waitForElementPresent(myProductReviews);
+        myProductReviews.click();
+    }
 
 
+    public boolean verifyProductReviews() {
+
+        utility.waitForElementPresent(noReviewText);
+        if(noReviewText.isDisplayed())
+            return true;
+        else return false;
 
 
+}
 
 
 

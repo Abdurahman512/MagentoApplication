@@ -25,9 +25,17 @@ public class NewsLetterSubscriptionsPage {
         PageFactory.initElements(driver,this);
         utility= new TestUtility(driver);
     }
+
+public void NewsLetterSubscriptionsPage(WebDriver driver){
+        utility.waitForElementPresent(newsletterLink);
+        newsletterLink.click();
+
+}
     public boolean verifyViewNewsletterContent(){
         utility.waitForElementPresent(generalSubscriptionText);
-        return generalSubscriptionText.isDisplayed();
+   if(generalSubscriptionText.isDisplayed())
+        return true;
+   else return false;
     }
 
 }

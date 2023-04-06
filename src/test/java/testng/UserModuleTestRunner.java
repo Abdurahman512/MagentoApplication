@@ -1,6 +1,8 @@
 package testng;
 
 import maganto.frontendpages.AccountInfoPage;
+import maganto.frontendpages.NewsLetterSubscriptionsPage;
+import maganto.frontendpages.ProductReviewsPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -14,6 +16,8 @@ public class UserModuleTestRunner extends TestBase {
 
     TestUtility utility;
     AccountInfoPage accountInfoPage;
+    NewsLetterSubscriptionsPage newsLetterSubscriptionsPage;
+    ProductReviewsPage productReviewsPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -40,6 +44,8 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
+
+
 
 
     @AfterClass

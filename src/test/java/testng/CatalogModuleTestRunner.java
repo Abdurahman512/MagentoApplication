@@ -70,7 +70,6 @@ public class CatalogModuleTestRunner extends TestBase {
     @Test
     public void addProduct(){
         productPage.userAddProduct();
-
         Assert.assertTrue(productPage.verifyNewProductAdded());
     }
 

@@ -1,4 +1,4 @@
-@RegressionTest @SalesModuleTest @CreateOrderTest
+@RegressionTest  @CreateOrderTest
 Feature: Sales Manager should be able to create a new order
 
   Scenario: sales manager can create a new order

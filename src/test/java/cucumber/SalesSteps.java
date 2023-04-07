@@ -18,7 +18,7 @@ public class SalesSteps extends TestBase {
     SalesDashboardPage dashboardPage;
     BackEndLogin login;
     final static String configFile = "config.properties";
-    @Before ("@SalesModuleTest")
+    @Before
     public void setUp(){
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "backendurl"));
         ordersPage = new OrdersPage(driver);

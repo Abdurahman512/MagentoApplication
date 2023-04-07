@@ -52,14 +52,14 @@ public class UserModuleTestRunner extends TestBase {
 
     @Test(dependsOnMethods ={"createAccount"})
     public void viewNewsLetterSubscription(){
-      newsLetterSubscriptionsPage.viewNewsLetterSubscription(driver);
+      newsLetterSubscriptionsPage.viewNewsLetterSubscription();
         Assert.assertTrue(newsLetterSubscriptionsPage.verifyViewNewsletterContent());
 
 
     }
     @Test(dependsOnMethods ={"createAccount"})
     public void ProductReviews() {
-        productReviewsPage.ProductReviews(driver);
+        productReviewsPage.ProductReviews();
         Assert.assertTrue(productReviewsPage.verifyProductReviews());
     }
 

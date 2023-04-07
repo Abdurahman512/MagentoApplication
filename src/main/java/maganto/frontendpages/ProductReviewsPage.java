@@ -21,18 +21,21 @@ public class ProductReviewsPage {
 
 
     //my product reviews
-    @FindBy(xpath = "//strong[contains(text(),'My Product Reviews')]")
+    @FindBy(xpath = "//a[contains(text(),\"My Product Reviews\")]")
     WebElement myProductReviews;
     @FindBy(xpath = "//p[contains(text(),'You have submitted no reviews.')]")
     WebElement noReviewText;
 
-    public void ProductReviews(WebDriver driver) {
+    public void ProductReviews() {
+
         utility.waitForElementPresent(myProductReviews);
+        utility.sleep(20);
         myProductReviews.click();
     }
 
 
     public boolean verifyProductReviews() {
+
 
         utility.waitForElementPresent(noReviewText);
         if(noReviewText.isDisplayed())

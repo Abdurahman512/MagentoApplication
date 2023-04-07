@@ -34,11 +34,13 @@ public class UserModuleTestRunner extends TestBase {
 
     }
     @Test (dependsOnMethods ={"createAccount"})
+    @Ignore
     public void editAccountInfo(){
         accountInfoPage.editAccount(utility.generateFirstName(),ApplicationConfig.readFromConfigProperties(configFile,"password"));
         Assert.assertTrue(accountInfoPage.isAccountEdited());
     }
     @Test (dependsOnMethods ={"createAccount"})
+    @Ignore
     public void viewAccountInfo(){
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());

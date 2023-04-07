@@ -21,6 +21,8 @@ public class CustomerModuleTestRunner extends TestBase {
     BackEndLogin login;
     final static String configFile = "config.properties";
   CustomerPage customerPage;
+
+    CustomerGroupsPage customerGroupsPage;
   CustomerDashboardPage customerDashboardPage;
     @BeforeClass
     public void setUp(ITestContext context) {
@@ -28,14 +30,16 @@ public class CustomerModuleTestRunner extends TestBase {
         utility = new TestUtility(driver);
         context.setAttribute("driver",driver);
         customerDashboardPage = new CustomerDashboardPage(driver);
+        customerGroupsPage = new CustomerGroupsPage(driver);
         login = new BackEndLogin(driver);
         login.customerPageLogin();
+
     }
     @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
     public void addNewCustomer() {
         login.VerifyLoginSuccessfully();
         utility.sleep(3);
-        customerPage.addNewCustomer();
+        customerPage.addNewCustomerMethod();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
       //  Assert.assertTrue(dataAccess.getNewlyAddedCustomer(customerPage.email(), connection));
     }
@@ -50,34 +54,31 @@ public class CustomerModuleTestRunner extends TestBase {
         customerPage.deleteCustomer();
         Assert.assertTrue(customerPage.verifyDeleteCustomer());
     }
-    @Test(groups = "regression test",description = "Customer Manager can filter customers by email")
-    public void filterCustomersByEmail(){
-        customerDashboardPage.filterCustomersByEmail();
-        Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByEmail());
+
+
+    @Test
+    public void addNewCustomerGroups(){
+        customerGroupsPage.addNewCustomerGroups();
+        customerGroupsPage.verifyNewCustomerGroupAdded();
+
     }
-    @Test(groups = "regression test",description = "Customer Manager can filter customers by group")
-    public void filterCustomersByGroup(){
-        customerDashboardPage.filterCustomersByGroup();
-        Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
+
+    @Test(dependsOnMethods ={"addNewCustomerGroups"})
+    public void updateCustomerGroup(){
+        customerGroupsPage.updateCustomerGroup();
+        customerGroupsPage.verifyUpdateCustomerGroup();
     }
-    @Test(dataProvider = "filterData",groups = "regression test",
-            description = "Customer Manager can filter by Country,State,Website")
-    public void filterCustomerByCountryStateWebsite(String state){
-        customerDashboardPage.filterCustomersByCountryStateWebsite(state);
-        Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
+
+    @Test(dependsOnMethods ={"addNewCustomerGroups","updateCustomerGroup"})
+    public void deleteCustomerGroup(){
+        customerGroupsPage.deleteCustomerGroup();
+        customerGroupsPage.verifyDeleteCustomerGroup();
     }
+
+
     @AfterClass
     public void tearDown() {
         closeBrowser();
-    }
-
-
-    @DataProvider
-    public Object[][] filterData(){
-        Object[][] data=new Object[][]{
-                {"New York"}
-        };
-        return data;
     }
 
 }

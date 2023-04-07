@@ -45,6 +45,15 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
+
+    @Test(dependsOnMethods = {"createAccount"})
+    public void changePasswordTest(){
+        accountInfoPage.changePassword(ApplicationConfig.readFromConfigProperties(configFile,"password"),
+                ApplicationConfig.readFromConfigProperties(configFile,"newPassword"),
+                ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
+       Assert.assertTrue(accountInfoPage.VerifyChangePassword());
+    }
+
     @Test(dependsOnMethods ={"createAccount"})
     public void addProductToShoppingCart(){
         shoppingCartPage.addProductsToShoppingCart();
@@ -64,15 +73,18 @@ public class UserModuleTestRunner extends TestBase {
 
     }
 
+
     @Test (dependsOnMethods ={"createAccount"})
     public void viewWishList(){
         wishListPage.viewMyWishList();
         Assert.assertTrue(wishListPage.isMyWishListAbleToView());
+
     }
 
     @AfterClass
     public void tearDown(){
         closeBrowser();
     }
+    }
 
-}
+

@@ -1,14 +1,16 @@
 package maganto.backendpages.catalogpages;
 
 import com.github.javafaker.Faker;
+import maganto.utility.TestDataHolder;
 import maganto.utility.TestUtility;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
 
 public class ProductPage  {
 
@@ -16,6 +18,7 @@ public class ProductPage  {
 
     WebDriver driver;
 
+    String productName;
 
     @FindBy(xpath = "//span[text()='Catalog']")
     public WebElement catalogLink;
@@ -60,13 +63,15 @@ public class ProductPage  {
    public WebElement taxClassField;
 
 
-    @FindBy(xpath = "(//span[text()='Save'])[1]")
+    @FindBy(xpath = "//span[text()='Save']")
     public WebElement savePriceButton;
 
-    @FindBy(xpath = "//div[@class='wrapper']//span[.='The product has been saved.']")
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
     public WebElement addProductSuccessMessage;
 
     TestUtility testUtility;
+    TestDataHolder testDataHolder;
+
     CatalogDashboardPage dashboardPage;
     Faker faker=new Faker();
     public String generateProductName(){
@@ -97,13 +102,12 @@ public class ProductPage  {
     }
 
     public ProductPage(WebDriver driver) {
-        //super(driver);
         this.driver = driver;
         PageFactory.initElements(driver,this);
         testUtility=new TestUtility(driver);
         dashboardPage=new CatalogDashboardPage(driver);
     }
-    public void userAddProduct(){
+    public String  userAddProduct(){
         testUtility.waitForElementPresent(catalogLink);
         catalogLink.click();
         testUtility.waitForElementPresent(manageProductsLink);
@@ -112,10 +116,12 @@ public class ProductPage  {
         addProductLink.click();
         testUtility.waitForElementPresent(continueLink);
         continueLink.click();
-        nameFiled.sendKeys(generateProductName());
+        productName=generateProductName();
+        nameFiled.sendKeys(productName);
+        //nameFiled.sendKeys(productName);
         descriptionFiled.sendKeys(generateDescription());
-        shortDescriptionFiled.sendKeys(generateDescription());
-        skuFiled.sendKeys(generatesku());
+        shortDescriptionFiled.sendKeys(generateShortDescription());
+        skuFiled.sendKeys(generatesku()+System.currentTimeMillis());
         weightFiled.sendKeys(generateweight());
 
         Select select=new Select(statusDropdown);
@@ -126,14 +132,96 @@ public class ProductPage  {
         priceField.sendKeys(generatePrice());
         Select select2=new Select(taxClassField);
         select2.selectByVisibleText("None");
+        testUtility.waitForElementPresent(savePriceButton);
         savePriceButton.click();
+        return productName;
 
     }
     public boolean verifyNewProductAdded() {
+        testUtility.sleep(2);
         testUtility.waitForElementPresent(addProductSuccessMessage);
-        if (driver.getPageSource().contains(addProductSuccessMessage.getText())) ;
-        System.out.println("The product has been saved.");
-        return true;
+        if (addProductSuccessMessage.getText().contains("The product has been saved.")){
+            System.out.println("The product has been added.");
+            return true;
+        }
+        else
+            return false;}
+
+
+
+    //update product
+
+   @FindBy(xpath = "//span[text()='Catalog']")
+    public WebElement catalogLink1;
+   @FindBy(xpath = "//span[text()='Manage Products']")
+    public WebElement manageProductsLink1;
+
+    @FindBy(id = "name")
+    WebElement updateProductNameField;
+    @FindBy(xpath = "//span[text()='Save']")
+    WebElement updateProductSaveButton;
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement updatedProductSuccessMessage;
+
+
+
+
+    public void updateProduct(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageProductsLink);
+        manageProductsLink.click();
+        WebElement productButton = driver.findElement(By.xpath(String.format
+                ("//table[@id=\"productGrid_table\"]//tbody/tr/td[contains(text(),' %s')]",productName)));
+        testUtility.waitForElementPresent(productButton);
+        productButton.click();
+        updateProductNameField.sendKeys(generateProductName());
+        updateProductSaveButton.click();
+    }
+    public boolean verifyUpdateProduct() {
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(updatedProductSuccessMessage);
+        if (addProductSuccessMessage.getText().contains("The product has been saved.")) {
+            System.out.println("The product has been added.");
+            return true;
+        }else
+            return false;
+    }
+
+    //Delete Product
+
+    @FindBy(xpath = "//span[text()='Delete']")
+    WebElement deleteButton;
+    @FindBy(xpath = "//span[text()='The product has been deleted.']")
+    WebElement DeleteProductSuccessMessage;
+
+    public void deleteProduct(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageProductsLink);
+        manageProductsLink.click();
+
+        WebElement productButton = driver.findElement(By.xpath(String.format
+                ("//table[@id=\"productGrid_table\"]//tbody/tr/td[contains(text(),' %s')]",productName)));
+       testUtility.waitForElementPresent(productButton);
+        productButton.click();
+        deleteButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    public boolean verifyDeleteProduct(){
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(DeleteProductSuccessMessage);
+        if (DeleteProductSuccessMessage.getText().contains("The product has been deleted.")) {
+            System.out.println("The product has been deleted..");
+            return true;
+        }else
+            return false;
+
+
+
     }
 
 }

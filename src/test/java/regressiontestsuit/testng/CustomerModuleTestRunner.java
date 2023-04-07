@@ -11,7 +11,6 @@ import maganto.backendpages.customerpages.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.util.concurrent.Callable;
 
 
 @Listeners(TestResultListener.class)

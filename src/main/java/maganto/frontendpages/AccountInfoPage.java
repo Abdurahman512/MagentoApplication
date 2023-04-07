@@ -48,6 +48,8 @@ public class AccountInfoPage {
      WebElement newPassword;
     @FindBy(id = "confirmation")
      WebElement getConfirmNewPassword;
+    @FindBy(xpath = "//span[text()='The account information has been saved.']")
+    WebElement verifyChangePassword;
 
 
 
@@ -119,6 +121,15 @@ public class AccountInfoPage {
         getConfirmNewPassword.sendKeys(ConfirmNewPassword);
 
     }
+    public boolean VerifyChangePassword(){
+        if (verifyChangePassword.isDisplayed())
+            return true;
+        else return false;
+
+    }
+
+
+
 
 
 

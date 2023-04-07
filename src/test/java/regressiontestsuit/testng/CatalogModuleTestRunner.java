@@ -1,4 +1,4 @@
-package testng;
+package regressiontestsuit.testng;
 
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.CategoriesPage;

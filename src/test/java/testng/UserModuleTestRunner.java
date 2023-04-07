@@ -45,7 +45,7 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.changePassword(ApplicationConfig.readFromConfigProperties(configFile,"password"),
                 ApplicationConfig.readFromConfigProperties(configFile,"newPassword"),
                 ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
-        Assert.assertTrue(accountInfoPage.VerifyChangePassword());
+       Assert.assertTrue(accountInfoPage.VerifyChangePassword());
     }
 
     @AfterClass

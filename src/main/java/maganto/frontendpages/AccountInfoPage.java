@@ -42,12 +42,16 @@ public class AccountInfoPage {
     //view account
     @FindBy(xpath = "//h2[text()='Account Information']")
     WebElement accountInfoPage;
+    // Alkamar
     @FindBy(id = "change_password")
      WebElement changepasswordChechbox;
     @FindBy(id = "password")
      WebElement newPassword;
     @FindBy(id = "confirmation")
      WebElement getConfirmNewPassword;
+    @FindBy(xpath = "//span[text()='Save']")
+    WebElement saveButton1;
+
     @FindBy(xpath = "//span[text()='The account information has been saved.']")
     WebElement verifyChangePassword;
 
@@ -119,14 +123,25 @@ public class AccountInfoPage {
         newPassword.sendKeys(NewPassword);
         utility.waitForElementPresent(getConfirmNewPassword);
         getConfirmNewPassword.sendKeys(ConfirmNewPassword);
+        utility.waitForElementPresent(saveButton1);
+        saveButton1.click();
 
     }
     public boolean VerifyChangePassword(){
+        utility.waitForElementPresent(verifyChangePassword);
+        //if (driver.getPageSource().contains(verifyChangePassword.getText()))
+            //System.out.println("The account information has been saved");
         if (verifyChangePassword.isDisplayed())
             return true;
-        else return false;
+        else
+            return false;
+
+
+
+
 
     }
+
 
 
 

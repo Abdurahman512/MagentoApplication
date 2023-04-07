@@ -1,6 +1,7 @@
 package testng;
 
 import maganto.frontendpages.AccountInfoPage;
+import maganto.frontendpages.OrdersPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -15,13 +16,16 @@ public class UserModuleTestRunner extends TestBase {
     TestUtility utility;
     AccountInfoPage accountInfoPage;
     final static String configFile = "config.properties";
+    OrdersPage ordersPage;
 
     @BeforeClass
     public void setUp(ITestContext context) {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
         utility = new TestUtility(driver);
-        context.setAttribute("driver",driver);
+        context.setAttribute("driver", driver);
+        ordersPage = new OrdersPage(driver);
+
     }
 
     @Test
@@ -30,19 +34,34 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(accountInfoPage.isAccountCreated());
 
     }
-    @Test (dependsOnMethods ={"createAccount"})
-    public void editAccountInfo(){
-        accountInfoPage.editAccount(utility.generateFirstName(),ApplicationConfig.readFromConfigProperties(configFile,"password"));
+
+    @Test(dependsOnMethods = {"createAccount"})
+    public void editAccountInfo() {
+        accountInfoPage.editAccount(utility.generateFirstName(), ApplicationConfig.readFromConfigProperties(configFile, "password"));
         Assert.assertTrue(accountInfoPage.isAccountEdited());
     }
-    @Test (dependsOnMethods ={"createAccount"})
-    public void viewAccountInfo(){
+
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewAccountInfo() {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
 
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewOrders() {
+        ordersPage.ViewMyOrders();
+        Assert.assertTrue(ordersPage.MyOrdersPage());
+    }
+
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewDownloadOrders() {
+        ordersPage.viewDownloadOrders();
+        Assert.assertTrue(ordersPage.DownloadOrdersPage());
+    }
+
+
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         closeBrowser();
     }
 

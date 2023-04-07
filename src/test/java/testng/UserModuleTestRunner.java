@@ -2,6 +2,7 @@ package testng;
 
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.ShoppingCartPage;
+import maganto.frontendpages.WishListPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -13,6 +14,7 @@ public class UserModuleTestRunner extends TestBase {
     TestUtility utility;
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
+    WishListPage wishListPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -21,6 +23,7 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage = new AccountInfoPage(driver);
         shoppingCartPage=new ShoppingCartPage(driver);
         utility = new TestUtility(driver);
+        wishListPage=new WishListPage(driver);
         context.setAttribute("driver",driver);
     }
 
@@ -58,6 +61,13 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
 
     }
+
+    @Test (dependsOnMethods ={"createAccount"})
+    public void viewWishList(){
+        wishListPage.viewMyWishList();
+        Assert.assertTrue(wishListPage.isMyWishListAbleToView());
+    }
+
     @AfterClass
     public void tearDown(){
         closeBrowser();

@@ -11,7 +11,7 @@ import maganto.backendpages.customerpages.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-
+import java.util.concurrent.Callable;
 
 
 @Listeners(TestResultListener.class)
@@ -49,6 +49,24 @@ public class CustomerModuleTestRunner extends TestBase{
         customerPage.deleteCustomer();
         Assert.assertTrue(customerPage.verifyDeleteCustomer());
     }
+
+    @Test(groups = "regression test",description ="Customer Maneger can Export customer" )
+    public void ExportCustomers() {
+        login.VerifyLoginSuccessfully();
+        customerPage = new CustomerPage(driver);
+        customerPage.ExportCustomer();
+        Assert.assertTrue(customerPage.verifyClickExportButton());
+    }
+    @Test(groups = "filterData",description ="Customer Manager can filter customers by Assign e Customer group" )
+    public void assignCustomer() {
+        login.VerifyLoginSuccessfully();
+        utility.sleep(3);
+        customerPage=new CustomerPage(driver);
+        customerPage.AssignCustomer();
+        Assert.assertTrue(customerPage.verifyAssigncustomer());
+
+
+    }
     @Test(groups = "regression test",description = "Customer Manager can filter customers by email")
     public void filterCustomersByEmail(){
         customerDashboardPage.filterCustomersByEmail();
@@ -64,7 +82,11 @@ public class CustomerModuleTestRunner extends TestBase{
     public void filterCustomerByCountryStateWebsite(String state){
         customerDashboardPage.filterCustomersByCountryStateWebsite(state);
         Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
+
     }
+
+
+
     @AfterClass
     public void tearDown() {
         closeBrowser();
@@ -78,5 +100,6 @@ public class CustomerModuleTestRunner extends TestBase{
         };
         return data;
     }
+
 
 }

@@ -1,7 +1,7 @@
 package maganto.backendpages.catalogpages;
 
 import com.github.javafaker.Faker;
-import maganto.utility.TestDataHolder;
+
 import maganto.utility.TestUtility;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -70,7 +70,7 @@ public class ProductPage  {
     public WebElement addProductSuccessMessage;
 
     TestUtility testUtility;
-    TestDataHolder testDataHolder;
+
 
     CatalogDashboardPage dashboardPage;
     Faker faker=new Faker();
@@ -151,10 +151,8 @@ public class ProductPage  {
 
     //update product
 
-   @FindBy(xpath = "//span[text()='Catalog']")
-    public WebElement catalogLink1;
-   @FindBy(xpath = "//span[text()='Manage Products']")
-    public WebElement manageProductsLink1;
+
+
 
     @FindBy(id = "name")
     WebElement updateProductNameField;

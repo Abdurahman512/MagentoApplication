@@ -1,4 +1,4 @@
-package cucumber;
+package regressiontestsuit.cucumber;
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.marketingpages.*;
 import maganto.utility.*;

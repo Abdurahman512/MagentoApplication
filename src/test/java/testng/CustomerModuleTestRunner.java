@@ -39,7 +39,7 @@ public class CustomerModuleTestRunner extends TestBase {
     public void addNewCustomer() {
         login.VerifyLoginSuccessfully();
         utility.sleep(3);
-        customerPage.addNewCustomer();
+        customerPage.addNewCustomerMethod();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
       //  Assert.assertTrue(dataAccess.getNewlyAddedCustomer(customerPage.email(), connection));
     }

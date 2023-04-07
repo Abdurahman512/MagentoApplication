@@ -18,7 +18,7 @@ public class SalesSteps extends TestBase {
     SalesDashboardPage dashboardPage;
     BackEndLogin login;
     final static String configFile = "config.properties";
-    @Before
+    @Before ("@SalesModuleTests")
     public void setUp(){
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "backendurl"));
         ordersPage = new OrdersPage(driver);
@@ -35,16 +35,15 @@ public class SalesSteps extends TestBase {
 
     @When("the sales manager fills out a new order form")
     public void theSalesManagerFillsOutANewOrderForm() {
-        ordersPage.createOrder("TastData/CategoryTestData.xlsx","Sheet2",1,0);
+        ordersPage.createOrder("TastData/TestData-M.xlsx","Sales",1,0);
     }
 
     @Then("a new order should be created")
     public void aNewOrderShouldBeCreated() {
         ordersPage.isOrderCreated();
-
     }
 
-    @After
+    @After ("@SalesModuleTests")
     public void tearDown(){
         closeBrowser();
 

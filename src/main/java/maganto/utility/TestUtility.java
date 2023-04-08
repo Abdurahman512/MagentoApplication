@@ -26,6 +26,15 @@ public class TestUtility {
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("arguments[0].click()", element);
     }
+    public int generateNumber(){
+        int number=faker.code().hashCode();
+        return number;
+    }
+    public String generateAdminName(){
+        String adminName=faker.name().name();
+        return adminName;
+    }
+
 
     public String generateFirstName(){
         String firstName=faker.name().firstName();

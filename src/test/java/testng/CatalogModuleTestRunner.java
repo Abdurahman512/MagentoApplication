@@ -38,6 +38,11 @@ public class CatalogModuleTestRunner extends TestBase {
         Assert.assertTrue(attributesPage.verifyAttributeAddedSuccessfully());
     }
     @Test
+    public void filterSearchTerms(){
+        attributesPage.filterSearchTerms();
+        Assert.assertTrue(attributesPage.verifyFilterSearchTerms());
+    }
+    @Test
     public void addRootCategoryTest(){
         categoriesPage.addRootCategories("TastData/CategoryTestData.xlsx","Sheet1",1,0);
         Assert.assertTrue(categoriesPage.isRootCategoryAdded());

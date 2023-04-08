@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 
 public class CustomerPage{
@@ -43,6 +44,33 @@ public class CustomerPage{
     @FindBy(xpath = "//span[text()='Reset Filter']")
     WebElement resetFilterButton;
 
+    @FindBy(xpath = "//td[contains(text(),'team33 Monty Monty Purdy team33')]")
+    WebElement customerName;
+    @FindBy(xpath = "//a[@id='customer_info_tabs_account' and @class='tab-item-link'][1]")
+    WebElement accountInformationLink;
+    @FindBy(xpath = "(//select[@id=_accountgender])[1]")
+    WebElement selectGender;
+    @FindBy(css = "input[name='email']")
+    WebElement emailFieldBox;
+    @FindBy(css = "button[title='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
+    WebElement emailAddressAfterSearched;
+    @FindBy(xpath = "//span[text()='Export']")
+    WebElement ExportButton;
+    @FindBy (name = "customer")
+    WebElement checkbox;
+    @FindBy(id = "customerGrid_massaction-select")
+    WebElement ActionsButton;
+    @FindBy(name ="group")
+    WebElement Groups;
+    @FindBy(xpath="//span[text()='Submit']" )
+    WebElement SubmitButton;
+    @FindBy(xpath = "//span[text()='Total of 1 record(s) were updated.']")
+    WebElement VerifySubmitbuttonClick;
+
+
+
 
     public void addNewCustomerMethod() {
         testUtility.waitForElementPresent(addNewCustomerButton);
@@ -70,20 +98,6 @@ public class CustomerPage{
         System.out.println("The customer has been saved.");
         return true;
     }
-
-
-    //Update Customer
-
-    @FindBy(xpath = "//a[@id='customer_info_tabs_account' and @class='tab-item-link'][1]")
-    WebElement accountInformationLink;
-    @FindBy(xpath = "(//select[@id=_accountgender])[1]")
-    WebElement selectGender;
-    @FindBy(css = "input[name='email']")
-    WebElement emailFieldBox;
-    @FindBy(css = "button[title='Search']")
-    WebElement searchButton;
-    @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
-    WebElement emailAddressAfterSearched;
 
     public void updateCustomer() {
         CustomerDashboardPage customerDashboardPage = new CustomerDashboardPage(driver);
@@ -133,5 +147,42 @@ public class CustomerPage{
             System.out.println("The customer has been deleted.");
         return true;
     }
+
+
+
+    public void ExportCustomer() {
+        testUtility.waitForElementPresent(ExportButton);
+        ExportButton.click();
+
+    }
+    public  boolean  verifyClickExportButton(){
+        testUtility.waitForElementPresent(ExportButton);
+        if (ExportButton.isEnabled())
+            System.out.println("download symbol down right also appeared");
+        return true;
+    }
+public void AssignCustomer(){
+        testUtility.waitForElementPresent(checkbox);
+        checkbox.click();
+        testUtility.waitForElementPresent(ActionsButton);
+        Select select=new Select(ActionsButton);
+        select.selectByValue("assign_group");
+        ActionsButton.click();
+        testUtility.waitForElementPresent(Groups);
+        Select group=new Select(Groups);
+        group.selectByValue("264");
+        Groups.click();
+
+        Groups.click();
+        testUtility.waitForElementPresent(SubmitButton);
+       SubmitButton.click();
+    }
+    public boolean verifyAssigncustomer(){
+        testUtility.waitForElementPresent(VerifySubmitbuttonClick);
+        if (VerifySubmitbuttonClick.isDisplayed());
+        System.out.println("Total of 1 record(s) were updated.");
+        return true;
+    }
+
 
 }

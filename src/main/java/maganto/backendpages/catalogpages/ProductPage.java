@@ -173,7 +173,6 @@ public class ProductPage  {
                 ("//table[@id=\"productGrid_table\"]//tbody/tr/td[contains(text(),' %s')]",productName)));
         testUtility.waitForElementPresent(productButton);
         productButton.click();
-        //productName.clear();
         updateProductNameField.sendKeys(generateProductName());
         updateProductSaveButton.click();
     }

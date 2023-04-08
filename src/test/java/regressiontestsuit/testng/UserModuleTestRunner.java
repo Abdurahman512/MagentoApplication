@@ -1,6 +1,6 @@
 package regressiontestsuit.testng;
-
 import maganto.frontendpages.AccountInfoPage;
+import maganto.frontendpages.OrdersPage;
 import maganto.frontendpages.AddressBookPage;
 import maganto.frontendpages.ShoppingCartPage;
 import maganto.frontendpages.WishListPage;
@@ -20,7 +20,11 @@ public class UserModuleTestRunner extends TestBase {
     ShoppingCartPage shoppingCartPage;
     WishListPage wishListPage;
 
+    OrdersPage ordersPage;
+
+
     AddressBookPage addressBookPage;
+
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -30,7 +34,11 @@ public class UserModuleTestRunner extends TestBase {
         shoppingCartPage=new ShoppingCartPage(driver);
         utility = new TestUtility(driver);
         wishListPage=new WishListPage(driver);
+
+        ordersPage = new OrdersPage(driver);
+
         addressBookPage=new AddressBookPage(driver);
+
         context.setAttribute("driver",driver);
     }
 
@@ -76,6 +84,18 @@ public class UserModuleTestRunner extends TestBase {
         wishListPage.viewMyWishList();
         Assert.assertTrue(wishListPage.isMyWishListAbleToView());
     }
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewOrders() {
+        ordersPage.ViewMyOrders();
+        Assert.assertTrue(ordersPage.MyOrdersPage());
+    }
+
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewDownloadOrders() {
+        ordersPage.viewDownloadOrders();
+        Assert.assertTrue(ordersPage.DownloadOrdersPage());
+    }
+
 
 
     @Test(dependsOnMethods ={"createAccount"})

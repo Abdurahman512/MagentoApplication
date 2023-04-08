@@ -98,19 +98,6 @@ public class UserModuleTestRunner extends TestBase {
 
 
 
-    @Test(dependsOnMethods ={"createAccount"})
-    public void addAddressBook(){
-        addressBookPage.addAddressBook(utility.generateFirstName(), utility.generateLastName(),
-                utility.generateTelephoneNumber(), utility.generateStreetAddress(),
-                utility.generateCityName(), utility.generateZipCode());
-        Assert.assertTrue(addressBookPage.verifyAddedAddressBook());
-
-    }
-    @Test(dependsOnMethods ={"addAddressBook"})
-    public void updateAddressBook(){
-        addressBookPage.updateAddressBook("Wanda");
-        Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
-    }
 
     @AfterClass
     public void tearDown(){

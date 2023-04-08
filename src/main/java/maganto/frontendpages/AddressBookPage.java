@@ -9,16 +9,22 @@ import org.openqa.selenium.support.ui.Select;
 
 public class AddressBookPage {
 
-
     WebDriver driver;
     // update/view address book
+
+    String addressBook;
+
     @FindBy(xpath = "//span[@class='label' and text()='Account']")
     WebElement accountLink;
     @FindBy(linkText = "My Account")
     WebElement myAccountLink;
 
-    @FindBy(linkText = "Address Book")
+    @FindBy(xpath = "//strong[contains(text(),'Address Book')]")
     WebElement addressBookLink;
+
+    @FindBy(xpath = "@FindBy(xpath = \"//strong[contains(text(),'Address Book')]\")\n" +
+            "    WebElement addressBookLink;")
+    WebElement editAddressLink;
 
     @FindBy(id = "firstname")
     WebElement firstNameField;
@@ -46,11 +52,21 @@ public class AddressBookPage {
 
     @FindBy(xpath = "//h1[text()=('Add New Address')]")
     WebElement addNewAddressBookPage;
-    @FindBy(xpath= "//span[text()='Save Address']")
+    @FindBy(css = ".buttons-set > button")
     WebElement saveAddressButton;
+
+    @FindBy(xpath = "//a[contains(text(),'Change Billing Address')]")
+    WebElement changeBillingAddressLink;
+
+    @FindBy(xpath = "//span[contains(text(),'The address has been saved.')]")
+    WebElement addedAddressBookSuccessfullyMessage;
+
+    @FindBy(xpath = "//span[contains(text(),'The address has been saved.')]")
+    WebElement updatedAddressBookSuccessfullyMessage;
 
     @FindBy(xpath = "//a[contains(text(),'Manage Addresses')]")
     WebElement manageAddressLink;
+
 
     TestUtility utility;
 
@@ -79,4 +95,28 @@ public class AddressBookPage {
         saveAddressButton.click();
     }
 
+    public boolean verifyAddedAddressBook(){
+        utility.waitForElementPresent(addedAddressBookSuccessfullyMessage);
+        if (addedAddressBookSuccessfullyMessage.isDisplayed()){
+            return true;
+        }
+        else
+            return false;
+    }
+    public void updateAddressBook(String firstName)
+    {
+        utility.waitForElementPresent(changeBillingAddressLink);
+        changeBillingAddressLink.click();
+        utility.waitForElementPresent(firstNameField);
+        firstNameField.sendKeys(firstName);
+        saveAddressButton.click();
+    }
+
+    public boolean verifyUpdateSuccessfully(){
+        utility.waitForElementPresent(updatedAddressBookSuccessfullyMessage);
+        if (updatedAddressBookSuccessfullyMessage.isDisplayed())
+            return true;
+        else return false;
+    }
 }
+

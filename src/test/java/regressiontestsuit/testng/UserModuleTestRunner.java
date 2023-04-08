@@ -83,14 +83,14 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(wishListPage.isMyWishListAbleToView());
 
     }
-    @Test(dependsOnMethods = {"create account"})
+    @Test(dependsOnMethods = {"createAccount"})
     public void viewNewsLetterSubscription(){
-        NewsLetterSubscriptionsPage.viewNewsLetterSubscription();
+        newsLetterSubscriptionsPage.viewNewsLetterSubscription();
         Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
 
     }
-@Test(dependsOnMethods = {"create account"})
+@Test(dependsOnMethods = {"createAccount"})
 public void ProductReviews(){
         productReviewsPage.ProductReviews();
         Assert.assertTrue(productReviewsPage.verifyProductReviews());

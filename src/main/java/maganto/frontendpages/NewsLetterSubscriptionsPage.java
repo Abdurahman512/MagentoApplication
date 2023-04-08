@@ -11,11 +11,10 @@ public class NewsLetterSubscriptionsPage {
     WebDriver driver;
 
 
-    static TestUtility utility;
+  TestUtility utility;
 
     //Newsletter Subscriptions
     @FindBy(xpath = "//a[contains(text(),\"Newsletter Subscriptions\")]")
-    static
     WebElement newsletterLink;
 
 
@@ -29,7 +28,7 @@ public class NewsLetterSubscriptionsPage {
         utility= new TestUtility(driver);
     }
 
-      public static void viewNewsLetterSubscription(){
+      public void viewNewsLetterSubscription(){
         utility.waitForElementPresent(newsletterLink);
           utility.sleep(20);
         newsletterLink.click();

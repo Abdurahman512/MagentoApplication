@@ -1,6 +1,7 @@
 package regressiontestsuit.testng;
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.OrdersPage;
+import maganto.frontendpages.AddressBookPage;
 import maganto.frontendpages.ShoppingCartPage;
 import maganto.frontendpages.WishListPage;
 import maganto.utility.ApplicationConfig;
@@ -18,7 +19,12 @@ public class UserModuleTestRunner extends TestBase {
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
     WishListPage wishListPage;
+
     OrdersPage ordersPage;
+
+
+    AddressBookPage addressBookPage;
+
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -28,7 +34,11 @@ public class UserModuleTestRunner extends TestBase {
         shoppingCartPage=new ShoppingCartPage(driver);
         utility = new TestUtility(driver);
         wishListPage=new WishListPage(driver);
+
         ordersPage = new OrdersPage(driver);
+
+        addressBookPage=new AddressBookPage(driver);
+
         context.setAttribute("driver",driver);
     }
 
@@ -86,6 +96,21 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(ordersPage.DownloadOrdersPage());
     }
 
+
+
+    @Test(dependsOnMethods ={"createAccount"})
+    public void addAddressBook(){
+        addressBookPage.addAddressBook(utility.generateFirstName(), utility.generateLastName(),
+                utility.generateTelephoneNumber(), utility.generateStreetAddress(),
+                utility.generateCityName(), utility.generateZipCode());
+        Assert.assertTrue(addressBookPage.verifyAddedAddressBook());
+
+    }
+    @Test(dependsOnMethods ={"addAddressBook"})
+    public void updateAddressBook(){
+        addressBookPage.updateAddressBook("Wanda");
+        Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
+    }
 
     @AfterClass
     public void tearDown(){

@@ -1,4 +1,9 @@
 package regressiontestsuit.testng;
+
+
+import maganto.frontendpages.*;
+import maganto.utility.*;
+
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.OrdersPage;
 import maganto.frontendpages.AddressBookPage;
@@ -8,6 +13,7 @@ import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
 import maganto.utility.TestUtility;
+
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -16,6 +22,8 @@ import org.testng.annotations.*;
 public class UserModuleTestRunner extends TestBase {
 
     TestUtility utility;
+    NewsLetterSubscriptionsPage newsLetterSubscriptionsPage;
+    ProductReviewsPage productReviewsPage;
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
     WishListPage wishListPage;
@@ -32,6 +40,9 @@ public class UserModuleTestRunner extends TestBase {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
         shoppingCartPage=new ShoppingCartPage(driver);
+        productReviewsPage=new ProductReviewsPage(driver);
+        newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
+
         utility = new TestUtility(driver);
         wishListPage=new WishListPage(driver);
 
@@ -115,9 +126,22 @@ public class UserModuleTestRunner extends TestBase {
         addressBookPage.updateAddressBook("Wanda");
         Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
     }
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewNewsLetterSubscription(){
+        newsLetterSubscriptionsPage.viewNewsLetterSubscription();
+        Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
 
 
+
+
+
+    }
+@Test(dependsOnMethods = {"createAccount"})
+public void ProductReviews(){
+        productReviewsPage.ProductReviews();
+        Assert.assertTrue(productReviewsPage.verifyProductReviews());
+}
     @AfterClass
     public void tearDown(){
         closeBrowser();

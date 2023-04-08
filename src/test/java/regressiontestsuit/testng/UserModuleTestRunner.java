@@ -1,8 +1,6 @@
 package regressiontestsuit.testng;
 
-import maganto.frontendpages.AccountInfoPage;
-import maganto.frontendpages.ShoppingCartPage;
-import maganto.frontendpages.WishListPage;
+import maganto.frontendpages.*;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -12,6 +10,8 @@ import org.testng.annotations.*;
 public class UserModuleTestRunner extends TestBase {
 
     TestUtility utility;
+    NewsLetterSubscriptionsPage newsLetterSubscriptionsPage;
+    ProductReviewsPage productReviewsPage;
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
     WishListPage wishListPage;
@@ -22,6 +22,9 @@ public class UserModuleTestRunner extends TestBase {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
         shoppingCartPage=new ShoppingCartPage(driver);
+        productReviewsPage=new ProductReviewsPage(driver);
+        newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
+
         utility = new TestUtility(driver);
         wishListPage=new WishListPage(driver);
         context.setAttribute("driver",driver);
@@ -80,7 +83,18 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(wishListPage.isMyWishListAbleToView());
 
     }
+    @Test(dependsOnMethods = {"create account"})
+    public void viewNewsLetterSubscription(){
+        NewsLetterSubscriptionsPage.viewNewsLetterSubscription();
+        Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
+
+    }
+@Test(dependsOnMethods = {"create account"})
+public void ProductReviews(){
+        productReviewsPage.ProductReviews();
+        Assert.assertTrue(productReviewsPage.verifyProductReviews());
+}
     @AfterClass
     public void tearDown(){
         closeBrowser();

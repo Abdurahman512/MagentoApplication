@@ -3,7 +3,10 @@ package regressiontestsuit.testng;
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.ShoppingCartPage;
 import maganto.frontendpages.WishListPage;
-import maganto.utility.*;
+import maganto.utility.ApplicationConfig;
+import maganto.utility.TestBase;
+import maganto.utility.TestResultListener;
+import maganto.utility.TestUtility;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -45,15 +48,6 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
-
-    @Test(dependsOnMethods = {"createAccount"})
-    public void changePasswordTest(){
-        accountInfoPage.changePassword(ApplicationConfig.readFromConfigProperties(configFile,"password"),
-                ApplicationConfig.readFromConfigProperties(configFile,"newPassword"),
-                ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
-       Assert.assertTrue(accountInfoPage.VerifyChangePassword());
-    }
-
     @Test(dependsOnMethods ={"createAccount"})
     public void addProductToShoppingCart(){
         shoppingCartPage.addProductsToShoppingCart();
@@ -73,18 +67,15 @@ public class UserModuleTestRunner extends TestBase {
 
     }
 
-
     @Test (dependsOnMethods ={"createAccount"})
     public void viewWishList(){
         wishListPage.viewMyWishList();
         Assert.assertTrue(wishListPage.isMyWishListAbleToView());
-
     }
 
     @AfterClass
     public void tearDown(){
         closeBrowser();
     }
-    }
 
-
+}

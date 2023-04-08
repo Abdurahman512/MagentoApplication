@@ -1,5 +1,6 @@
 package maganto.frontendpages;
 
+import maganto.utility.ApplicationConfig;
 import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -54,6 +55,7 @@ public class AccountInfoPage {
 
     @FindBy(xpath = "//span[text()='The account information has been saved.']")
     WebElement verifyChangePassword;
+    String configFile = "config.properties";
 
 
 
@@ -112,17 +114,17 @@ public class AccountInfoPage {
             return true;
         else return false;
     }
-    public void changePassword(String password,String NewPassword,String ConfirmNewPassword){
+    public void changePassword(){
         utility.waitForElementPresent(accountInfoLink);
         accountInfoLink.click();
         utility.waitForElementPresent(currentPasswordField);
-        currentPasswordField.sendKeys(password);
+        currentPasswordField.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"password"));
         utility.waitForElementPresent(changepasswordChechbox);
         changepasswordChechbox.click();
         utility.waitForElementPresent(newPassword);
-        newPassword.sendKeys(NewPassword);
+        newPassword.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
         utility.waitForElementPresent(getConfirmNewPassword);
-        getConfirmNewPassword.sendKeys(ConfirmNewPassword);
+        getConfirmNewPassword.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
         utility.waitForElementPresent(saveButton1);
         saveButton1.click();
 

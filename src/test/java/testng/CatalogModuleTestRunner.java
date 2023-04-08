@@ -1,6 +1,7 @@
 package testng;
 
 import maganto.backendpages.BackEndLogin;
+import maganto.backendpages.catalogpages.AttributesPage;
 import maganto.backendpages.catalogpages.CategoriesPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
@@ -18,6 +19,7 @@ public class CatalogModuleTestRunner extends TestBase {
 
     TestUtility utility;
     CategoriesPage categoriesPage;
+    AttributesPage attributesPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -26,8 +28,19 @@ public class CatalogModuleTestRunner extends TestBase {
         BackEndLogin login=new BackEndLogin(driver);
         login.catalogPageLogin();
         categoriesPage = new CategoriesPage(driver);
+        attributesPage=new AttributesPage(driver);
         utility = new TestUtility(driver);
         context.setAttribute("driver",driver);
+    }
+    @Test
+    public void addNewAttributeTest(){
+        attributesPage.clickOnAddNewAttributeButton();
+        Assert.assertTrue(attributesPage.verifyAttributeAddedSuccessfully());
+    }
+    @Test
+    public void filterSearchTerms(){
+        attributesPage.filterSearchTerms();
+        Assert.assertTrue(attributesPage.verifyFilterSearchTerms());
     }
     @Test
     public void addRootCategoryTest(){

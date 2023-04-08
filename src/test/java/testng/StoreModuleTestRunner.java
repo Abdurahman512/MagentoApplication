@@ -1,6 +1,5 @@
-package regressiontestsuit.testng;
+package testng;
 import maganto.backendpages.BackEndLogin;
-import maganto.backendpages.customerpages.CustomerPage;
 import maganto.backendpages.storepages.StoreDashboardPage;
 import maganto.backendpages.storepages.StoreOrdersPage;
 import maganto.utility.ApplicationConfig;

@@ -1,6 +1,4 @@
 package maganto.backendpages.storepages;
-
-import maganto.backendpages.catalogpages.ProductPage;
 import maganto.backendpages.customerpages.CustomerPage;
 import maganto.utility.TestUtility;
 import org.openqa.selenium.Alert;
@@ -17,7 +15,6 @@ public class StoreOrdersPage {
     Actions actions;
     StoreDashboardPage storeDashboardPage;
     CustomerPage customerPage;
-    ProductPage productPage;
 
     public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -26,7 +23,6 @@ public class StoreOrdersPage {
         actions=new Actions(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
         customerPage=new CustomerPage(driver);
-        productPage=new ProductPage(driver);
     }
    //create Order
     @FindBy(xpath = "//div[@id=\"page:main-container\"]//span[contains(text(),\"Create New Order\")]")

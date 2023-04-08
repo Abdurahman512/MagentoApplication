@@ -121,7 +121,11 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(addressBookPage.verifyAddedAddressBook());
 
     }
-
+    @Test(dependsOnMethods ={"addAddressBook"})
+    public void updateAddressBook(){
+        addressBookPage.updateAddressBook("Wanda");
+        Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
+    }
     @Test(dependsOnMethods = {"createAccount"})
     public void viewNewsLetterSubscription(){
         newsLetterSubscriptionsPage.viewNewsLetterSubscription();

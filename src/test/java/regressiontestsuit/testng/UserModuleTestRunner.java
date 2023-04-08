@@ -1,4 +1,4 @@
-package testng;
+package regressiontestsuit.testng;
 
 import maganto.frontendpages.AccountInfoPage;
 import maganto.utility.*;

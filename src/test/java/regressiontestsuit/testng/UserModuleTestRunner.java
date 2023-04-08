@@ -88,7 +88,7 @@ public class UserModuleTestRunner extends TestBase {
     }
     @Test(dependsOnMethods ={"addAddressBook"})
     public void updateAddressBook(){
-        addressBookPage.updateAddressBook("Wanda");
+        addressBookPage.updateAddressBook("Conflict");
         Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
     }
 

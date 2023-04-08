@@ -103,12 +103,12 @@ public class AddressBookPage {
         else
             return false;
     }
-    public void updateAddressBook(String firstName)
+    public void updateAddressBook(String lastName)
     {
         utility.waitForElementPresent(changeBillingAddressLink);
         changeBillingAddressLink.click();
-        utility.waitForElementPresent(firstNameField);
-        firstNameField.sendKeys(firstName);
+        utility.waitForElementPresent(lastNameField);
+        lastNameField.sendKeys(lastName);
         saveAddressButton.click();
     }
 

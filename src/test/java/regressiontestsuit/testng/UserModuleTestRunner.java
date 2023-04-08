@@ -1,6 +1,7 @@
 package regressiontestsuit.testng;
 
 import maganto.frontendpages.AccountInfoPage;
+import maganto.frontendpages.OrdersPage;
 import maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -14,6 +15,7 @@ public class UserModuleTestRunner extends TestBase {
 
     TestUtility utility;
     AccountInfoPage accountInfoPage;
+    OrdersPage ordersPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -21,6 +23,7 @@ public class UserModuleTestRunner extends TestBase {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
         utility = new TestUtility(driver);
+        ordersPage = new OrdersPage(driver);
         context.setAttribute("driver",driver);
     }
 
@@ -40,6 +43,18 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewOrders() {
+        ordersPage.ViewMyOrders();
+        Assert.assertTrue(ordersPage.MyOrdersPage());
+    }
+
+    @Test(dependsOnMethods = {"createAccount"})
+    public void viewDownloadOrders() {
+        ordersPage.viewDownloadOrders();
+        Assert.assertTrue(ordersPage.DownloadOrdersPage());
+    }
+
 
     @AfterClass
     public void tearDown(){

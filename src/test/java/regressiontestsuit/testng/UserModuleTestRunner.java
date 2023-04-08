@@ -1,5 +1,4 @@
 package regressiontestsuit.testng;
-
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.OrdersPage;
 import maganto.frontendpages.ShoppingCartPage;

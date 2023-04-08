@@ -33,6 +33,8 @@ public class UserModuleTestRunner extends TestBase {
 
     AddressBookPage addressBookPage;
 
+
+
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -131,10 +133,11 @@ public class UserModuleTestRunner extends TestBase {
         newsLetterSubscriptionsPage.viewNewsLetterSubscription();
         Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
-
-
-
-
+    }
+    @Test(dependsOnMethods = {"createAccount"})
+    public void changePassword(){
+        accountInfoPage.changePassword();
+        Assert.assertTrue((accountInfoPage.VerifyChangePassword()));
 
     }
 @Test(dependsOnMethods = {"createAccount"})

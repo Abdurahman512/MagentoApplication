@@ -15,8 +15,9 @@ public class StoreViewPage {
     WebElement systemLink;
     @FindBy(xpath = "//span[contains(text(),'Manage Stores')]")
     WebElement manageStoresLink;
-    @FindBy(xpath = "//body[1]/div[1]/div[3]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/button[3]/span[1]/span[1]/span[1]")
+    @FindBy(xpath = "/html/body/div[1]/div[3]/div/div[2]/table/tbody/tr/td[2]/button[3]/span/span/span")
     WebElement createStoreViewLink;
+
 
 
 }

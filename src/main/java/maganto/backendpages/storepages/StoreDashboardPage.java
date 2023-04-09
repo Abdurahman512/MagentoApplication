@@ -36,4 +36,5 @@ public class StoreDashboardPage {
         } else
             return false;
     }
+
 }

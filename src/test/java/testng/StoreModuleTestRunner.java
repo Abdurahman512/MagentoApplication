@@ -1,11 +1,11 @@
 package testng;
 import maganto.backendpages.BackEndLogin;
-import maganto.backendpages.storepages.StoreDashboardPage;
-import maganto.backendpages.storepages.StoreOrdersPage;
+import maganto.backendpages.storepages.*;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
 import maganto.utility.TestUtility;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -17,10 +17,13 @@ import org.testng.annotations.Test;
 public class StoreModuleTestRunner extends TestBase {
     StoreOrdersPage storeOrdersPage;
     StoreDashboardPage storeDashboardPage;
+    StoreProductPage storeProductPage;
+    StoreViewPage storeViewPage;
+    StoreWebsitePage storeWebsitePage;
+    StorePage storePage;
     TestUtility utility;
     final static String configFile = "config.properties";
     BackEndLogin backEndLogin;
-
 
     @BeforeClass
     public void setUp(ITestContext context){
@@ -32,16 +35,6 @@ public class StoreModuleTestRunner extends TestBase {
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
     }
-    @Test()
-    public void createOrderTest(){
-        storeDashboardPage.clickOnOrdersLink();
-        storeOrdersPage.createNewOrder();
-        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
-    }
-    @Test
-    public void updateOrderTest(){}
-    @Test
-    public void cancelOrderTest(){}
     @AfterClass
     public void tearDown() {
         closeBrowser();

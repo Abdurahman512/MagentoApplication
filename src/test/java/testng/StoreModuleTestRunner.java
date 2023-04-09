@@ -35,6 +35,21 @@ public class StoreModuleTestRunner extends TestBase {
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
     }
+    @Test
+    public void createOrderTest(){
+        storeOrdersPage.createNewOrderMethod();
+        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
+    }
+    @Test(dependsOnMethods = {"createOrderTest"})
+    public void updateOrderTest(){
+        storeOrdersPage.updateOrder();
+        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
+    }
+    @Test(dependsOnMethods = {"updateOrderTest"})
+    public void cancelOrders(){
+        storeOrdersPage.cancelOrder();
+        Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
+    }
     @AfterClass
     public void tearDown() {
         closeBrowser();

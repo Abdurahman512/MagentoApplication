@@ -9,12 +9,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Random;
+
 public class StoreOrdersPage {
     WebDriver driver;
     TestUtility utility;
     Actions actions;
     StoreDashboardPage storeDashboardPage;
     CustomerPage customerPage;
+    String orderNumber;
 
     public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -23,7 +26,6 @@ public class StoreOrdersPage {
         actions=new Actions(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
         customerPage=new CustomerPage(driver);
-
     }
    //create Order
     @FindBy(xpath = "//div[@id=\"page:main-container\"]//span[contains(text(),\"Create New Order\")]")
@@ -76,6 +78,8 @@ public class StoreOrdersPage {
     WebElement checkMoneyOrderCheckBox;
     @FindBy(xpath = "(//span[contains(text(),\"Submit Order\")])[2]")
     WebElement submitOrderButton;
+    @FindBy(xpath = "//h3[starts-with(text(),\"Order #\")]")
+    WebElement createdOrderNumber;
     //update Order
     @FindBy(xpath = "(//span[contains(text(),\"Edit\")])[1]")
     WebElement editIcon;
@@ -105,7 +109,8 @@ public class StoreOrdersPage {
         utility.waitForElementPresent(productQtyField);
         actions.moveToElement(productQtyField).click().build().perform();
         productQtyField.clear();
-        productQtyField.sendKeys("45");
+        String qty=String.valueOf((Math.random()*100)+1);
+        productQtyField.sendKeys(qty);
         utility.waitForElementPresent(updateQtyButton);
         actions.moveToElement(updateQtyButton).click().build().perform();
         utility.waitForElementPresent(billingFirstNameField);
@@ -130,8 +135,11 @@ public class StoreOrdersPage {
         checkMoneyOrderCheckBox.click();
         utility.waitForElementPresent(submitOrderButton);
         submitOrderButton.click();
+        utility.waitForElementPresent(createdOrderNumber);
+        String orderNumber=createdOrderNumber.getText().substring(8,17);
+        System.out.println("ordernumber:"+orderNumber);
     }
-    public void createNewOrderMethod(){
+    public String createNewOrderMethod(){
         storeDashboardPage.clickOnOrdersLink();
         utility.waitForElementPresent(createNewOrderLink);
         actions.moveToElement(createNewOrderLink).click().build().perform();
@@ -148,7 +156,8 @@ public class StoreOrdersPage {
         utility.waitForElementPresent(productQtyField);
         actions.moveToElement(productQtyField).click().build().perform();
         productQtyField.clear();
-        productQtyField.sendKeys("45");
+        String qty=String.valueOf((int)((Math.random()*100)+1));
+        productQtyField.sendKeys(qty);
         utility.waitForElementPresent(updateQtyButton);
         actions.moveToElement(updateQtyButton).click().build().perform();
         utility.waitForElementPresent(emailFieldFromAccount);
@@ -175,15 +184,23 @@ public class StoreOrdersPage {
         checkMoneyOrderCheckBox.click();
         utility.waitForElementPresent(submitOrderButton);
         submitOrderButton.click();
+        orderNumber=createdOrderNumber.getText().substring(8,17);
+        System.out.println("ordernumber:"+orderNumber);
+        return orderNumber;
     }
     public void updateOrder(){
+        storeDashboardPage.clickOnOrdersLink();
+        WebElement selectedOrder=driver.findElement(By.xpath(String.format("//table[@id=\"sales_order_grid_table\"]//tbody//tr//td[2][contains(text(),\"%s\")]",orderNumber)));
+        utility.waitForElementPresent(selectedOrder);
+        selectedOrder.click();
         utility.waitForElementPresent(editIcon);
         actions.moveToElement(editIcon).click().build().perform();
-        Alert alt = driver.switchTo().alert();
+        Alert alt=driver.switchTo().alert();
         alt.accept();
         utility.waitForElementPresent(productQtyField);
         productQtyField.clear();
-        productQtyField.sendKeys("50");
+        String qty=String.valueOf((int)((Math.random()*100)+1));
+        productQtyField.sendKeys(qty);
         utility.waitForElementPresent(billingFirstNameField);
         utility.javaScriptClick(billingFirstNameField);
         billingFirstNameField.sendKeys(utility.generateFirstName());
@@ -193,8 +210,14 @@ public class StoreOrdersPage {
         streetField.sendKeys(utility.generateStreetAddress());
         utility.waitForElementPresent(submitOrderButton);
         actions.moveToElement(submitOrderButton).click().build().perform();
+        Alert alt1=driver.switchTo().alert();
+        alt1.accept();
     }
     public void cancelOrder(){
+        storeDashboardPage.clickOnOrdersLink();
+        WebElement selectedOrder=driver.findElement(By.xpath(String.format("//table[@id=\"sales_order_grid_table\"]//tbody//tr//td[2][contains(text(),\"%s\")]",orderNumber)));
+        utility.waitForElementPresent(selectedOrder);
+        selectedOrder.click();
         utility.waitForElementPresent(cancelButton);
         cancelButton.click();
         Alert alert = driver.switchTo().alert();

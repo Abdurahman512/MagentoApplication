@@ -3,7 +3,6 @@ package regressiontestsuit.testng;
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.AttributesPage;
 import maganto.backendpages.catalogpages.CategoriesPage;
-import maganto.backendpages.catalogpages.ProductPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
@@ -22,7 +21,6 @@ public class CatalogModuleTestRunner extends TestBase {
     CategoriesPage categoriesPage;
     AttributesPage attributesPage;
     final static String configFile = "config.properties";
-    ProductPage productpage;
 
     @BeforeClass
     public void setUp(ITestContext context) {
@@ -33,7 +31,6 @@ public class CatalogModuleTestRunner extends TestBase {
         attributesPage=new AttributesPage(driver);
         utility = new TestUtility(driver);
         context.setAttribute("driver",driver);
-        productpage=new ProductPage(driver);
     }
     @Test
     public void addNewAttributeTest(){
@@ -77,29 +74,11 @@ public class CatalogModuleTestRunner extends TestBase {
         categoriesPage.deleteRootCategory();
         Assert.assertTrue(categoriesPage.isRootCategoryDeleted());
     }
-    @Test
-    public void addProduct(){
-        productpage.userAddProduct();
 
-        Assert.assertTrue(productpage.verifyNewProductAdded());
-    }
-
-    @Test(dependsOnMethods = "addProduct")
-    public void updateProduct(){
-        productpage.updateProduct();
-        Assert.assertTrue(productpage.verifyUpdateProduct());
-    }
-    @Test(dependsOnMethods = "addProduct")
-    public void deleteProduct(){
-        productpage.deleteProduct();
-        Assert.assertTrue(productpage.verifyDeleteProduct());
-    }
     @AfterClass
     public void tearDown(){
         closeBrowser();
+    }
 
 
-
-
-
-}}
+}

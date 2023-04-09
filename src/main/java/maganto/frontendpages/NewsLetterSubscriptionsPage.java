@@ -11,7 +11,7 @@ public class NewsLetterSubscriptionsPage {
     WebDriver driver;
 
 
-    TestUtility utility;
+  TestUtility utility;
 
     //Newsletter Subscriptions
     @FindBy(xpath = "//a[contains(text(),\"Newsletter Subscriptions\")]")

@@ -14,6 +14,7 @@ public class CatalogDashboardPage {
     @FindBy (css=".logo")
     WebElement dashBoardPageLink;
 
+
     TestUtility utility;
 
     public CatalogDashboardPage(WebDriver driver) {

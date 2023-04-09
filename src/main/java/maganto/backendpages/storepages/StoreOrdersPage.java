@@ -1,10 +1,10 @@
 package maganto.backendpages.storepages;
 import maganto.backendpages.customerpages.CustomerPage;
 import maganto.utility.TestUtility;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -23,6 +23,7 @@ public class StoreOrdersPage {
         actions=new Actions(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
         customerPage=new CustomerPage(driver);
+
     }
    //create Order
     @FindBy(xpath = "//div[@id=\"page:main-container\"]//span[contains(text(),\"Create New Order\")]")
@@ -31,7 +32,11 @@ public class StoreOrdersPage {
     WebElement emailField;
     @FindBy(xpath = "//button[@id=\"id_b695e7c865ad3ba1e66c96d90b9fe2b8\"]//span[contains(text(),\"Search\")]")
     WebElement searchButton;
-    @FindBy(xpath = "//tr[@class=\"even pointer\"]//td[3]")
+    @FindBy(xpath = "(//span[contains(text(),\"Create New Customer\")])[1]")
+    WebElement createNewCustomer;
+    @FindBy(xpath = "//input[@id=\"email\"]")
+    WebElement emailFieldFromAccount;
+    @FindBy(xpath = "//table[@id=\"sales_order_create_customer_grid_table\"]/tbody/tr[1]/td[1]")
     WebElement selectedCustomer;
     @FindBy(xpath = "(//label[contains(text(),\"Demo Store View\")])[1]")
     WebElement selectedStore;
@@ -41,13 +46,13 @@ public class StoreOrdersPage {
     WebElement productNameField;
     @FindBy(xpath = "//button[@id=\"id_fa9bb3aa6d28ec88db48d98da0625215\"]//span[contains(text(),\"Search\")]")
     WebElement searchButton1;
-    @FindBy(xpath = "//table[@id=\"sales_order_create_search_grid_table\"]//tbody//tr//td[1]")
+    @FindBy(xpath = "//table[@id=\"sales_order_create_search_grid_table\"]/tbody/tr[2]/td[2]")
     WebElement selectedProduct;
-    @FindBy(xpath = "//button[@id=\"id_e34591d9c3b3c71dddc8913a4b51c873\"]//span[contains(text(),\"Add Selected Product(s) to Order\")]")
+    @FindBy(xpath = "//span[contains(text(),\"Add Selected Product(s) to Order\")]")
    WebElement addSelectedProductLink;
-    @FindBy(xpath = "//input[@name=\"item[1093][qty]\"]")
+    @FindBy(xpath = "//table[@class=\"data order-tables\"]/tbody/tr[1]/td[4]/input")
     WebElement productQtyField;
-    @FindBy(xpath = "//button[@id=\"id_f2e552ee20c046910a0aec6ab8dfa71a\"]//span[contains(text(),\"Update Items and Qty's\")]")
+    @FindBy(xpath = "//span[contains(text(),\"Update Items and Qty's\")]")
     WebElement updateQtyButton;
     @FindBy(xpath = "//input[@id=\"order-billing_address_firstname\"]")
     WebElement billingFirstNameField;
@@ -69,7 +74,7 @@ public class StoreOrdersPage {
     WebElement saveInAddressBookCheckBox;
     @FindBy(xpath = "//input[@id=\"p_method_checkmo\"]")
     WebElement checkMoneyOrderCheckBox;
-    @FindBy(xpath = "//button[@id=\"id_ac2863dd30fe85e244dfe4473865f984\"]//span[contains(text(),\"Submit Order\")]")
+    @FindBy(xpath = "(//span[contains(text(),\"Submit Order\")])[2]")
     WebElement submitOrderButton;
     //update Order
     @FindBy(xpath = "(//span[contains(text(),\"Edit\")])[1]")
@@ -83,29 +88,28 @@ public class StoreOrdersPage {
         storeDashboardPage.clickOnOrdersLink();
         utility.waitForElementPresent(createNewOrderLink);
         actions.moveToElement(createNewOrderLink).click().build().perform();
-        utility.waitForElementPresent(emailField);
-        emailField.sendKeys("elida.raynor@gmail.com");
-        utility.waitForElementPresent(searchButton);
-        utility.javaScriptClick(searchButton);
         utility.waitForElementPresent(selectedCustomer);
         selectedCustomer.click();
         utility.waitForElementPresent(selectedStore);
         selectedStore.click();
         utility.waitForElementPresent(addProductsButton);
-        addProductsButton.click();
-        utility.waitForElementPresent(productNameField);
-        productNameField.sendKeys("Kiwi ");
-        utility.waitForElementPresent(searchButton1);
-        searchButton1.click();
+        utility.javaScriptClick(addProductsButton);
+       // utility.waitForElementPresent(productNameField);
+       // productNameField.sendKeys("Kiwi ");
+       // utility.waitForElementPresent(searchButton1);
+       // searchButton1.click();
         utility.waitForElementPresent(selectedProduct);
-        selectedProduct.click();
+        actions.moveToElement(selectedProduct).click().build().perform();
         utility.waitForElementPresent(addSelectedProductLink);
-        addSelectedProductLink.click();
+        actions.moveToElement(addSelectedProductLink).click().build().perform();
         utility.waitForElementPresent(productQtyField);
+        actions.moveToElement(productQtyField).click().build().perform();
+        productQtyField.clear();
         productQtyField.sendKeys("45");
         utility.waitForElementPresent(updateQtyButton);
-        updateQtyButton.click();
+        actions.moveToElement(updateQtyButton).click().build().perform();
         utility.waitForElementPresent(billingFirstNameField);
+        utility.javaScriptClick(billingFirstNameField);
         billingFirstNameField.sendKeys(utility.generateFirstName());
         utility.waitForElementPresent(billingLastNameField);
         billingLastNameField.sendKeys(utility.generateLastName());
@@ -116,9 +120,51 @@ public class StoreOrdersPage {
         utility.waitForElementPresent(countryDropDown);
         Select select=new Select(countryDropDown);
         select.selectByVisibleText("Argentina");
-        utility.waitForElementPresent(stateDropDown);
-        select=new Select(stateDropDown);
-        select.selectByVisibleText("Maine");
+        utility.waitForElementPresent(zipCodeField);
+        zipCodeField.sendKeys(utility.generateZipCode());
+        utility.waitForElementPresent(telephoneField);
+        telephoneField.sendKeys(utility.generateTelephoneNumber());
+        utility.waitForElementPresent(saveInAddressBookCheckBox);
+        saveInAddressBookCheckBox.click();
+        utility.waitForElementPresent(checkMoneyOrderCheckBox);
+        checkMoneyOrderCheckBox.click();
+        utility.waitForElementPresent(submitOrderButton);
+        submitOrderButton.click();
+    }
+    public void createNewOrderMethod(){
+        storeDashboardPage.clickOnOrdersLink();
+        utility.waitForElementPresent(createNewOrderLink);
+        actions.moveToElement(createNewOrderLink).click().build().perform();
+        utility.waitForElementPresent(createNewCustomer);
+        utility.javaScriptClick(createNewCustomer);
+        utility.waitForElementPresent(selectedStore);
+        selectedStore.click();
+        utility.waitForElementPresent(addProductsButton);
+        utility.javaScriptClick(addProductsButton);
+        utility.waitForElementPresent(selectedProduct);
+        actions.moveToElement(selectedProduct).click().build().perform();
+        utility.waitForElementPresent(addSelectedProductLink);
+        actions.moveToElement(addSelectedProductLink).click().build().perform();
+        utility.waitForElementPresent(productQtyField);
+        actions.moveToElement(productQtyField).click().build().perform();
+        productQtyField.clear();
+        productQtyField.sendKeys("45");
+        utility.waitForElementPresent(updateQtyButton);
+        actions.moveToElement(updateQtyButton).click().build().perform();
+        utility.waitForElementPresent(emailFieldFromAccount);
+        emailFieldFromAccount.sendKeys(utility.generateEmailAddress());
+        utility.waitForElementPresent(billingFirstNameField);
+        utility.javaScriptClick(billingFirstNameField);
+        billingFirstNameField.sendKeys(utility.generateFirstName());
+        utility.waitForElementPresent(billingLastNameField);
+        billingLastNameField.sendKeys(utility.generateLastName());
+        utility.waitForElementPresent(streetField);
+        streetField.sendKeys(utility.generateStreetAddress());
+        utility.waitForElementPresent(cityField);
+        cityField.sendKeys(utility.generateCityName());
+        utility.waitForElementPresent(countryDropDown);
+        Select select=new Select(countryDropDown);
+        select.selectByVisibleText("Argentina");
         utility.waitForElementPresent(zipCodeField);
         zipCodeField.sendKeys(utility.generateZipCode());
         utility.waitForElementPresent(telephoneField);
@@ -132,20 +178,21 @@ public class StoreOrdersPage {
     }
     public void updateOrder(){
         utility.waitForElementPresent(editIcon);
-        editIcon.click();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        actions.moveToElement(editIcon).click().build().perform();
+        Alert alt = driver.switchTo().alert();
+        alt.accept();
         utility.waitForElementPresent(productQtyField);
         productQtyField.clear();
         productQtyField.sendKeys("50");
         utility.waitForElementPresent(billingFirstNameField);
+        utility.javaScriptClick(billingFirstNameField);
         billingFirstNameField.sendKeys(utility.generateFirstName());
         utility.waitForElementPresent(billingLastNameField);
         billingLastNameField.sendKeys(utility.generateLastName());
         utility.waitForElementPresent(streetField);
         streetField.sendKeys(utility.generateStreetAddress());
         utility.waitForElementPresent(submitOrderButton);
-        submitOrderButton.click();
+        actions.moveToElement(submitOrderButton).click().build().perform();
     }
     public void cancelOrder(){
         utility.waitForElementPresent(cancelButton);
@@ -159,8 +206,5 @@ public class StoreOrdersPage {
         }else
             return false;
     }
-
-
-
 
 }

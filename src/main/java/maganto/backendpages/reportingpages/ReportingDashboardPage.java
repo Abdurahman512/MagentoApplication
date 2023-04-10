@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ReportingDashboardPage {
+
     WebDriver driver;
     @FindBy(xpath = "//span[text()='Reports']")
     WebElement reportsLink;
@@ -36,4 +37,5 @@ public class ReportingDashboardPage {
         utility.waitForElementPresent(ordersLink);
         ordersLink.click();
     }
+
 }

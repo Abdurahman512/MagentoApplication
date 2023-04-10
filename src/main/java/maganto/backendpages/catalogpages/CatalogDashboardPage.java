@@ -19,7 +19,6 @@ public class CatalogDashboardPage {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         utility=new TestUtility(driver);
-        actions = new Actions(driver);
     }
 
     public void clickDashboardPage(){

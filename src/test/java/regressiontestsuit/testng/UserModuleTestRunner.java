@@ -1,19 +1,12 @@
 package regressiontestsuit.testng;
-
-
 import maganto.frontendpages.*;
-import maganto.utility.*;
-
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.OrdersPage;
-import maganto.frontendpages.AddressBookPage;
 import maganto.frontendpages.ShoppingCartPage;
-import maganto.frontendpages.WishListPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
 import maganto.utility.TestUtility;
-
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -30,6 +23,8 @@ public class UserModuleTestRunner extends TestBase {
     OrdersPage ordersPage;
     AddressBookPage addressBookPage;
 
+
+
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -43,6 +38,7 @@ public class UserModuleTestRunner extends TestBase {
         wishListPage=new WishListPage(driver);
         ordersPage = new OrdersPage(driver);
         addressBookPage=new AddressBookPage(driver);
+        ordersPage = new OrdersPage(driver);
         context.setAttribute("driver",driver);
     }
 
@@ -53,13 +49,11 @@ public class UserModuleTestRunner extends TestBase {
 
     }
     @Test (dependsOnMethods ={"createAccount"})
-    @Ignore
     public void editAccountInfo(){
         accountInfoPage.editAccount(utility.generateFirstName(),ApplicationConfig.readFromConfigProperties(configFile,"password"));
         Assert.assertTrue(accountInfoPage.isAccountEdited());
     }
     @Test (dependsOnMethods ={"createAccount"})
-    @Ignore
     public void viewAccountInfo(){
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
@@ -86,12 +80,6 @@ public class UserModuleTestRunner extends TestBase {
 
     }
 
-    @Test (dependsOnMethods ={"createAccount"})
-    @Ignore
-    public void viewWishList(){
-        wishListPage.viewMyWishList();
-        Assert.assertTrue(wishListPage.isMyWishListAbleToView());
-    }
     @Test(dependsOnMethods = {"createAccount"})
     @Ignore
     public void viewOrders() {
@@ -105,29 +93,16 @@ public class UserModuleTestRunner extends TestBase {
         ordersPage.viewDownloadOrders();
         Assert.assertTrue(ordersPage.DownloadOrdersPage());
     }
-
-    @Test(dependsOnMethods ={"createAccount"})
-    public void addAddressBook(){
-        addressBookPage.addAddressBook(utility.generateFirstName(), utility.generateLastName(),
-                utility.generateTelephoneNumber(), utility.generateStreetAddress(),
-                utility.generateCityName(), utility.generateZipCode());
-        Assert.assertTrue(addressBookPage.verifyAddedAddressBook());
-
-    }
-    @Test(dependsOnMethods ={"addAddressBook"})
-    public void updateAddressBook(){
-        addressBookPage.updateAddressBook("Wanda");
-        Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
-    }
     @Test(dependsOnMethods = {"createAccount"})
     public void viewNewsLetterSubscription(){
         newsLetterSubscriptionsPage.viewNewsLetterSubscription();
         Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
-
-
-
-
+    }
+    @Test(dependsOnMethods = {"createAccount"})
+    public void changePassword(){
+        accountInfoPage.changePassword();
+        Assert.assertTrue((accountInfoPage.VerifyChangePassword()));
 
     }
 @Test(dependsOnMethods = {"createAccount"})

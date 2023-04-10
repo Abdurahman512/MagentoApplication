@@ -9,8 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-
 public class CartPriceRulePage {
+
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
@@ -40,7 +40,6 @@ public class CartPriceRulePage {
     WebElement successMessages;
     @FindBy(xpath = "//input[@id='promo_quote_grid_filter_name']")
     WebElement CartRuleNameField;
-
 
     @FindBy(xpath = "//*[contains(text(),'Search')]")
     WebElement cartRuleSearchButton;
@@ -124,4 +123,5 @@ public class CartPriceRulePage {
         }
 
     }
+
 }

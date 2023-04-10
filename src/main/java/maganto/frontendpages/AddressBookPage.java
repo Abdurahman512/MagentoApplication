@@ -1,5 +1,4 @@
 package maganto.frontendpages;
-
 import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,12 +70,12 @@ public class AddressBookPage {
 
     public AddressBookPage(WebDriver driver) {
         this.driver = driver;
-        utility=new TestUtility(driver);
-        PageFactory.initElements(driver,this);
+        utility = new TestUtility(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public void addAddressBook(String firstName, String lastName, String telephone, String streetAddress,
-                               String city, String zipCode){
+                               String city, String zipCode) {
 
         utility.waitForElementPresent(manageAddressLink);
         manageAddressLink.click();
@@ -86,24 +85,23 @@ public class AddressBookPage {
         telephoneField.sendKeys(telephone);
         streetAddressDropDown.sendKeys(streetAddress);
         cityField.sendKeys(city);
-        Select select1=new Select(stateDropDown);
+        Select select1 = new Select(stateDropDown);
         select1.selectByValue("2");
         zipCodeField.sendKeys(zipCode);
-        Select select2=new Select(countryDropDown);
+        Select select2 = new Select(countryDropDown);
         select2.selectByValue("US");
         saveAddressButton.click();
     }
 
-    public boolean verifyAddedAddressBook(){
+    public boolean verifyAddedAddressBook() {
         utility.waitForElementPresent(addedAddressBookSuccessfullyMessage);
-        if (addedAddressBookSuccessfullyMessage.isDisplayed()){
+        if (addedAddressBookSuccessfullyMessage.isDisplayed()) {
             return true;
-        }
-        else
+        } else
             return false;
     }
-    public void updateAddressBook(String firstName)
-    {
+
+    public void updateAddressBook(String firstName) {
         utility.waitForElementPresent(changeBillingAddressLink);
         changeBillingAddressLink.click();
         utility.waitForElementPresent(firstNameField);
@@ -111,13 +109,11 @@ public class AddressBookPage {
         saveAddressButton.click();
     }
 
-    public boolean verifyUpdateSuccessfully(){
+    public boolean verifyUpdateSuccessfully() {
         utility.waitForElementPresent(updatedAddressBookSuccessfullyMessage);
         if (updatedAddressBookSuccessfullyMessage.isDisplayed())
             return true;
         else return false;
     }
-
-
 }
 

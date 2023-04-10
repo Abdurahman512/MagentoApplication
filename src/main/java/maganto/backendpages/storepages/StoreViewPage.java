@@ -19,7 +19,9 @@ public class StoreViewPage {
         this.driver=driver;
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
-
+        storeName= testUtility.generateStoreName();
+        storeCode= testUtility.generateStoreCode();
+        storeSortOrder= testUtility.generateStoreSortOrder();
 
     }
 
@@ -27,7 +29,7 @@ public class StoreViewPage {
     WebElement systemLink;
     @FindBy(xpath = "//span[contains(text(),'Manage Stores')]")
     WebElement manageStoresLink;
-    @FindBy(xpath = "//span[text()='Save Store View'])[1]")
+    @FindBy(xpath = "//body[1]/div[1]/div[3]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/button[3]/span[1]/span[1]/span[1]")
     WebElement createStoreViewLink;
 
     //field
@@ -50,8 +52,13 @@ public class StoreViewPage {
 
 
     public void createStoreView(){
+        testUtility.waitForElementPresent(systemLink);
+        systemLink.click();
+        testUtility.waitForElementPresent(manageStoresLink);
+        manageStoresLink.click();
         testUtility.waitForElementPresent(createStoreViewLink);
         createStoreViewLink.click();
+        testUtility.sleep(20);
         testUtility.waitForElementPresent(storeNameField);
         storeNameField.sendKeys(testUtility.generateStoreName());
         testUtility.waitForElementPresent(storeCodeField);
@@ -63,6 +70,16 @@ public class StoreViewPage {
 
 
 
+    }
+    public String getStoreName(){
+        return storeName;
+    }
+    public String getStoreCode(){
+        return storeCode;
+
+    }
+    public String getStoreSortOrder(){
+        return storeSortOrder;
     }
     public boolean verifyStoreViewSaved(){
         testUtility.waitForElementPresent(successMessage);

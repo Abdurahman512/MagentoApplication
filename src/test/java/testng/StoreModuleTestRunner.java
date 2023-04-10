@@ -53,7 +53,7 @@ public class StoreModuleTestRunner extends TestBase {
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
 
-    @Test(dependsOnMethods ={"storePageLogin()"})
+    @Test
     public void createStoreView(){
         storeViewPage.createStoreView();
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());

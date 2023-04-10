@@ -43,7 +43,7 @@ public class TestUtility {
                 return storeName;
 }
 public String generateStoreCode(){
-        String storeCode=faker.name().prefix();
+        String storeCode=faker.name().name();
         return storeCode;
 
 }

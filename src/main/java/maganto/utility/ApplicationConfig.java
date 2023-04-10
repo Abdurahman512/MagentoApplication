@@ -16,5 +16,6 @@ public class ApplicationConfig {
         value=properties.getProperty(key);
         System.out.println(String.format("%s=%s",key,value));
         return value;
+
     }
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 
+
 public class TestBase {
     public WebDriver driver;
 
@@ -22,6 +23,7 @@ public class TestBase {
         }
         driver.get(url);
     }
+
     public void closeBrowser() {
         driver.quit();
     }

@@ -112,7 +112,6 @@ public class CategoriesPage {
         else return false;
     }
     public void editSubCategory(String fileName,String sheetName,int rowNo,int clmnNo){
-        utility.sleep(2);
         WebElement addedSubCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",subCategoryName)));
         utility.waitForElementPresent(addedSubCategory);
         utility.javaScriptClick(addedSubCategory);
@@ -124,7 +123,6 @@ public class CategoriesPage {
         saveCategoryButton.click();
         utility.sleep(1);
     }
-
     public boolean isSubCategoryEdited(){
         utility.waitForElementPresent(categorySavedMessage);
         if(categorySavedMessage.isDisplayed())
@@ -167,6 +165,7 @@ public class CategoriesPage {
             return true;
         else return false;
     }
+
 
 
 }

@@ -77,6 +77,7 @@ public class SalesSteps extends TestBase {
     @After ("@SalesModuleTests")
     public void tearDown(){
         closeBrowser();
-
     }
+
+
 }

@@ -57,8 +57,6 @@ public class AccountInfoPage {
     WebElement verifyChangePassword;
     String configFile = "config.properties";
 
-
-
     TestUtility utility;
 
     public AccountInfoPage(WebDriver driver) {
@@ -131,23 +129,10 @@ public class AccountInfoPage {
     }
     public boolean VerifyChangePassword(){
         utility.waitForElementPresent(verifyChangePassword);
-        //if (driver.getPageSource().contains(verifyChangePassword.getText()))
-            //System.out.println("The account information has been saved");
         if (verifyChangePassword.isDisplayed())
             return true;
         else
             return false;
 
-
-
-
-
     }
-
-
-
-
-
-
-
 }

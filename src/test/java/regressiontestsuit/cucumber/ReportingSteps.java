@@ -40,7 +40,6 @@ public class ReportingSteps extends TestBase {
         salesOrdersPage.viewTotalOrdersReport("TastData/TestData-M.xlsx","Reporting",1,0,1,1);
 
     }
-
     @Then("total ordered report should display")
     public void totalOrderedReportShouldDisplay() {
         salesOrdersPage.isOrdersReportShowed();
@@ -50,4 +49,5 @@ public class ReportingSteps extends TestBase {
     public void tearDown(){
         closeBrowser();
     }
+
 }

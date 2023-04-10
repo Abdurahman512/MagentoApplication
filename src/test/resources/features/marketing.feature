@@ -10,6 +10,7 @@ Feature:Marketing Manager can manage market
       |30% Sales(istanbulTeam) |30% off any product  | Medium |
 
 
+
   @MarketingManagerUpdateCartPriceRule
   Scenario Outline: MarketingManagerUpdateCartPriceRule
     Given Marketing manager on the dashboard page and marketing manager click on Promotions link

@@ -15,7 +15,7 @@ import org.openqa.selenium.support.PageFactory;
         WebDriver driver;
         TestUtility testUtility;
         Actions actions;
-        String config="config.properties";
+        String config = "config.properties";
 
         Faker faker = new Faker();
         String gName = faker.color().name();
@@ -51,21 +51,21 @@ import org.openqa.selenium.support.PageFactory;
             actions = new Actions(driver);
         }
 
-        public void clickOnManageCustomers(){
-                testUtility.waitForElementPresent(customersLink);
-                actions.moveToElement(customersLink).perform();
+        public void clickOnManageCustomers() {
+            testUtility.waitForElementPresent(customersLink);
+            actions.moveToElement(customersLink).perform();
 
-                testUtility.waitForElementPresent(customerGroupsLink);
-                customerGroupsLink.click();
+            testUtility.waitForElementPresent(customerGroupsLink);
+            customerGroupsLink.click();
         }
-        public void addNewCustomerGroups(){
+
+        public void addNewCustomerGroups() {
             clickOnManageCustomers();
             testUtility.sleep(2);
             addNewCustomerGroupButton.click();
             groupNameField.sendKeys(gName);
             System.out.println(gName);
             saveCustomerGroupButton.click();
-
         }
 
         public boolean verifyNewCustomerGroupAdded() {
@@ -75,12 +75,12 @@ import org.openqa.selenium.support.PageFactory;
             return true;
         }
 
-        public void clickGroupName(String gName){
-            WebElement groupName = driver.findElement(By.xpath("//td[normalize-space(text())='"+gName+"']"));
+        public void clickGroupName(String gName) {
+            WebElement groupName = driver.findElement(By.xpath("//td[normalize-space(text())='" + gName + "']"));
             groupName.click();
         }
 
-        public void updateCustomerGroup(){
+        public void updateCustomerGroup() {
             //addNewCustomerGroups();
             clickOnManageCustomers();
             testUtility.sleep(2);
@@ -98,8 +98,9 @@ import org.openqa.selenium.support.PageFactory;
             System.out.println("Update an existing customer group information successfully");
             return true;
         }
-        public void deleteCustomerGroup(){
-           // updateCustomerGroup();
+
+        public void deleteCustomerGroup() {
+            // updateCustomerGroup();
             clickOnManageCustomers();
             clickGroupName(gName);
             deleteCustomerGroupButton.click();
@@ -115,6 +116,4 @@ import org.openqa.selenium.support.PageFactory;
         }
 
 
-
-
-}
+    }

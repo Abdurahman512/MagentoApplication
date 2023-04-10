@@ -10,17 +10,15 @@ import org.openqa.selenium.support.PageFactory;
 public class CatalogDashboardPage {
     WebDriver driver;
     Actions actions;
+    TestUtility utility;
 
     @FindBy (css=".logo")
     WebElement dashBoardPageLink;
-
-    TestUtility utility;
 
     public CatalogDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         utility=new TestUtility(driver);
-        actions = new Actions(driver);
     }
 
     public void clickDashboardPage(){

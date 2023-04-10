@@ -70,9 +70,7 @@ public class CustomerPage{
     WebElement VerifySubmitbuttonClick;
 
 
-
-
-    public void addNewCustomerMethod() {
+    public String addNewCustomerMethod() {
         testUtility.waitForElementPresent(addNewCustomerButton);
         addNewCustomerButton.click();
         testUtility.waitForElementPresent(firstNameField);
@@ -85,6 +83,7 @@ public class CustomerPage{
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
+        return email;
 
     }
 
@@ -94,7 +93,7 @@ public class CustomerPage{
 
     public boolean verifyNewCustomerAdded() {
         testUtility.waitForElementPresent(successMessage);
-        if (driver.getPageSource().contains(successMessage.getText())) ;
+        if (driver.getPageSource().contains(successMessage.getText()))
         System.out.println("The customer has been saved.");
         return true;
     }
@@ -121,7 +120,7 @@ public class CustomerPage{
 
     public boolean verifyUpdateCustomer() {
         testUtility.waitForElementPresent(successMessage);
-        if (driver.getPageSource().contains(successMessage.getText())) ;
+        if (driver.getPageSource().contains(successMessage.getText()))
         System.out.println("Update an existing customer information successfully");
         return true;
     }
@@ -147,8 +146,6 @@ public class CustomerPage{
             System.out.println("The customer has been deleted.");
         return true;
     }
-
-
 
     public void ExportCustomer() {
         testUtility.waitForElementPresent(ExportButton);
@@ -179,10 +176,9 @@ public void AssignCustomer(){
     }
     public boolean verifyAssigncustomer(){
         testUtility.waitForElementPresent(VerifySubmitbuttonClick);
-        if (VerifySubmitbuttonClick.isDisplayed());
+        if (VerifySubmitbuttonClick.isDisplayed())
         System.out.println("Total of 1 record(s) were updated.");
         return true;
     }
-
 
 }

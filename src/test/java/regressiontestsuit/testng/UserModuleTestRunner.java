@@ -39,14 +39,10 @@ public class UserModuleTestRunner extends TestBase {
         shoppingCartPage=new ShoppingCartPage(driver);
         productReviewsPage=new ProductReviewsPage(driver);
         newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
-
         utility = new TestUtility(driver);
         wishListPage=new WishListPage(driver);
-
         ordersPage = new OrdersPage(driver);
-
         addressBookPage=new AddressBookPage(driver);
-
         context.setAttribute("driver",driver);
     }
 

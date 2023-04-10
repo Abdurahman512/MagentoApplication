@@ -74,6 +74,7 @@ public class ShoppingCartPage {
         utility=new TestUtility(driver);
         action=new Actions(driver);
     }
+
     public void addProductsToShoppingCart(){
         utility.waitForElementPresent(titleLink);
         action.moveToElement(titleLink).build().perform();
@@ -83,6 +84,7 @@ public class ShoppingCartPage {
         utility.waitForElementPresent(addToCartLink);
         addToCartLink.click();
     }
+
     public boolean verifyAddedToShoppingCartSuccessfully(){
         utility.waitForElementPresent(successMassage);
         if(successMassage.isDisplayed()){
@@ -109,6 +111,7 @@ public class ShoppingCartPage {
         System.out.println(afterUpdate);
 
     }
+
     public boolean verifyUpdateSuccessfully(String expectedText){
 
         if(expectedText.equalsIgnoreCase(afterUpdate)){
@@ -142,6 +145,7 @@ public class ShoppingCartPage {
         utility.waitForElementPresent(placeOrderButton);
         placeOrderButton.click();
     }
+
     public boolean checkOutOrderSuccessfully(){
         utility.waitForElementPresent(checkOutSuccessfully);
         if(checkOutSuccessfully.isDisplayed()){

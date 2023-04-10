@@ -31,4 +31,6 @@ public class SalesDashboardPage {
         utility.waitForElementPresent(ordersLink);
         ordersLink.click();
     }
+
+
 }

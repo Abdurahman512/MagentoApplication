@@ -65,7 +65,6 @@ import org.openqa.selenium.support.PageFactory;
             groupNameField.sendKeys(gName);
             System.out.println(gName);
             saveCustomerGroupButton.click();
-
         }
 
         public boolean verifyNewCustomerGroupAdded() {
@@ -113,6 +112,7 @@ import org.openqa.selenium.support.PageFactory;
                 System.out.println("The customer has been deleted.");
             return true;
         }
+
 
 
 

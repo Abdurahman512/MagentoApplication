@@ -11,7 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-
 public class ProductPage  {
 
     // Add product
@@ -61,7 +60,6 @@ public class ProductPage  {
 
     @FindBy(id = "tax_class_id")
    public WebElement taxClassField;
-
 
     @FindBy(xpath = "//span[text()='Save']")
     public WebElement savePriceButton;

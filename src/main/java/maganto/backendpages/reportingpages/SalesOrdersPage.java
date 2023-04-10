@@ -44,10 +44,13 @@ public class SalesOrdersPage {
         showReportButton.click();
     }
 
+
     public boolean isOrdersReportShowed(){
         utility.waitForElementPresent(orderTotal);
         if(orderTotal.isDisplayed())
             return true;
         else return false;
     }
+
+
 }

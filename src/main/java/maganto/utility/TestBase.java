@@ -22,6 +22,7 @@ public class TestBase {
         }
         driver.get(url);
     }
+
     public void closeBrowser() {
         driver.quit();
     }

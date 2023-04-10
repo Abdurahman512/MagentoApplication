@@ -22,7 +22,6 @@ public class TestResultListener implements ITestListener {
         screenshotUtility.takeScreenshot(result.getName()+"-passed",result.getMethod().getMethodName().trim()+"-passed",
                 (WebDriver) result.getTestContext().getAttribute("driver"));
     }
-
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
@@ -30,4 +29,5 @@ public class TestResultListener implements ITestListener {
         screenshotUtility.takeScreenshot(result.getName()+"-failed",result.getMethod().getMethodName().trim()+"-failed",
                 (WebDriver) result.getTestContext().getAttribute("driver"));
     }
+
 }

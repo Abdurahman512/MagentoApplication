@@ -62,6 +62,7 @@ public class CatalogModuleTestRunner extends TestBase {
         categoriesPage.editSubCategory("TastData/TestData-M.xlsx","Category",1,2);
         Assert.assertTrue(categoriesPage.isSubCategoryEdited());
     }
+
     @Test(dependsOnMethods ={"editSubCategoryTest"})
     public void deleteSubCategoryTest(){
         categoriesPage.deleteSubCategory();

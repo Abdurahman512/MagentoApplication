@@ -67,7 +67,6 @@ public class AddressBookPage {
     @FindBy(xpath = "//a[contains(text(),'Manage Addresses')]")
     WebElement manageAddressLink;
 
-
     TestUtility utility;
 
     public AddressBookPage(WebDriver driver) {
@@ -118,5 +117,7 @@ public class AddressBookPage {
             return true;
         else return false;
     }
+
+
 }
 

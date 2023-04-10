@@ -11,7 +11,6 @@ public class TestUtility {
     ));
 
     WebDriver driver;
-
     Faker faker=new Faker();
 
     public TestUtility(WebDriver driver) {
@@ -35,7 +34,6 @@ public class TestUtility {
         String adminName=faker.name().name();
         return adminName;
     }
-
 
     public String generateFirstName(){
         String firstName=faker.name().firstName();

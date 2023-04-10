@@ -70,8 +70,6 @@ public class CustomerPage{
     WebElement VerifySubmitbuttonClick;
 
 
-
-
     public void addNewCustomerMethod() {
         testUtility.waitForElementPresent(addNewCustomerButton);
         addNewCustomerButton.click();
@@ -148,8 +146,6 @@ public class CustomerPage{
         return true;
     }
 
-
-
     public void ExportCustomer() {
         testUtility.waitForElementPresent(ExportButton);
         ExportButton.click();
@@ -185,4 +181,5 @@ public void AssignCustomer(){
     }
 
 
+    
 }

@@ -76,6 +76,7 @@ public class CustomerModuleTestRunner extends TestBase{
         customerDashboardPage.filterCustomersByGroup();
         Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
     }
+
     @Test(dataProvider = "filterData",groups = "regression test",
             description = "Customer Manager can filter by Country,State,Website")
     public void filterCustomerByCountryStateWebsite(String state){
@@ -97,6 +98,7 @@ public class CustomerModuleTestRunner extends TestBase{
         };
         return data;
     }
+
 
 
 }

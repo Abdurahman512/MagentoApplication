@@ -30,6 +30,7 @@ public class TestUtility {
         int number=faker.code().hashCode();
         return number;
     }
+
     public String generateAdminName(){
         String adminName=faker.name().name();
         return adminName;

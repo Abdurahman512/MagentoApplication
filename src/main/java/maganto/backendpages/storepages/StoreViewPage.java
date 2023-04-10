@@ -55,9 +55,9 @@ public class StoreViewPage {
         testUtility.waitForElementPresent(storeNameField);
         storeNameField.sendKeys(testUtility.generateStoreName());
         testUtility.waitForElementPresent(storeCodeField);
-        storeCodeField.sendKeys(storeCode);
+        storeCodeField.sendKeys(testUtility.generateStoreCode());
         testUtility.waitForElementPresent(storeSortOrderField);
-        storeSortOrderField.sendKeys(storeSortOrder);
+        storeSortOrderField.sendKeys(testUtility.generateStoreSortOrder());
         testUtility.waitForElementPresent(saveStoreViewLink);
         saveStoreViewLink.click();
 

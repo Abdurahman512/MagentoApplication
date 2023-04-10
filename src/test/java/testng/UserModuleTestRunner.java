@@ -20,7 +20,7 @@ public class UserModuleTestRunner extends TestBase {
     ProductReviewsPage productReviewsPage;
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
-    StoreViewPage storeViewPage;
+
     OrdersPage ordersPage;
 
 
@@ -34,7 +34,6 @@ public class UserModuleTestRunner extends TestBase {
         shoppingCartPage=new ShoppingCartPage(driver);
         productReviewsPage=new ProductReviewsPage(driver);
         newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
-       storeViewPage=new StoreViewPage(driver);
         utility = new TestUtility(driver);
         ordersPage = new OrdersPage(driver);
         context.setAttribute("driver",driver);
@@ -112,12 +111,8 @@ public class UserModuleTestRunner extends TestBase {
 
 }
 
-    @Test(dependsOnMethods = {"storePageLogin"})
-    public void createStoreView(){
-        storeViewPage.createStoreView();
-        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
-        
-    }
+
+
 
     @AfterClass
     public void tearDown(){

@@ -32,8 +32,10 @@ public class StoreModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
         storeOrdersPage=new StoreOrdersPage(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
+        storeViewPage=new StoreViewPage(driver);
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
+
     }
     @Test
     public void createOrderTest(){
@@ -50,6 +52,14 @@ public class StoreModuleTestRunner extends TestBase {
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
+
+    @Test(dependsOnMethods ={"storePageLogin()"})
+    public void createStoreView(){
+        storeViewPage.createStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
+
+
     @AfterClass
     public void tearDown() {
         closeBrowser();

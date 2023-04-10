@@ -42,7 +42,15 @@ public class TestUtility {
         String storeName=faker.name().name();
                 return storeName;
 }
+public String generateStoreCode(){
+        String storeCode=faker.name().prefix();
+        return storeCode;
 
+}
+public String generateStoreSortOrder(){
+        String storeSortOrder=faker.name().name();
+        return storeSortOrder;
+}
 
     public String generateFirstName() {
         String firstName = faker.name().firstName();

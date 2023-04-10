@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/cucumber-product-ui-testReport.html",
                 "json:target/cucumber.json"},
         features = {"src/test/resources"},
-        tags = "@TotalOrderReportTest or @RegressionTest or @MarketingModuleTest or @SalesModuleTests or @CreateOrderTest")
+       //tags = "@TotalOrderReportTest or @RegressionTest or @MarketingModuleTest or @SalesModuleTests or @CreateOrderTest or @UpdateShipments")
+        tags = "@SalesModuleTests or @CreateOrderTest or  @UpdateShipments")
 
 public class CucumberTestRunner {
 

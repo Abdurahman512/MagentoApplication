@@ -27,10 +27,7 @@ public class UserModuleTestRunner extends TestBase {
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
     WishListPage wishListPage;
-
     OrdersPage ordersPage;
-
-
     AddressBookPage addressBookPage;
 
     final static String configFile = "config.properties";

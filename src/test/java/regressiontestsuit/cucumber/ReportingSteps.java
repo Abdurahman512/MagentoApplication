@@ -50,4 +50,5 @@ public class ReportingSteps extends TestBase {
     public void tearDown(){
         closeBrowser();
     }
+
 }

@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
         plugin = {"pretty","html:target/cucumber-report.html",
                 "json:target/cucumber.json",
                 "junit:target/cucumber-results.xml"},//for test report
-        features = {"src/test/resources/features"},//feature file location
-        tags ="@RegressionTest")
+        features = {"src/test/resources/features/sales.feature"},//feature file location
+        tags ="@UpdateShipments")
 
 
 public class CucumberTestRunner {

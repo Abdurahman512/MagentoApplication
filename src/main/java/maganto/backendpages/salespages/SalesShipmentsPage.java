@@ -13,7 +13,7 @@ public class SalesShipmentsPage {
     TestUtility testUtility;
     String text;
     Actions actions;
-    @FindBy(xpath = "(//a[text()='View'])[18]")
+    @FindBy(xpath = "//a[contains(text(),'View')]")
     WebElement viewIcon;
     @FindBy(css = "textarea#history_comment")
     WebElement shipmentHistoryCommentField;
@@ -60,6 +60,7 @@ public class SalesShipmentsPage {
 
     public void updateShipmentsHistory(String commentHistory) {
         testUtility.waitForElementPresent(viewIcon);
+        testUtility.sleep(3);
         viewIcon.click();
         testUtility.waitForElementPresent(shipmentHistoryCommentField);
         shipmentHistoryCommentField.sendKeys(commentHistory);

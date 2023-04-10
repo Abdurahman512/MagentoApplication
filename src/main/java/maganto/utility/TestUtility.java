@@ -4,8 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 public class TestUtility {
     private int timeout = Integer.parseInt(ApplicationConfig.readFromConfigProperties(
             "config.properties", "timeout"
@@ -42,8 +40,8 @@ public class TestUtility {
         String storeName=faker.name().name();
                 return storeName;
 }
-public String generateStoreCode(){
-        String storeCode=faker.name().name();
+        public CharSequence generateStoreCode(){
+        char storeCode= Character.highSurrogate(faker.name().hashCode());
         return storeCode;
 
 }

@@ -12,7 +12,7 @@ public class StoreViewPage {
     WebDriver driver;
     TestUtility testUtility;
     String storeName;
-    String storeCode;
+   CharSequence storeCode;
     String storeSortOrder;
 
     public StoreViewPage(WebDriver driver){
@@ -74,7 +74,7 @@ public class StoreViewPage {
     public String getStoreName(){
         return storeName;
     }
-    public String getStoreCode(){
+    public CharSequence getStoreCode(){
         return storeCode;
 
     }

@@ -47,7 +47,7 @@ public class MarketingSteps extends TestBase{
         Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
     }
 
-    //updatecartpricerule
+    //updateCartPricerule
 
     @When("select the {string} and change the {string}")
     public void selectTheAndChangeThe(String arg0, String arg1) {

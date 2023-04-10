@@ -57,8 +57,6 @@ public class AccountInfoPage {
     WebElement verifyChangePassword;
     String configFile = "config.properties";
 
-
-
     TestUtility utility;
 
     public AccountInfoPage(WebDriver driver) {
@@ -138,16 +136,5 @@ public class AccountInfoPage {
         else
             return false;
 
-
-
-
-
     }
-
-
-
-
-
-
-
 }

@@ -3,13 +3,11 @@ package maganto.backendpages.catalogpages;
 import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CatalogDashboardPage {
     WebDriver driver;
-    Actions actions;
 
     @FindBy (css=".logo")
     WebElement dashBoardPageLink;
@@ -20,7 +18,6 @@ public class CatalogDashboardPage {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         utility=new TestUtility(driver);
-        actions = new Actions(driver);
     }
 
     public void clickDashboardPage(){

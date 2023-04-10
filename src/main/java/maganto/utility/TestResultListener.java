@@ -19,7 +19,7 @@ public class TestResultListener implements ITestListener {
     public void onTestSuccess(ITestResult result) {
         ITestListener.super.onTestSuccess(result);
         passedTests.add(result.getMethod());
-        screenshotUtility.takeScreenshot(result.getName()+"-passed",result.getMethod().getMethodName().trim()+"-passed",
+        screenshotUtility.takeScreenshot(result.getName(),result.getMethod().getMethodName().trim()+"-passed",
                 (WebDriver) result.getTestContext().getAttribute("driver"));
     }
 
@@ -27,7 +27,7 @@ public class TestResultListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
         failedTests.add(result.getMethod());
-        screenshotUtility.takeScreenshot(result.getName()+"-failed",result.getMethod().getMethodName().trim()+"-failed",
+        screenshotUtility.takeScreenshot(result.getClass().getName(),result.getMethod().getMethodName().trim()+"-failed",
                 (WebDriver) result.getTestContext().getAttribute("driver"));
     }
 }

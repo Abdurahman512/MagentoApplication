@@ -102,9 +102,8 @@ public class ShoppingCartPage {
         QtyField.sendKeys(Qty);
         utility.waitForElementPresent(updateLink);
         updateLink.click();
-       // JavascriptExecutor executor=(JavascriptExecutor)driver;
-       //executor.executeScript("arguments[0].click();",clickElement);
-       utility.javaScriptClick(clickElement);
+        JavascriptExecutor executor=(JavascriptExecutor)driver;
+       executor.executeScript("arguments[0].click();",clickElement);
         afterUpdate=afterQty.getAttribute("value");
         System.out.println(afterUpdate);
 

@@ -41,6 +41,7 @@ public class UserModuleTestRunner extends TestBase {
         ordersPage = new OrdersPage(driver);
         context.setAttribute("driver",driver);
     }
+
     @Test
     public void createAccount() {
         accountInfoPage.userCreateAccount(utility.generateFirstName(), utility.generateLastName(), utility.generateEmailAddress(), ApplicationConfig.readFromConfigProperties(configFile, "password"));
@@ -57,6 +58,7 @@ public class UserModuleTestRunner extends TestBase {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
+
     @Test(dependsOnMethods ={"createAccount"},priority = 8)
     public void addProductToShoppingCart(){
         shoppingCartPage.addProductsToShoppingCart();
@@ -73,7 +75,6 @@ public class UserModuleTestRunner extends TestBase {
         shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
                 utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
         Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
-
     }
     @Test(dependsOnMethods = {"createAccount"},priority = 3)
     public void viewOrders() {

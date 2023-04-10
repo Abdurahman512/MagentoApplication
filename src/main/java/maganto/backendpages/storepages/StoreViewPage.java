@@ -12,7 +12,7 @@ public class StoreViewPage {
     WebDriver driver;
     TestUtility testUtility;
     String storeName;
-   CharSequence storeCode;
+   String storeCode;
     String storeSortOrder;
 
     public StoreViewPage(WebDriver driver){
@@ -20,7 +20,7 @@ public class StoreViewPage {
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
         storeName= testUtility.generateStoreName();
-        storeCode= testUtility.generateStoreCode();
+        storeCode= testUtility.generateStoreName()+"777";
         storeSortOrder= testUtility.generateStoreSortOrder();
 
     }
@@ -56,15 +56,20 @@ public class StoreViewPage {
         systemLink.click();
         testUtility.waitForElementPresent(manageStoresLink);
         manageStoresLink.click();
+
         testUtility.waitForElementPresent(createStoreViewLink);
         createStoreViewLink.click();
-        testUtility.sleep(20);
+
         testUtility.waitForElementPresent(storeNameField);
         storeNameField.sendKeys(testUtility.generateStoreName());
+
         testUtility.waitForElementPresent(storeCodeField);
-        storeCodeField.sendKeys(testUtility.generateStoreCode());
+
+        storeCodeField.sendKeys(testUtility.generateLastName()+"7777");
+
         testUtility.waitForElementPresent(storeSortOrderField);
         storeSortOrderField.sendKeys(testUtility.generateStoreSortOrder());
+
         testUtility.waitForElementPresent(saveStoreViewLink);
         saveStoreViewLink.click();
 
@@ -74,7 +79,7 @@ public class StoreViewPage {
     public String getStoreName(){
         return storeName;
     }
-    public CharSequence getStoreCode(){
+    public String getStoreCode(){
         return storeCode;
 
     }

@@ -57,6 +57,7 @@ public class StoreModuleTestRunner extends TestBase {
     public void createStoreView(){
         storeViewPage.createStoreView();
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+        System.out.println();
     }
 
 

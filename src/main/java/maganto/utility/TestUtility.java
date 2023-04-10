@@ -40,11 +40,14 @@ public class TestUtility {
         String storeName=faker.name().name();
                 return storeName;
 }
-        public CharSequence generateStoreCode(){
-        char storeCode= Character.highSurrogate(faker.name().hashCode());
-        return storeCode;
 
-}
+/*public String generateStoreCode(){
+        String storeCode=faker.name().title();
+        return storeCode;
+}*/
+
+
+
 public String generateStoreSortOrder(){
         String storeSortOrder=faker.name().name();
         return storeSortOrder;

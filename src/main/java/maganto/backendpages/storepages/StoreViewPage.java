@@ -1,7 +1,6 @@
 package maganto.backendpages.storepages;
 
 import maganto.utility.TestUtility;
-import org.apache.tools.ant.types.selectors.SelectSelector;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,11 +49,11 @@ public class StoreViewPage {
 
 
 
-    public void createStoreView(String storeName, String storeCode, String storeSortOrder){
+    public void createStoreView(){
         testUtility.waitForElementPresent(createStoreViewLink);
         createStoreViewLink.click();
         testUtility.waitForElementPresent(storeNameField);
-        storeCodeField.sendKeys(storeName);
+        storeNameField.sendKeys(testUtility.generateStoreName());
         testUtility.waitForElementPresent(storeCodeField);
         storeCodeField.sendKeys(storeCode);
         testUtility.waitForElementPresent(storeSortOrderField);

@@ -123,7 +123,6 @@ public class CategoriesPage {
         saveCategoryButton.click();
         utility.sleep(1);
     }
-
     public boolean isSubCategoryEdited(){
         utility.waitForElementPresent(categorySavedMessage);
         if(categorySavedMessage.isDisplayed())
@@ -166,6 +165,7 @@ public class CategoriesPage {
             return true;
         else return false;
     }
+
 
 
 }

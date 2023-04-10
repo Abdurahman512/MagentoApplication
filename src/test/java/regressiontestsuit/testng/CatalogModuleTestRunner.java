@@ -1,4 +1,4 @@
-package testng;
+package regressiontestsuit.testng;
 
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.AttributesPage;
@@ -62,6 +62,7 @@ public class CatalogModuleTestRunner extends TestBase {
         categoriesPage.editSubCategory("TastData/CategoryTestData.xlsx","Sheet1",1,2);
         Assert.assertTrue(categoriesPage.isSubCategoryEdited());
     }
+
     @Test(dependsOnMethods ={"editSubCategoryTest"})
     public void deleteSubCategoryTest(){
         categoriesPage.deleteSubCategory();
@@ -78,6 +79,8 @@ public class CatalogModuleTestRunner extends TestBase {
     public void tearDown(){
         closeBrowser();
     }
+
+
 
 
 }

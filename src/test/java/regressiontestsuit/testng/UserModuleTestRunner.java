@@ -1,4 +1,4 @@
-package testng;
+package regressiontestsuit.testng;
 import maganto.frontendpages.*;
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.OrdersPage;
@@ -19,7 +19,9 @@ public class UserModuleTestRunner extends TestBase {
     ProductReviewsPage productReviewsPage;
     AccountInfoPage accountInfoPage;
     ShoppingCartPage shoppingCartPage;
+    WishListPage wishListPage;
     OrdersPage ordersPage;
+    AddressBookPage addressBookPage;
 
 
 
@@ -33,6 +35,9 @@ public class UserModuleTestRunner extends TestBase {
         productReviewsPage=new ProductReviewsPage(driver);
         newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
         utility = new TestUtility(driver);
+        wishListPage=new WishListPage(driver);
+        ordersPage = new OrdersPage(driver);
+        addressBookPage=new AddressBookPage(driver);
         ordersPage = new OrdersPage(driver);
         context.setAttribute("driver",driver);
     }

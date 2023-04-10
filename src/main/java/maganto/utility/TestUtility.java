@@ -1,4 +1,5 @@
 package maganto.utility;
+
 import com.github.javafaker.Faker;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,8 +13,8 @@ public class TestUtility {
     ));
 
     WebDriver driver;
-
     Faker faker = new Faker();
+
 
     public TestUtility(WebDriver driver) {
         this.driver = driver;
@@ -39,11 +40,11 @@ public class TestUtility {
         return adminName;
     }
 
-
     public String generateFirstName() {
         String firstName = faker.name().firstName();
         return firstName;
     }
+
 
     public String generateLastName() {
         String lastName = faker.name().lastName();
@@ -100,9 +101,9 @@ public class TestUtility {
 
     public void unhandledAlertException(WebElement element) {
 
-        }
-
-
     }
+
+
+}
 
 

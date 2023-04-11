@@ -76,7 +76,6 @@ public class AttributesPage {
         else return false;
     }
 
-
     public void clickOnAddNewAttributeButton(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).moveToElement(attributes).moveToElement(manageAttributes).click().build().perform();
@@ -95,4 +94,5 @@ public class AttributesPage {
         testUtility.waitForElementPresent(successfulMessage);
         return successfulMessage.isDisplayed();
     }
+
 }

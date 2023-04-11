@@ -6,9 +6,12 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class CategoriesPage {
     WebDriver driver;
@@ -37,6 +40,30 @@ public class CategoriesPage {
     @FindBy(xpath = "//span[text()='The category has been deleted.']")
     WebElement deleteCategoryMessage;
 
+    @FindAll(
+            @FindBy(xpath ="//ul[@class='x-tree-node-ct']//li")
+    )
+    List<WebElement> categories;
+
+    @FindBy(xpath ="//span[text()='Category Products']")
+    WebElement categoryProducts;
+
+    @FindBy(id = "catalog_category_products_filter_name")
+    WebElement categoryProductsNameFiled;
+
+    @FindBy(id = "catalog_category_products_filter_price_from")
+    WebElement categoryProductsPriceFiledFrom;
+
+    @FindBy(id = "catalog_category_products_filter_price_to")
+    WebElement categoryProductsPriceFiledTo;
+
+    @FindBy(xpath = "//span[text()=\"Search\"]")
+    WebElement searchButton;
+
+    @FindAll(
+            @FindBy(xpath = "//table[@class='data']//tbody//tr")
+    )
+    List<WebElement> verifyFilterProducts;
     TestUtility utility;
     CatalogDashboardPage dashboardPage;
     ExcelUtility excelUtility;
@@ -56,6 +83,7 @@ public class CategoriesPage {
         catalogLink.click();
         utility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
+        utility.sleep(2);
         utility.waitForElementPresent(CategoryNameField);
         rootCategoryName=excelUtility.readFromExcelCell(fileName,sheetName,rowNo,clmnNo);
         CategoryNameField.sendKeys(rootCategoryName);
@@ -123,7 +151,6 @@ public class CategoriesPage {
         saveCategoryButton.click();
         utility.sleep(1);
     }
-
     public boolean isSubCategoryEdited(){
         utility.waitForElementPresent(categorySavedMessage);
         if(categorySavedMessage.isDisplayed())
@@ -166,6 +193,34 @@ public class CategoriesPage {
             return true;
         else return false;
     }
+
+    public boolean viewAllCategories(){
+        dashboardPage.clickOnCatalogLink();
+        dashboardPage.clickOnManageCategoriesLink();
+        return categories.size()>=1;
+    }
+
+    public void filterProducts(String productName,String priceFrome,String priceTo){
+        catalogLink.click();
+        categoriesLink.click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        utility.javaScriptClick(categoryProducts);
+        ///categoryProducts.click();
+        categoryProductsNameFiled.sendKeys(productName);
+        categoryProductsPriceFiledFrom.sendKeys(priceFrome);
+        categoryProductsPriceFiledTo.sendKeys(priceTo);
+        searchButton.click();
+    }
+
+    public boolean verifyFilter(){
+        return verifyFilterProducts.size()>=2;
+    }
+
+
 
 
 }

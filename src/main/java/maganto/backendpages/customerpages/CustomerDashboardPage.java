@@ -65,7 +65,8 @@ public class CustomerDashboardPage {
         emailTextBox.sendKeys(email);
         System.out.println(email);
         testUtility.waitForElementPresent(searchButton);
-        actions.click(searchButton).perform();
+        //actions.click(searchButton).perform();
+        testUtility.javaScriptClick(searchButton);
         testUtility.sleep(2);
     }
     public boolean verifyCustomerFilteredByEmail(){
@@ -92,6 +93,7 @@ public class CustomerDashboardPage {
         else return false;
     }
     public void filterCustomersByCountryStateWebsite(String state){
+        testUtility.sleep(2);
         testUtility.waitForElementPresent(countryFilterBox);
         Select select1=new Select(countryFilterBox);
         select1.selectByValue("US");

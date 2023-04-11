@@ -70,8 +70,6 @@ public class CustomerPage{
     WebElement VerifySubmitbuttonClick;
 
 
-
-
     public String addNewCustomerMethod() {
         testUtility.waitForElementPresent(addNewCustomerButton);
         addNewCustomerButton.click();
@@ -149,8 +147,6 @@ public class CustomerPage{
         return true;
     }
 
-
-
     public void ExportCustomer() {
         testUtility.waitForElementPresent(ExportButton);
         ExportButton.click();
@@ -164,7 +160,8 @@ public class CustomerPage{
     }
 public void AssignCustomer(){
         testUtility.waitForElementPresent(checkbox);
-        checkbox.click();
+        testUtility.javaScriptClick(checkbox);
+        //checkbox.click();
         testUtility.waitForElementPresent(ActionsButton);
         Select select=new Select(ActionsButton);
         select.selectByValue("assign_group");
@@ -184,6 +181,5 @@ public void AssignCustomer(){
         System.out.println("Total of 1 record(s) were updated.");
         return true;
     }
-
 
 }

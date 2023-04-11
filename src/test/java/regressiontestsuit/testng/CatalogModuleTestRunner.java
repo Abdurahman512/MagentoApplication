@@ -3,6 +3,7 @@ package regressiontestsuit.testng;
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.AttributesPage;
 import maganto.backendpages.catalogpages.CategoriesPage;
+import maganto.backendpages.catalogpages.ProductPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
@@ -20,6 +21,8 @@ public class CatalogModuleTestRunner extends TestBase {
     TestUtility utility;
     CategoriesPage categoriesPage;
     AttributesPage attributesPage;
+
+    ProductPage productPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -30,6 +33,7 @@ public class CatalogModuleTestRunner extends TestBase {
         categoriesPage = new CategoriesPage(driver);
         attributesPage=new AttributesPage(driver);
         utility = new TestUtility(driver);
+        productPage=new ProductPage(driver);
         context.setAttribute("driver",driver);
     }
     @Test
@@ -44,22 +48,22 @@ public class CatalogModuleTestRunner extends TestBase {
     }
     @Test
     public void addRootCategoryTest(){
-        categoriesPage.addRootCategories("TastData/CategoryTestData.xlsx","Sheet1",1,0);
+        categoriesPage.addRootCategories("TestData/TestData-M.xlsx","Category",1,0);
         Assert.assertTrue(categoriesPage.isRootCategoryAdded());
     }
     @Test(dependsOnMethods ={"addRootCategoryTest"})
     public void addSubCategoryTest(){
-        categoriesPage.addSubCategories("TastData/CategoryTestData.xlsx","Sheet1",1,1);
+        categoriesPage.addSubCategories("TestData/TestData-M.xlsx","Category",1,1);
         Assert.assertTrue(categoriesPage.isSubCategoryAdded());
     }
     @Test(dependsOnMethods ={"addSubCategoryTest"})
     public void editRootCategoryTest(){
-        categoriesPage.editRootCategory("TastData/CategoryTestData.xlsx","Sheet1",1,2);
+        categoriesPage.editRootCategory("TestData/TestData-M.xlsx","Category",1,2);
         Assert.assertTrue(categoriesPage.isRootCategoryEdited());
     }
     @Test(dependsOnMethods ={"editRootCategoryTest"})
     public void editSubCategoryTest(){
-        categoriesPage.editSubCategory("TastData/CategoryTestData.xlsx","Sheet1",1,2);
+        categoriesPage.editSubCategory("TestData/TestData-M.xlsx","Category",1,2);
         Assert.assertTrue(categoriesPage.isSubCategoryEdited());
     }
 
@@ -74,6 +78,35 @@ public class CatalogModuleTestRunner extends TestBase {
         categoriesPage.deleteRootCategory();
         Assert.assertTrue(categoriesPage.isRootCategoryDeleted());
 
+    }
+
+    @Test()
+    public void addProduct(){
+        productPage.userAddProduct();
+
+        Assert.assertTrue(productPage.verifyNewProductAdded());
+    }
+
+    @Test(dependsOnMethods = "addProduct")
+    public void updateProduct(){
+        productPage.updateProduct();
+        Assert.assertTrue(productPage.verifyUpdateProduct());
+    }
+    @Test(dependsOnMethods = "addProduct")
+    public void deleteProduct(){
+        productPage.deleteProduct();
+        Assert.assertTrue(productPage.verifyDeleteProduct());
+    }
+
+    @Test(description = "Catalog Manager can view all categories under each Default Category")
+    public void viewAllCategoriesTest(){
+        Assert.assertTrue(categoriesPage.viewAllCategories());
+    }
+
+    @Test(description = "Category Manager can filter products in the Category Products tab")
+    public void filterProductsTest(){
+        categoriesPage.filterProducts("Shoes","15","1000");
+        Assert.assertTrue(categoriesPage.verifyFilter());
     }
     @AfterClass
     public void tearDown(){

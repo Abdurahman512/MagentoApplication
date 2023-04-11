@@ -48,65 +48,60 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(accountInfoPage.isAccountCreated());
 
     }
-    @Test (dependsOnMethods ={"createAccount"})
+    @Test(dependsOnMethods = {"createAccount"},priority = 1)
     public void editAccountInfo(){
         accountInfoPage.editAccount(utility.generateFirstName(),ApplicationConfig.readFromConfigProperties(configFile,"password"));
         Assert.assertTrue(accountInfoPage.isAccountEdited());
     }
-    @Test (dependsOnMethods ={"createAccount"})
+    @Test(dependsOnMethods = {"createAccount"},priority = 2)
     public void viewAccountInfo(){
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
-    @Test(dependsOnMethods ={"createAccount"})
-    @Ignore
+
+    @Test(dependsOnMethods ={"createAccount"},priority = 8)
     public void addProductToShoppingCart(){
         shoppingCartPage.addProductsToShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyAddedToShoppingCartSuccessfully());
     }
     @Test(dependsOnMethods = {"addProductToShoppingCart"})
-    @Ignore
     public void updateExistingShoppingCart(){
-        shoppingCartPage.updateShoppingCart("5");
-        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully("5"));
+        shoppingCartPage.updateShoppingCart();
+        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully());
 
     }
+
     @Test(dependsOnMethods = {"updateExistingShoppingCart"})
-    @Ignore
     public void checkOutOrderTest(){
         shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
                 utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
         Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
-
     }
-
-    @Test(dependsOnMethods = {"createAccount"})
-    @Ignore
+    @Test(dependsOnMethods = {"createAccount"},priority = 3)
     public void viewOrders() {
         ordersPage.ViewMyOrders();
         Assert.assertTrue(ordersPage.MyOrdersPage());
     }
 
-    @Test(dependsOnMethods = {"createAccount"})
-    @Ignore
+    @Test(dependsOnMethods = {"createAccount"},priority = 4)
     public void viewDownloadOrders() {
         ordersPage.viewDownloadOrders();
         Assert.assertTrue(ordersPage.DownloadOrdersPage());
     }
-    @Test(dependsOnMethods = {"createAccount"})
+    @Test(dependsOnMethods = {"createAccount"},priority = 5)
     public void viewNewsLetterSubscription(){
         newsLetterSubscriptionsPage.viewNewsLetterSubscription();
         Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
     }
-    @Test(dependsOnMethods = {"createAccount"})
+    @Test(dependsOnMethods = {"createAccount"},priority = 7)
     public void changePassword(){
         accountInfoPage.changePassword();
         Assert.assertTrue((accountInfoPage.VerifyChangePassword()));
 
     }
-@Test(dependsOnMethods = {"createAccount"})
-public void ProductReviews(){
+    @Test(dependsOnMethods = {"createAccount"},priority = 6)
+     public void ProductReviews(){
         productReviewsPage.ProductReviews();
         Assert.assertTrue(productReviewsPage.verifyProductReviews());
 }

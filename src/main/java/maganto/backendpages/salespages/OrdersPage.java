@@ -67,7 +67,7 @@ public class OrdersPage {
         utility.waitForElementPresent(addProductsButton);
         utility.javaScriptClick(addProductsButton);
         utility.waitForElementPresent(productCheckBox);
-        productCheckBox.click();
+        utility.javaScriptClick(productCheckBox);
         utility.sleep(2);
         utility.waitForElementPresent(addSelectedProductsButton);
         actions.moveToElement(addSelectedProductsButton).build().perform();

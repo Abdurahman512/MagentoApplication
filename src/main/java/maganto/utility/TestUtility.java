@@ -41,11 +41,6 @@ public class TestUtility {
                 return storeName;
 }
 
-/*public String generateStoreCode(){
-        String storeCode=faker.name().title();
-        return storeCode;
-}*/
-
 
 
 public String generateStoreSortOrder(){

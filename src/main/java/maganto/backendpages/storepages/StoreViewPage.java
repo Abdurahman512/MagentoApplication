@@ -20,7 +20,7 @@ public class StoreViewPage {
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
         storeName= testUtility.generateStoreName();
-        storeCode= testUtility.generateStoreName()+"777";
+        storeCode= "a"+testUtility.generateNumber();
         storeSortOrder= testUtility.generateStoreSortOrder();
 
     }
@@ -65,7 +65,7 @@ public class StoreViewPage {
 
         testUtility.waitForElementPresent(storeCodeField);
 
-        storeCodeField.sendKeys(testUtility.generateLastName()+"7777");
+        storeCodeField.sendKeys("a"+testUtility.generateNumber());
 
         testUtility.waitForElementPresent(storeSortOrderField);
         storeSortOrderField.sendKeys(testUtility.generateStoreSortOrder());

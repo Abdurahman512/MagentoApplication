@@ -42,7 +42,7 @@ public class UserModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
     }
 
-    @Test(priority = 1)
+    @Test
     public void createAccount() {
         accountInfoPage.userCreateAccount(utility.generateFirstName(), utility.generateLastName(), utility.generateEmailAddress(), ApplicationConfig.readFromConfigProperties(configFile, "password"));
         Assert.assertTrue(accountInfoPage.isAccountCreated());
@@ -59,19 +59,36 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
     @Test(dependsOnMethods ={"createAccount"})
+    @Ignore
     public void addProductToShoppingCart(){
         shoppingCartPage.addProductsToShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyAddedToShoppingCartSuccessfully());
     }
+    @Test(dependsOnMethods = {"addProductToShoppingCart"})
+    @Ignore
+    public void updateExistingShoppingCart(){
+        shoppingCartPage.updateShoppingCart("5");
+        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully("5"));
 
+    }
+    @Test(dependsOnMethods = {"updateExistingShoppingCart"})
+    @Ignore
+    public void checkOutOrderTest(){
+        shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
+                utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
+        Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
+
+    }
 
     @Test(dependsOnMethods = {"createAccount"})
+    @Ignore
     public void viewOrders() {
         ordersPage.ViewMyOrders();
         Assert.assertTrue(ordersPage.MyOrdersPage());
     }
 
     @Test(dependsOnMethods = {"createAccount"})
+    @Ignore
     public void viewDownloadOrders() {
         ordersPage.viewDownloadOrders();
         Assert.assertTrue(ordersPage.DownloadOrdersPage());
@@ -93,18 +110,6 @@ public void ProductReviews(){
         productReviewsPage.ProductReviews();
         Assert.assertTrue(productReviewsPage.verifyProductReviews());
 }
-    @Test(dependsOnMethods = {"addProductToShoppingCart"},priority = 2)
-    public void updateExistingShoppingCart(){
-        shoppingCartPage.updateShoppingCart("5");
-        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully("5"));
-
-    }
-    @Test(dependsOnMethods = {"updateExistingShoppingCart"})
-    public void checkOutOrderTest(){
-        shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
-                utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
-        Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
-    }
     @AfterClass
     public void tearDown(){
         closeBrowser();

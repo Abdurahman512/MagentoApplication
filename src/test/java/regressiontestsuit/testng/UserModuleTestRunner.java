@@ -70,6 +70,7 @@ public class UserModuleTestRunner extends TestBase {
         Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully());
 
     }
+
     @Test(dependsOnMethods = {"updateExistingShoppingCart"})
     public void checkOutOrderTest(){
         shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
@@ -104,7 +105,6 @@ public class UserModuleTestRunner extends TestBase {
         productReviewsPage.ProductReviews();
         Assert.assertTrue(productReviewsPage.verifyProductReviews());
 }
-
     @AfterClass
     public void tearDown(){
         closeBrowser();

@@ -35,7 +35,7 @@ public class SalesSteps extends TestBase {
 
     @When("the sales manager fills out a new order form")
     public void theSalesManagerFillsOutANewOrderForm() {
-        ordersPage.createOrder("TastData/TestData-M.xlsx","Sales",1,0);
+        ordersPage.createOrder("TestData/TestData-M.xlsx","Sales",1,0);
     }
 
     @Then("a new order should be created")

@@ -7,7 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-public class CustomersByNumberOfOrders {
+
+public class CustomersByOrdersTotal {
     WebDriver driver;
     TestUtility testUtility;
 
@@ -19,10 +20,10 @@ public class CustomersByNumberOfOrders {
     WebElement refreshButton;
     @FindBy(css = "#gridTotalsCustomer_table")
     WebElement customerTable;
-    @FindAll(@FindBy(css = "#gridOrdersCustomer_table>tbody>tr"))
+    @FindAll(@FindBy(css = "#gridTotalsCustomer_table>tbody>tr"))
     List<WebElement> customerList;
 
-    public CustomersByNumberOfOrders(WebDriver driver) {
+    public CustomersByOrdersTotal(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         testUtility=new TestUtility(driver);
@@ -39,14 +40,15 @@ public class CustomersByNumberOfOrders {
         testUtility.waitForElementPresent(refreshButton);
         refreshButton.click();
     }
-    public void customerByNumberOfOrdersMethod(String fromdata,String todata){
+    public void customerByOrdersTotalMethod(String fromdata,String todata){
         enterFromData(fromdata);
         enterToData(todata);
         clickOnRefreshButton();
 
     }
-    public boolean verifyManagerCanSeeCustomersByNumberOfOrders(){
+    public boolean verifyManagerCanSeeCustomersByOrdersTotal(){
 
         return customerList.size()>=1;
     }
 }
+

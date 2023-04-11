@@ -2,6 +2,7 @@ package regressiontestsuit.testng;
 
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.AttributesPage;
+import maganto.backendpages.catalogpages.CatalogPage;
 import maganto.backendpages.catalogpages.CategoriesPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
@@ -20,6 +21,7 @@ public class CatalogModuleTestRunner extends TestBase {
     TestUtility utility;
     CategoriesPage categoriesPage;
     AttributesPage attributesPage;
+    CatalogPage catalogPage;
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -73,6 +75,23 @@ public class CatalogModuleTestRunner extends TestBase {
     public void deleteRootCategoryTest(){
         categoriesPage.deleteRootCategory();
         Assert.assertTrue(categoriesPage.isRootCategoryDeleted());
+    }
+
+    @Test(description = "addNewSearchterm")
+    public void addNewSearchTerm(){
+        BackEndLogin login=new BackEndLogin(driver);
+        login.VerifyLoginSuccessfully();
+        //login.catalogPageLogin();
+        catalogPage=new CatalogPage(driver);
+        catalogPage.addNewSearchTerm1();
+        Assert.assertTrue(catalogPage.verifySuccessfullyMessage());
+
+    }
+    @Test(description = "editNewSearchTerm",dependsOnMethods ={"addNewSearchTerm"})
+    public void editSearchterm(){
+        catalogPage=new CatalogPage(driver);
+        catalogPage.EditSearchTerm();
+        Assert.assertTrue(catalogPage.verifySuccessfullyMessage());
     }
 
     @AfterClass

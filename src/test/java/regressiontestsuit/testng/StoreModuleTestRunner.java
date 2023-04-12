@@ -8,10 +8,7 @@ import maganto.utility.TestUtility;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 @Listeners(TestResultListener.class)
 public class StoreModuleTestRunner extends TestBase {
@@ -32,6 +29,7 @@ public class StoreModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
         storeOrdersPage=new StoreOrdersPage(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
+        storeProductPage=new StoreProductPage(driver);
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
     }
@@ -50,9 +48,24 @@ public class StoreModuleTestRunner extends TestBase {
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
+    @Test(dataProvider = "productData", groups = "regression test", description = "add product")
+    public void addProduct(String name, String description, String shortDescription, String sku, String weight, String price){
+        storeDashboardPage.clickOnCatalogLink();
+        storeProductPage.addProductsMethod(name, description, shortDescription, sku, weight, price);
+        Assert.assertTrue(storeProductPage.confirmationProductAdded());
+    }
+
     @AfterClass
     public void tearDown() {
         closeBrowser();
+    }
+
+    @DataProvider
+    public Object[][] productData() {
+        Object[][] data = new Object[][]{
+                {"Ring","Diamond Ring 40k size 16","Diamond Ring",utility.generateZipCode(),"15","1200"}
+        };
+        return data;
     }
 
 }

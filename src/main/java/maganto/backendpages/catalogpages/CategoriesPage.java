@@ -69,6 +69,8 @@ public class CategoriesPage {
     ExcelUtility excelUtility;
     String rootCategoryName;
     String subCategoryName;
+    WebElement addedRootCategory;
+    WebElement addedSubCategory;
 
     public CategoriesPage(WebDriver driver) {
         this.driver = driver;
@@ -78,14 +80,14 @@ public class CategoriesPage {
        dashboardPage=new CatalogDashboardPage(driver);
     }
 
-    public void addRootCategories(String fileName,String sheetName,int rowNo,int clmnNo){
+    public void addRootCategories(){
         utility.waitForElementPresent(catalogLink);
         catalogLink.click();
         utility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
         utility.sleep(2);
         utility.waitForElementPresent(CategoryNameField);
-        rootCategoryName=excelUtility.readFromExcelCell(fileName,sheetName,rowNo,clmnNo);
+        rootCategoryName= utility.generateRootCategory();
         CategoryNameField.sendKeys(rootCategoryName);
         saveCategoryButton.click();
     }
@@ -96,20 +98,20 @@ public class CategoriesPage {
         else return false;
     }
 
-    public void addSubCategories(String fileName,String sheetName,int rowNo,int clmnNo){
+    public void addSubCategories(){
         dashboardPage.clickDashboardPage();
         utility.waitForElementPresent(catalogLink);
         catalogLink.click();
         utility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
-        WebElement addedRootCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",rootCategoryName)));
+        addedRootCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",rootCategoryName)));
         utility.waitForElementPresent(addedRootCategory);
         addedRootCategory.click();
         utility.sleep(3);
         utility.waitForElementPresent(addSubCategoryLink);
         utility.javaScriptClick(addSubCategoryLink);
         utility.waitForElementPresent(CategoryNameField);
-        subCategoryName=excelUtility.readFromExcelCell(fileName,sheetName,rowNo,clmnNo);
+        subCategoryName=utility.generateSubCategory();
         utility.sleep(2);
         CategoryNameField.sendKeys(subCategoryName);
         saveCategoryButton.click();
@@ -121,16 +123,14 @@ public class CategoriesPage {
         else return false;
     }
 
-    public void editRootCategory(String fileName,String sheetName,int rowNo,int clmnNo){
-        WebElement addedRootCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",rootCategoryName)));
+    public void editRootCategory(){
         utility.waitForElementPresent(addedRootCategory);
         utility.sleep(2);
-        addedRootCategory.click();
+        utility.javaScriptClick(addedRootCategory);
         utility.waitForElementPresent(activeSelection);
         Select select=new Select(activeSelection);
-        String value=excelUtility.readFromExcelCell(fileName,sheetName,rowNo,clmnNo);
         utility.sleep(2);
-        select.selectByVisibleText(value);
+        select.selectByVisibleText("Yes");
         saveCategoryButton.click();
     }
     public boolean isRootCategoryEdited(){
@@ -139,15 +139,16 @@ public class CategoriesPage {
             return true;
         else return false;
     }
-    public void editSubCategory(String fileName,String sheetName,int rowNo,int clmnNo){
+    public void editSubCategory(){
         WebElement addedSubCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",subCategoryName)));
         utility.waitForElementPresent(addedSubCategory);
+        utility.sleep(2);
         utility.javaScriptClick(addedSubCategory);
         utility.waitForElementPresent(activeSelection);
         Select select=new Select(activeSelection);
-        String value=excelUtility.readFromExcelCell(fileName,sheetName,rowNo,clmnNo);
         utility.sleep(2);
-        select.selectByVisibleText(value);
+        select.selectByVisibleText("Yes");
+        utility.sleep(2);
         saveCategoryButton.click();
         utility.sleep(1);
     }
@@ -159,9 +160,7 @@ public class CategoriesPage {
     }
 
     public void deleteSubCategory(){
-        WebElement addedSubCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",subCategoryName)));
-        utility.waitForElementPresent(addedSubCategory);
-        addedSubCategory.click();
+        utility.sleep(2);
         utility.waitForElementPresent(deleteCategoryButton);
         utility.javaScriptClick(deleteCategoryButton);
         utility.sleep(2);
@@ -177,9 +176,10 @@ public class CategoriesPage {
     }
 
     public void deleteRootCategory(){
-        WebElement addedRootCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",rootCategoryName)));
+        utility.sleep(1);
         utility.waitForElementPresent(addedRootCategory);
-        addedRootCategory.click();
+        utility.sleep(2);
+        utility.javaScriptClick(addedRootCategory);
         utility.waitForElementPresent(deleteCategoryButton);
         utility.javaScriptClick(deleteCategoryButton);
         utility.sleep(2);

@@ -12,8 +12,6 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 
-
-
 @Listeners(TestResultListener.class)
 public class CustomerModuleTestRunner extends TestBase {
     TestUtility utility;
@@ -21,6 +19,7 @@ public class CustomerModuleTestRunner extends TestBase {
     final static String configFile = "config.properties";
     CustomerPage customerPage;
     CustomerDashboardPage customerDashboardPage;
+    AddAddressesPage addAddressesPage;
 
     @BeforeClass
     public void setUp(ITestContext context) {
@@ -31,6 +30,7 @@ public class CustomerModuleTestRunner extends TestBase {
         login = new BackEndLogin(driver);
         login.customerPageLogin();
         customerPage = new CustomerPage(driver);
+        addAddressesPage = new AddAddressesPage(driver);
     }
 
     @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
@@ -71,6 +71,18 @@ public class CustomerModuleTestRunner extends TestBase {
     public void filterCustomerByCountryStateWebsite(String state) {
         customerDashboardPage.filterCustomersByCountryStateWebsite(state);
         Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
+    }
+
+    @Test
+    public void RestPassword() {
+        customerPage.restPassword();
+        Assert.assertTrue(customerPage.verifyRestPassword());
+    }
+
+    @Test
+    public void addNewAddress() {
+        addAddressesPage.addNewAddress();
+        Assert.assertTrue(addAddressesPage.addAddressVerify());
     }
 
     @AfterClass

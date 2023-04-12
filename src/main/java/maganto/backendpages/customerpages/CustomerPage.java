@@ -10,11 +10,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 
+
 public class CustomerPage{
     WebDriver driver;
     TestUtility testUtility;
     String config = "config.properties";
     String email;
+
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
@@ -68,6 +70,16 @@ public class CustomerPage{
     WebElement SubmitButton;
     @FindBy(xpath = "//span[text()='Total of 1 record(s) were updated.']")
     WebElement VerifySubmitbuttonClick;
+
+    @FindBy(xpath = "//*[@id=\"customerGrid_table\"]/tbody/tr[1]")
+    WebElement customer;
+
+    @FindBy(xpath = "//*[@id=\"account-send-pass\"][1]")
+    WebElement generatedPassword;
+
+    @FindBy(xpath = "//*[@id=\"_accountcurrent_password\"]")
+    WebElement adminPassword;
+
 
 
     public String addNewCustomerMethod() {
@@ -181,4 +193,26 @@ public void AssignCustomer(){
         return true;
     }
 
-}
+    public void restPassword(){
+        CustomerDashboardPage customerDashboardPage = new CustomerDashboardPage(driver);
+        customerDashboardPage.clickOnManageCustomers();
+        testUtility.waitForElementPresent(customer);
+        customer.click();
+        testUtility.waitForElementPresent(accountInformationLink);
+        accountInformationLink.click();
+        testUtility.waitForElementPresent(generatedPassword);
+        generatedPassword.click();
+        testUtility.waitForElementPresent(adminPassword);
+        adminPassword.click();
+        adminPassword.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
+        testUtility.waitForElementPresent(saveCustomerButton);
+        testUtility.javaScriptClick(saveCustomerButton);
+        testUtility.sleep(1);
+    }
+    public boolean verifyRestPassword() {
+        testUtility.waitForElementPresent(successMessage);
+        if(successMessage.isDisplayed())
+        return true;
+        else return false;
+        }
+    }

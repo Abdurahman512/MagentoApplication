@@ -172,7 +172,8 @@ public class CustomerPage{
     }
 public void AssignCustomer(){
         testUtility.waitForElementPresent(checkbox);
-        checkbox.click();
+        testUtility.javaScriptClick(checkbox);
+        //checkbox.click();
         testUtility.waitForElementPresent(ActionsButton);
         Select select=new Select(ActionsButton);
         select.selectByValue("assign_group");

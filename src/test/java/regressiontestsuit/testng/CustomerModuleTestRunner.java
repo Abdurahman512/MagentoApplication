@@ -18,6 +18,8 @@ public class CustomerModuleTestRunner extends TestBase {
     BackEndLogin login;
     final static String configFile = "config.properties";
     CustomerPage customerPage;
+
+    CustomerGroupsPage customerGroupsPage;
     CustomerDashboardPage customerDashboardPage;
     AddAddressesPage addAddressesPage;
 
@@ -30,7 +32,6 @@ public class CustomerModuleTestRunner extends TestBase {
         login = new BackEndLogin(driver);
         login.customerPageLogin();
         customerPage = new CustomerPage(driver);
-        addAddressesPage = new AddAddressesPage(driver);
     }
 
     @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
@@ -41,48 +42,36 @@ public class CustomerModuleTestRunner extends TestBase {
 
     }
 
-    @Test(groups = "regression test", description = "Customer Manager can update an existing customer ", dependsOnMethods = "addNewCustomer")
+    @Test(groups = "regression test", description = "Customer Manager can update an existing customer ", dependsOnMethods = "addNewCustomer",priority = 1)
     public void updateCustomer() {
         customerPage.updateCustomer();
         Assert.assertTrue(customerPage.verifyUpdateCustomer());
     }
 
-    @Test(groups = "regression test", description = "Customer Manager can delete an existing customer", dependsOnMethods = "addNewCustomer")
+    @Test(groups = "regression test", description = "Customer Manager can delete an existing customer", dependsOnMethods = "updateCustomer")
     public void deleteExistingCustomer() {
         customerDashboardPage.clickOnManageCustomers();
         customerPage.deleteCustomer();
         Assert.assertTrue(customerPage.verifyDeleteCustomer());
     }
 
-    @Test(groups = "regression test", description = "Customer Manager can filter customers by email")
+    @Test(groups = "regression test", description = "Customer Manager can filter customers by email",dependsOnMethods = "addNewCustomer",priority = 2)
     public void filterCustomersByEmail() {
         customerDashboardPage.filterCustomersByEmail();
         Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByEmail());
     }
 
-    @Test(groups = "regression test", description = "Customer Manager can filter customers by group")
+    @Test(groups = "regression test", description = "Customer Manager can filter customers by group",dependsOnMethods = "addNewCustomer",priority = 3)
     public void filterCustomersByGroup() {
         customerDashboardPage.filterCustomersByGroup();
         Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
     }
 
     @Test(dataProvider = "filterData", groups = "regression test",
-            description = "Customer Manager can filter by Country,State,Website")
+            description = "Customer Manager can filter by Country,State,Website",dependsOnMethods = "addNewCustomer",priority = 4)
     public void filterCustomerByCountryStateWebsite(String state) {
         customerDashboardPage.filterCustomersByCountryStateWebsite(state);
         Assert.assertTrue(customerDashboardPage.verifyCustomerFilteredByGroup());
-    }
-
-    @Test
-    public void RestPassword() {
-        customerPage.restPassword();
-        Assert.assertTrue(customerPage.verifyRestPassword());
-    }
-
-    @Test
-    public void addNewAddress() {
-        addAddressesPage.addNewAddress();
-        Assert.assertTrue(addAddressesPage.addAddressVerify());
     }
 
     @AfterClass

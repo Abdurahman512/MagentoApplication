@@ -32,6 +32,7 @@ public class AddAddressesPage {
     WebElement customer;
     @FindBy(xpath = "//*[@id=\"messages\"]/ul/li/ul/li/span")
     WebElement successMessage;
+
     public AddAddressesPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

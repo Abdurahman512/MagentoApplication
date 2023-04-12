@@ -209,6 +209,7 @@ public void AssignCustomer(){
         testUtility.waitForElementPresent(saveCustomerButton);
         testUtility.javaScriptClick(saveCustomerButton);
         testUtility.sleep(1);
+
     }
     public boolean verifyRestPassword() {
         testUtility.waitForElementPresent(successMessage);

@@ -49,11 +49,10 @@ public class OrdersPage {
         actions=new Actions(driver);
     }
 
-    public void createOrder(String fileName,String sheetName,int rowNo,int clmnNo){
+    public void createOrder(String customerName){
         utility.waitForElementPresent(createOrderButton);
         utility.javaScriptClick(createOrderButton);
         utility.waitForElementPresent(customerNameField);
-        String customerName=excelUtility.readFromExcelCell(fileName,sheetName,rowNo,clmnNo);
         utility.sleep(2);
         customerNameField.sendKeys(customerName);
         utility.waitForElementPresent(searchButton);

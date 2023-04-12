@@ -2,10 +2,13 @@
 
 Feature: Sales Module Functions
   @CreateOrderTest
-  Scenario: sales manager can create a new order
+  Scenario Outline: sales manager can create a new order
     Given sales manager is on the admin page
-    When the sales manager fills out a new order form
+    When the sales manager fills out a new order form "<customerName>"
     Then a new order should be created
+    Examples:
+      | customerName    |
+      | Holly Adams|
 
   @UpdateShipments
   Scenario Outline: Sales Manager can update shipments

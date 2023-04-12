@@ -171,7 +171,8 @@ public class ProductPage {
         WebElement productButton = driver.findElement(By.xpath(String.format
                 ("//table[@id=\"productGrid_table\"]//tbody/tr/td[contains(text(),' %s')]", productName)));
         testUtility.waitForElementPresent(productButton);
-        productButton.click();
+        testUtility.javaScriptClick(productButton);
+        testUtility.sleep(2);
         updateProductNameField.sendKeys(generateProductName());
         updateProductSaveButton.click();
     }

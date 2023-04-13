@@ -18,6 +18,10 @@ import org.testng.Assert;
         CartPriceRulePage cartPriceRulePage;
         ExcelUtility excelUtility;
 
+        ReviewsPage reviewsPage;
+
+
+
         @Before("@MarketingModuleTest")
         public void setup() {
             browserSetUp(url);
@@ -25,6 +29,8 @@ import org.testng.Assert;
             login.marketingPageLogin();
             cartPriceRulePage = new CartPriceRulePage(driver);
             excelUtility = new ExcelUtility();
+            reviewsPage=new ReviewsPage(driver);
+
         }
 
         //Marketing Manager can add new Cart Price Rule
@@ -61,13 +67,46 @@ import org.testng.Assert;
             Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
         }
 
-        @After("@MarketingModuleTest")
-        public void tearDown(Scenario scenario) {
-            if (scenario.isFailed()) {
-                ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-                screenShotUtility.takeScreenshot("image", "failedTest", driver);
-            }
-            closeBrowser();
-        }
-    }
+
+         //Marketing manager can view All Reviews
+          @Given("Marketing manager should be on the dashboard page and click on the CatalogLink")
+          public void marketingManagerShouldBeOnTheDashboardPageAndClickOnTheCatalogLink() {
+            ReviewsPage allReviewsPage=new ReviewsPage(driver);
+            reviewsPage.catalogLink.click();
+
+          }
+
+          @When("select Reviews and Rating and move to Customer Reviews and Select All Views")
+          public void selectReviewsAndRatingAndMoveToCustomerReviewsAndSelectAllViews() {
+            ReviewsPage reviewsPage1=new ReviewsPage(driver);
+            reviewsPage1.reviewsRatingsLink.click();
+            reviewsPage1.customerReviewsLink.click();
+
+          }
+
+          @Then("All Reviews page should display with the Reviews InformationMa")
+          public void allReviewsPageShouldDisplayWithTheReviewsInformationMa() {
+            ReviewsPage reviewsPage1=new ReviewsPage(driver);
+            Assert.assertTrue(reviewsPage1.verifyViewAllReviws());
+          }
+
+          @Given("Marketing manager on the dashboard page and marketing manager click on the CatalogLink")
+          public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnTheCatalogLink() {
+          }
+
+          @When("select Reviews and Rating and move to Customer Review and select Pending Reviews")
+          public void selectReviewsAndRatingAndMoveToCustomerReviewAndSelectPendingReviews() {
+          }
+
+          @Then("Pending Reviews page should display with the Review information")
+          public void pendingReviewsPageShouldDisplayWithTheReviewInformation() {
+          }@After("@MarketingModuleTest")
+          public void tearDown(Scenario scenario) {
+              if (scenario.isFailed()) {
+                  ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+                  screenShotUtility.takeScreenshot("image", "failedTest", driver);
+              }
+              closeBrowser();
+          }
+      }
 

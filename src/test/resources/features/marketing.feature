@@ -18,4 +18,19 @@ Feature:Marketing Manager can manage market
     Then cart price rule should be updated successfully
     Examples:
       |RuleName          |description                               |
+
       |30% Sales(istanbulTeam)  | validate until the end of this year      |
+
+
+    @MarketingManagerViewAllReviews
+    Scenario: Marketing manger can view All Reviews
+      Given Marketing manager should be on the dashboard page and click on the CatalogLink
+      When select Reviews and Rating and move to Customer Reviews and Select All Views
+      Then All Reviews page should display with the Reviews InformationMa
+
+
+      @MarketingManagerViewPendingReviews
+      Scenario: Marketing manager can view Pending Reviews
+        Given Marketing manager on the dashboard page and marketing manager click on the CatalogLink
+        When select Reviews and Rating and move to Customer Review and select Pending Reviews
+        Then Pending Reviews page should display with the Review information

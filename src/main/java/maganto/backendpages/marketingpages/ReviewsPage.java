@@ -1,5 +1,6 @@
 package maganto.backendpages.marketingpages;
 
+import maganto.backendpages.BackEndLogin;
 import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,7 +41,33 @@ public class ReviewsPage {
 
 
     @FindBy(xpath = "//span[text()=\"Pending Reviews\"]")
-    public WebElement pendingViewsLink;
+    public WebElement pendingReviewsLink;
+
+    @FindBy(xpath = "//table[@id='reviwGrid_table']//tbody/tr/td[contains(text(),'171')]")
+    public WebElement reviewsToUpdate;
+
+    @FindBy(xpath = "//input[@id='nickname']")
+    public WebElement nickNameField;
+
+    @FindBy(xpath = "//span[text()='Save Review']")
+    public WebElement saveReviewButton;
+    @FindBy(xpath = "//span[text()='The review has been saved.']")
+    public WebElement saveUpdateReviewsSuccessMessage;
+
+    @FindBy(xpath = "//table[@id='reviwGrid_table']//tbody//tr//td[contains(text(),'144')]")
+    public WebElement pendingReviewToUpdate;
+
+    @FindBy(xpath = "//input[@id='title']")
+    public WebElement summaryofReviewsField;
+
+    @FindBy(xpath = "(//span[text()='Save Review'])[1]")
+    public WebElement pendingReviewSaveButton;
+
+    @FindBy(xpath = "//span[text()='The review has been saved.']")
+    public WebElement pendingReviewSuccessMessage;
+
+
+    BackEndLogin backEndLogin;
 
 
     @FindAll(@FindBy(xpath = "table[@id='reviwGrid_table']//tbody/tr"))
@@ -52,9 +79,11 @@ public class ReviewsPage {
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
         actions=new Actions(driver);
+        backEndLogin=new BackEndLogin(driver);
     }
     //1.Marketing manager can view all Reviews
-    public void viewAllReviews() {
+
+    public void clickAllReviewsLink(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).click().perform();
         testUtility.waitForElementPresent(reviewsRatingsLink);
@@ -64,10 +93,9 @@ public class ReviewsPage {
         testUtility.waitForElementPresent(allReviewsLink);
         actions.moveToElement(allReviewsLink).click().perform();
 
-
-
     }
-    public boolean verifyViewAllReviws(){
+
+    public boolean verifyViewAllReviews(){
         if(allReviewsList.size()>=1)
             return true;
         else
@@ -77,7 +105,7 @@ public class ReviewsPage {
 
 
     //2.Marketing manager can update existing reviews
-    public void updateExistingReviews(){
+    public void updateExistingReviews(String nickName){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).click().perform();
         testUtility.waitForElementPresent(reviewsRatingsLink);
@@ -86,7 +114,23 @@ public class ReviewsPage {
         actions.moveToElement(customerReviewsLink).click().perform();
         testUtility.waitForElementPresent(allReviewsLink);
         actions.moveToElement(allReviewsLink).click().perform();
+        int i=(int)Math.random()*20;
+        allReviewsList.get(i).click();
+        //testUtility.waitForElementPresent(reviewsToUpdate);
+       // reviewsToUpdate.click();
+        testUtility.waitForElementPresent(nickNameField);
+        nickNameField.clear();
+        nickNameField.sendKeys(testUtility.generateFirstName());
+        testUtility.waitForElementPresent(saveReviewButton);
+        saveReviewButton.click();
 
+
+    }
+    public boolean verifyUpdateReviews(){
+        testUtility.waitForElementPresent(saveUpdateReviewsSuccessMessage);
+        if(saveUpdateReviewsSuccessMessage.isDisplayed())
+            return true;
+        else return false;
     }
 
 
@@ -98,8 +142,8 @@ public class ReviewsPage {
         actions.moveToElement(reviewsRatingsLink).click().perform();
         testUtility.waitForElementPresent(customerReviewsLink);
         actions.moveToElement(customerReviewsLink).click().perform();
-        testUtility.waitForElementPresent(pendingViewsLink);
-        actions.moveToElement(pendingViewsLink).click().perform();
+        testUtility.waitForElementPresent(pendingReviewsLink);
+        actions.moveToElement(pendingReviewsLink).click().perform();
 
     }
     public boolean verifViewPendingViews(){
@@ -111,10 +155,33 @@ public class ReviewsPage {
 
 
     // 4.Marketing manager can update pending reviews
-    public void updatePendingReviews(){
-        testUtility.waitForElementPresent(theFirstInAllViewsList);
-        theFirstInAllViewsList.click();
+    public void updatePendingReviews(String summary){
+        testUtility.waitForElementPresent(catalogLink);
+        actions.moveToElement(catalogLink).click().perform();
+        testUtility.waitForElementPresent(reviewsRatingsLink);
+        actions.moveToElement(reviewsRatingsLink).click().perform();
+        testUtility.waitForElementPresent(customerReviewsLink);
+        actions.moveToElement(customerReviewsLink).click().perform();
+        testUtility.waitForElementPresent(pendingReviewsLink);
+        pendingReviewsLink.click();
+        int i=(int)Math.random()*20;
+        pendingReviewsList.get(i).click();
+        //testUtility.waitForElementPresent(pendingReviewToUpdate);
+       // pendingReviewToUpdate.click();
+        testUtility.waitForElementPresent(summaryofReviewsField);
+        summaryofReviewsField.clear();
+        summaryofReviewsField.sendKeys(testUtility.generateFirstName());
+        //summaryofReviewsField.sendKeys("Excellent");
+        testUtility.waitForElementPresent(pendingReviewSaveButton);
+        pendingReviewSaveButton.click();
 
+
+    }
+    public boolean verifyUpdatePendinReviews(){
+        testUtility.waitForElementPresent(pendingReviewSuccessMessage);
+        if(pendingReviewSuccessMessage.isDisplayed())
+            return true;
+        else return false;
     }
 
 

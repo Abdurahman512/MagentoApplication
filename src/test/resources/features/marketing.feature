@@ -24,13 +24,23 @@ Feature:Marketing Manager can manage market
 
     @MarketingManagerViewAllReviews
     Scenario: Marketing manger can view All Reviews
-      Given Marketing manager should be on the dashboard page and click on the CatalogLink
-      When select Reviews and Rating and move to Customer Reviews and Select All Views
+      Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+      When click on the CatalogLink select Reviews and Rating and move to Customer Reviews and Select All Views
       Then All Reviews page should display with the Reviews InformationMa
+
+  @MarketingManagerUpdateExistingReviews
+  Scenario Outline: MarketingManagerUpdateExistingReviews
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When select the "<ExistingReview>" and change the "<NickName>"
+    Then cart price rule should be updated successfully
+    Examples:
+      |ExistingReview       |NickName                               |
+
+      |171  | 78888      |
 
 
       @MarketingManagerViewPendingReviews
       Scenario: Marketing manager can view Pending Reviews
-        Given Marketing manager on the dashboard page and marketing manager click on the CatalogLink
+        Given Marketing manager on the dashboard page and marketing manager click on Promotions link
         When select Reviews and Rating and move to Customer Review and select Pending Reviews
         Then Pending Reviews page should display with the Review information

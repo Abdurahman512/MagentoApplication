@@ -67,40 +67,29 @@ import org.testng.Assert;
             Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
         }
 
-
-         //Marketing manager can view All Reviews
-          @Given("Marketing manager should be on the dashboard page and click on the CatalogLink")
-          public void marketingManagerShouldBeOnTheDashboardPageAndClickOnTheCatalogLink() {
-            ReviewsPage allReviewsPage=new ReviewsPage(driver);
-            reviewsPage.catalogLink.click();
+          @When("click on the CatalogLink select Reviews and Rating and move to Customer Reviews and Select All Views")
+          public void click_on_the_catalog_link_select_reviews_and_rating_and_move_to_customer_reviews_and_select_all_views() {
+            reviewsPage.clickAllReviewsLink();
 
           }
-
-          @When("select Reviews and Rating and move to Customer Reviews and Select All Views")
-          public void selectReviewsAndRatingAndMoveToCustomerReviewsAndSelectAllViews() {
-            ReviewsPage reviewsPage1=new ReviewsPage(driver);
-            reviewsPage1.reviewsRatingsLink.click();
-            reviewsPage1.customerReviewsLink.click();
-
-          }
-
           @Then("All Reviews page should display with the Reviews InformationMa")
-          public void allReviewsPageShouldDisplayWithTheReviewsInformationMa() {
-            ReviewsPage reviewsPage1=new ReviewsPage(driver);
-            Assert.assertTrue(reviewsPage1.verifyViewAllReviws());
-          }
+          public void all_reviews_page_should_display_with_the_reviews_information_ma() {
+            reviewsPage.verifyViewAllReviews();
 
-          @Given("Marketing manager on the dashboard page and marketing manager click on the CatalogLink")
-          public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnTheCatalogLink() {
           }
-
           @When("select Reviews and Rating and move to Customer Review and select Pending Reviews")
           public void selectReviewsAndRatingAndMoveToCustomerReviewAndSelectPendingReviews() {
+            reviewsPage.viewPendingReviews();
           }
 
           @Then("Pending Reviews page should display with the Review information")
           public void pendingReviewsPageShouldDisplayWithTheReviewInformation() {
-          }@After("@MarketingModuleTest")
+            reviewsPage.verifViewPendingViews();
+          }
+        
+
+
+          @After("@MarketingModuleTest")
           public void tearDown(Scenario scenario) {
               if (scenario.isFailed()) {
                   ScreenShotUtility screenShotUtility = new ScreenShotUtility();
@@ -108,5 +97,8 @@ import org.testng.Assert;
               }
               closeBrowser();
           }
+
+
+
       }
 

@@ -85,6 +85,14 @@ public class TestUtility {
         String telephoneNumber = faker.phoneNumber().phoneNumber();
         return telephoneNumber;
     }
+    public String generateRootCategory() {
+        String rootCategory = faker.commerce().department();
+        return rootCategory;
+    }
+    public String generateSubCategory() {
+        String rootCategory = faker.educator().course();
+        return rootCategory;
+    }
 
     public void waitForAlertPresent() {
         WebDriverWait wai = new WebDriverWait(driver, timeout);

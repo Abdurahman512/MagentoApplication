@@ -39,7 +39,15 @@ public class TestUtility {
         String adminName = faker.name().name();
         return adminName;
     }
+public String generateStoreName(){
+        String storeName=faker.name().name();
+        return storeName;
+}
+public String generateStoreSortOrder(){
+        String storeSortOrder=faker.name().name();
+        return storeSortOrder;
 
+}
     public String generateFirstName() {
         String firstName = faker.name().firstName();
         return firstName;

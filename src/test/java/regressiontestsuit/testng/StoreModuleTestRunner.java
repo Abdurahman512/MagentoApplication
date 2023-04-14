@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 @Listeners(TestResultListener.class)
 public class StoreModuleTestRunner extends TestBase {
     StoreOrdersPage storeOrdersPage;
@@ -32,8 +34,10 @@ public class StoreModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
         storeOrdersPage=new StoreOrdersPage(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
+        storeViewPage=new StoreViewPage(driver);
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
+
     }
     @Test
     public void createOrderTest(){
@@ -50,6 +54,27 @@ public class StoreModuleTestRunner extends TestBase {
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
+
+    @Test
+    public void createStoreView(){
+        storeViewPage.createStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+
+    }
+
+    @Test
+    public void editStoreView(){
+        storeViewPage.editStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewEdit());
+
+    }
+    @Test
+    public void viewAllStore(){
+        storeViewPage.viewAllStore();
+        Assert.assertTrue(storeViewPage.verifyViewAllStore());
+    }
+
+
     @AfterClass
     public void tearDown() {
         closeBrowser();

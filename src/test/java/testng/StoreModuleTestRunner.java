@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 @Listeners(TestResultListener.class)
 public class StoreModuleTestRunner extends TestBase {
     StoreOrdersPage storeOrdersPage;
@@ -57,7 +59,18 @@ public class StoreModuleTestRunner extends TestBase {
     public void createStoreView(){
         storeViewPage.createStoreView();
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
-        System.out.println();
+
+    }
+
+    @Test
+    public void editStoreView(){
+        storeViewPage.editStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewEdit());
+    }
+    @Test
+    public void viewAllStore(){
+        storeViewPage.viewAllStore();
+        Assert.assertTrue(storeViewPage.verifyViewAllStore());
     }
 
 

@@ -1,10 +1,15 @@
 package maganto.backendpages.storepages;
 
 import maganto.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
+import java.util.Random;
 
 public class StoreViewPage {
 
@@ -15,6 +20,7 @@ public class StoreViewPage {
    String storeCode;
     String storeSortOrder;
 
+    Random r = new java.util.Random();
     public StoreViewPage(WebDriver driver){
         this.driver=driver;
         testUtility = new TestUtility(driver);
@@ -47,6 +53,9 @@ public class StoreViewPage {
     WebElement saveStoreViewLink;
     @FindBy(xpath ="//span[contains(text(),'The store view has been saved')]")
     WebElement successMessage;
+
+    @FindBy(xpath = "//a[contains(text(),'Store View Name')]")
+    WebElement storeViewNameLink;
 
 
 
@@ -93,10 +102,67 @@ public class StoreViewPage {
         else return false;
     }
 
+    // Store Manager can edit a store view
 
+
+
+    @FindBy(xpath = "//span[contains(text(),'The store view has been saved')]")
+    WebElement editStoreViewSavedMessage;
+    @FindBy(xpath = "//a[contains(text(),'Store View Name')]")
+    //WebElement storeViewName;
+    private List<WebElement> storeViewNameList;
+    @FindBy(id = "store_group_id")
+    WebElement storeButton;
+    @FindBy(id = "store_is_active")
+    WebElement storeStatusButton;
+
+
+
+    public void clickOnRandomItemInList() {
+        Random rnd = new Random();
+        int i = rnd.nextInt(storeViewNameList.size());
+        storeViewNameList.get(i).click();
+    }
+    public void editStoreView(){
+        testUtility.waitForElementPresent(systemLink);
+        systemLink.click();
+        testUtility.waitForElementPresent(manageStoresLink);
+        manageStoresLink.click();
+        clickOnRandomItemInList();
+
+
+
+       testUtility.sleep(2);
+        testUtility.waitForElementPresent(storeNameField);
+        storeNameField.sendKeys(testUtility.generateStoreName());
+
+        testUtility.waitForElementPresent(storeCodeField);
+
+        storeCodeField.sendKeys("a"+testUtility.generateNumber()+"8");
+
+        testUtility.waitForElementPresent(storeSortOrderField);
+        storeSortOrderField.sendKeys(testUtility.generateStoreSortOrder());
+
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(saveStoreViewLink);
+        saveStoreViewLink.click();
 
     }
 
+    public boolean verifyStoreViewEdit(){
+        return editStoreViewSavedMessage.isDisplayed();
+    }
 
+//Store Manager can view all store
+    public void viewAllStore(){
+        testUtility.waitForElementPresent(systemLink);
+        systemLink.click();
+        testUtility.waitForElementPresent(manageStoresLink);
+        manageStoresLink.click();
 
+    }
+    public boolean verifyViewAllStore(){
+        return storeViewNameLink.isDisplayed();
+    }
+}
 

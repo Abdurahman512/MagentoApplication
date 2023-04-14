@@ -1,6 +1,5 @@
 package maganto.backendpages.storepages;
 
-import io.cucumber.java.eo.Se;
 import maganto.utility.TestUtility;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +20,7 @@ public class StoreProductPage {
         utility=new TestUtility(driver);
         actions=new Actions(driver);
     }
-
+    //add product
     @FindBy(xpath = "//button[@title='Add Product']//span[contains(text(),'Add Product')]")
     WebElement addProductButton;
     @FindBy(id = "attribute_set_id")
@@ -52,6 +51,22 @@ public class StoreProductPage {
     WebElement saveButton;
     @FindBy(xpath = "//span[contains(text(),'The product has been saved.')]")
     WebElement confirmationMessageProductAdded;
+    //update product
+    @FindBy(id = "productGrid_product_filter_name")
+    WebElement searchNameProductField;
+    @FindBy(xpath = "//button[@title='Search']//span[contains(text(),'Search')]")
+    WebElement searchButton;
+    @FindBy(xpath = "//a[contains(text(),'Edit')]")
+    WebElement editButton;
+    //delete product
+    @FindBy(xpath = "//input[@name='product']")
+    WebElement checkBox;
+    @FindBy(id = "productGrid_massaction-select")
+    WebElement actionsDropDownList;
+    @FindBy(xpath = "//button[@title='Submit']//span[contains(text(),'Submit')]")
+    WebElement submitButton;
+    @FindBy(xpath = "//div[@id='messages']//span[contains(text(),'Total of 1 record(s) have been deleted.')]")
+    WebElement confirmationMessageProductUpdated;
 
 
     public void addProductsMethod(String name, String description, String shortDescription, String sku, String weight,String price){
@@ -93,6 +108,42 @@ public class StoreProductPage {
     }
     public boolean confirmationProductAdded(){
         if (confirmationMessageProductAdded.isDisplayed())
+            return true;
+        else return false;
+    }
+    public void updateProductMethod(String name,String description){
+        utility.waitForElementPresent(searchNameProductField);
+        searchNameProductField.sendKeys(name);
+        utility.waitForElementPresent(searchButton);
+        searchButton.click();
+        utility.sleep(4);
+        utility.waitForElementPresent(editButton);
+        editButton.click();
+        utility.waitForElementPresent(descriptionField);
+        descriptionField.sendKeys(description);
+        utility.sleep(1);
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,+250)");
+        utility.sleep(1);
+        Select select2=new Select(countryOfManufactureList);
+        select2.selectByValue("TR");
+        utility.sleep(1);
+        utility.waitForElementPresent(saveButton);
+        saveButton.click();
+        utility.sleep(3);
+    }
+    public void deleteProductMethod(){
+        utility.waitForElementPresent(checkBox);
+        checkBox.click();
+        Select select=new Select(actionsDropDownList);
+        select.selectByValue("delete");
+        utility.waitForElementPresent(submitButton);
+        submitButton.click();
+        utility.sleep(2);
+        driver.switchTo().alert().accept();
+    }
+    public boolean confirmationProductDeleted(){
+        if (confirmationMessageProductUpdated.isDisplayed())
             return true;
         else return false;
     }

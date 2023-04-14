@@ -1,11 +1,11 @@
 package maganto.utility;
 
 import com.github.javafaker.Faker;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
 
 public class TestUtility {
     private int timeout = Integer.parseInt(ApplicationConfig.readFromConfigProperties(
@@ -14,7 +14,7 @@ public class TestUtility {
 
     WebDriver driver;
     Faker faker = new Faker();
-
+    
 
     public TestUtility(WebDriver driver) {
         this.driver = driver;
@@ -117,9 +117,8 @@ public String generateStoreSortOrder(){
 
     public void unhandledAlertException(WebElement element) {
 
-    }
+    }}
 
 
-}
 
 

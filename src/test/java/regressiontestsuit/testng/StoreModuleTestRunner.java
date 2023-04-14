@@ -66,6 +66,7 @@ public class StoreModuleTestRunner extends TestBase {
     public void editStoreView(){
         storeViewPage.editStoreView();
         Assert.assertTrue(storeViewPage.verifyStoreViewEdit());
+
     }
     @Test
     public void viewAllStore(){

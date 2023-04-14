@@ -76,10 +76,10 @@ public class AttributesPage {
         else return false;
     }
 
-
     public void clickOnAddNewAttributeButton(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).moveToElement(attributes).moveToElement(manageAttributes).click().build().perform();
+        testUtility.sleep(2);
         testUtility.waitForElementPresent(addNewAttributeButton);
         addNewAttributeButton.click();
         testUtility.waitForElementPresent(attributeCode);
@@ -95,4 +95,5 @@ public class AttributesPage {
         testUtility.waitForElementPresent(successfulMessage);
         return successfulMessage.isDisplayed();
     }
+
 }

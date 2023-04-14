@@ -4,6 +4,7 @@ import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.AttributesPage;
 import maganto.backendpages.catalogpages.CatalogPage;
 import maganto.backendpages.catalogpages.CategoriesPage;
+import maganto.backendpages.catalogpages.ProductPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
@@ -18,7 +19,12 @@ public class CatalogModuleTestRunner extends TestBase {
     TestUtility utility;
     CategoriesPage categoriesPage;
     AttributesPage attributesPage;
+
     CatalogPage catalogPage;
+
+
+    ProductPage productPage;
+
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -29,65 +35,86 @@ public class CatalogModuleTestRunner extends TestBase {
         categoriesPage = new CategoriesPage(driver);
         attributesPage=new AttributesPage(driver);
         utility = new TestUtility(driver);
+        productPage=new ProductPage(driver);
         context.setAttribute("driver",driver);
     }
+
+
     @Test
 
+    public void addProduct(){
+        productPage.userAddProduct();
+
+        Assert.assertTrue(productPage.verifyNewProductAdded());
+    }
+
+    @Test(dependsOnMethods = {"addProduct"}, priority =1)
+    public void updateProduct(){
+        productPage.updateProduct();
+        Assert.assertTrue(productPage.verifyUpdateProduct());
+    }
+    @Test(dependsOnMethods = {"updateProduct"})
+    public void deleteProduct(){
+        productPage.deleteProduct();
+        Assert.assertTrue(productPage.verifyDeleteProduct());
+    }
+
+    @Test(priority =2,description = "Catalog Manager can view all categories under each Default Category")
+    public void viewAllCategoriesTest(){
+    Assert.assertTrue(categoriesPage.viewAllCategories());
+    }
+
+    @Test(dependsOnMethods = {"viewAllCategoriesTest"},description = "Category Manager can filter products in the Category Products tab")
+    public void filterProductsTest(){
+        categoriesPage.filterProducts("Shoes","15","1000");
+        Assert.assertTrue(categoriesPage.verifyFilter());
+    }
+    @Test(priority =3)
 
     public void addNewAttributeTest(){
         attributesPage.clickOnAddNewAttributeButton();
         Assert.assertTrue(attributesPage.verifyAttributeAddedSuccessfully());
     }
-    @Test
 
+    @Test (dependsOnMethods = {"addNewAttributeTest"})
 
     public void filterSearchTerms(){
         attributesPage.filterSearchTerms();
         Assert.assertTrue(attributesPage.verifyFilterSearchTerms());
     }
-    @Test
-
+    @Test(priority =4)
 
     public void addRootCategoryTest(){
-        categoriesPage.addRootCategories("TastData/TestData-M.xlsx","Category",1,0);
+        categoriesPage.addRootCategories();
         Assert.assertTrue(categoriesPage.isRootCategoryAdded());
     }
     @Test(dependsOnMethods ={"addRootCategoryTest"})
-
-
     public void addSubCategoryTest(){
-        categoriesPage.addSubCategories("TastData/TestData-M.xlsx","Category",1,1);
+        categoriesPage.addSubCategories();
         Assert.assertTrue(categoriesPage.isSubCategoryAdded());
     }
     @Test(dependsOnMethods ={"addSubCategoryTest"})
-
-
     public void editRootCategoryTest(){
-        categoriesPage.editRootCategory("TastData/TestData-M.xlsx","Category",1,2);
+        categoriesPage.editRootCategory();
         Assert.assertTrue(categoriesPage.isRootCategoryEdited());
     }
     @Test(dependsOnMethods ={"editRootCategoryTest"})
-
-
     public void editSubCategoryTest(){
-        categoriesPage.editSubCategory("TastData/TestData-M.xlsx","Category",1,2);
+        categoriesPage.editSubCategory();
         Assert.assertTrue(categoriesPage.isSubCategoryEdited());
     }
+
     @Test(dependsOnMethods ={"editSubCategoryTest"})
-
-
     public void deleteSubCategoryTest(){
         categoriesPage.deleteSubCategory();
         Assert.assertTrue(categoriesPage.isSubCategoryDeleted());
-
     }
 
     @Test(dependsOnMethods ={"deleteSubCategoryTest"})
-
-
     public void deleteRootCategoryTest(){
         categoriesPage.deleteRootCategory();
         Assert.assertTrue(categoriesPage.isRootCategoryDeleted());
+
     }
 
     @Test(description = "addNewSearchTerm",priority = 1)
@@ -116,6 +143,8 @@ public class CatalogModuleTestRunner extends TestBase {
     public void tearDown(){
         closeBrowser();
    }
+
+
 
 
 }

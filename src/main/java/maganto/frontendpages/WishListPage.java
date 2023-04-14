@@ -19,8 +19,6 @@ public class WishListPage {
 
     @FindBy(xpath = "//h1[text()='My Wishlist']")
     WebElement myWishListPage;
-
-
     TestUtility utility;
 
     public WishListPage(WebDriver driver){
@@ -29,8 +27,6 @@ public class WishListPage {
         PageFactory.initElements(driver,this);
     }
     public void viewMyWishList(){
-       // utility.waitForElementPresent(accountLink);
-        //accountLink.click();
         utility.waitForElementPresent(myWishlist);
         myWishlist.click();
     }

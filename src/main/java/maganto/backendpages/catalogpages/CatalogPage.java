@@ -1,27 +1,34 @@
 package maganto.backendpages.catalogpages;
 
+
 import com.github.javafaker.Faker;
 import maganto.utility.DataHelper;
 import maganto.utility.TestUtility;
-import org.apache.tools.ant.taskdefs.Sleep;
+
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import org.openqa.selenium.support.ui.Select;
 
 public class CatalogPage {
-
-
-    TestUtility testUtility;
     WebDriver driver;
+    TestUtility utility;
+    @FindBy(xpath ="//span[text()=\"Catalog\"]")
+    WebElement catalogLink;
+
+    @FindBy(xpath = "//span[text()=\"Manage Categories\"]")
+    WebElement manageCategoriesLink;
+
 
     public CatalogPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
-        testUtility =new TestUtility(driver);
+
+        utility =new TestUtility(driver);
     }
 
     // Add New SearchTerm
@@ -94,27 +101,27 @@ public class CatalogPage {
 
     }
     public void addNewSearchTerm1(){
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(CatalogButton);
+        utility.sleep(1);
+        utility.waitForElementPresent(CatalogButton);
         CatalogButton.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(SearchTerm);
+        utility.sleep(1);
+        utility.waitForElementPresent(SearchTerm);
         SearchTerm.click();
-       testUtility.sleep(1);
-        testUtility.waitForElementPresent(addNewSearchTerm);
+       utility.sleep(1);
+        utility.waitForElementPresent(addNewSearchTerm);
         addNewSearchTerm.click();
-        testUtility.sleep(1);
+        utility.sleep(1);
         searchName=generateSearchQueryName();
         DataHelper.setQueryName(searchName);
-        testUtility.waitForElementPresent(searchQueryField);
+        utility.waitForElementPresent(searchQueryField);
         searchQueryField.sendKeys(searchName);
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(Store);
+        utility.sleep(1);
+        utility.waitForElementPresent(Store);
         Select select=new Select(Store);
         select.selectByValue("159");
         Store.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(SynonymFor);
+        utility.sleep(1);
+        utility.waitForElementPresent(SynonymFor);
         SynonymFor.sendKeys(generateNumber()+System.currentTimeMillis());
         Select select1=new Select(DisPlayingSuggestedTerms);
         select1.selectByValue("1");
@@ -126,59 +133,65 @@ public class CatalogPage {
     }
     public boolean verifySuccessfullyMessage(){
 
-        testUtility.waitForElementPresent(successfullyMessage);
+        utility.waitForElementPresent(successfullyMessage);
         if (successfullyMessage.isDisplayed());
         return true;
     }
     public void EditSearchTerm(){
-        testUtility.sleep(2);
-        testUtility.waitForElementPresent(SearchQueryFieldForEdit);
+        utility.sleep(2);
+        utility.waitForElementPresent(SearchQueryFieldForEdit);
         SearchQueryFieldForEdit.sendKeys(DataHelper.getQueryName());
-        testUtility.waitForElementPresent(searchButton);
+        utility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(2);
-        testUtility.waitForElementPresent(editIcon);
+        utility.sleep(2);
+        utility.waitForElementPresent(editIcon);
         editIcon.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(searchQueryField);
+        utility.sleep(1);
+        utility.waitForElementPresent(searchQueryField);
         searchQueryField.clear();
-        DataHelper.setQueryName1(testUtility.generateStateName()+System.currentTimeMillis());
+        DataHelper.setQueryName1(utility.generateStateName()+System.currentTimeMillis());
         searchQueryField.sendKeys(DataHelper.getQueryName1());
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(editSaveButton);
+        utility.sleep(1);
+        utility.waitForElementPresent(editSaveButton);
         editSaveButton.click();
 
 
 
     }
     public boolean verifyYouSavedTheSearchTermMessage(){
-        testUtility.waitForElementPresent(successfullyMessage);
+        utility.waitForElementPresent(successfullyMessage);
         if (successfullyMessage.isDisplayed());
         return true;
     }
     public void deleteSearchTerm(){
-        testUtility.sleep(2);
-        testUtility.waitForElementPresent(SearchQueryFieldForEdit);
+        utility.sleep(2);
+        utility.waitForElementPresent(SearchQueryFieldForEdit);
         SearchQueryFieldForEdit.clear();
         SearchQueryFieldForEdit.sendKeys(DataHelper.getQueryName1());
-        testUtility.waitForElementPresent(searchButton);
+        utility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(2);
-        testUtility.waitForElementPresent(editIcon);
+        utility.sleep(2);
+        utility.waitForElementPresent(editIcon);
         editIcon.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(deleteSearch);
+        utility.sleep(1);
+        utility.waitForElementPresent(deleteSearch);
         deleteSearch.click();
         Alert alert=driver.switchTo().alert();
         alert.accept();
-
-
-
-
-
-
     }
 
 
 
+  public void clickOnCatalogLink(){
+        utility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+    }
+
+    public void clickOnManageCategoriesLink(){
+        utility.waitForElementPresent(manageCategoriesLink);
+        manageCategoriesLink.click();
+    }
+
 }
+
+

@@ -17,17 +17,16 @@ public class CatalogPage {
 
     TestUtility testUtility;
     WebDriver driver;
-    //String newSearchTerm;
-
-
 
     public CatalogPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         testUtility =new TestUtility(driver);
     }
+
+    // Add New SearchTerm
     @FindBy(xpath ="//span[text()='Catalog']" )
-    WebElement addNewSearchtermButton;
+    WebElement CatalogButton;
     @FindBy(xpath = "//span[text()='Search Terms']")
     WebElement SearchTerm;
     @FindBy(xpath = "//span[text()='Add New Search Term']")
@@ -39,14 +38,14 @@ public class CatalogPage {
     @FindBy(id = "synonym_for")
     WebElement SynonymFor;
     @FindBy(id = "display_in_terms")
-    WebElement DisplayinSuggestedTerms;
+    WebElement DisPlayingSuggestedTerms;
     @FindBy(xpath = "//span[text()='Save Search']")
     WebElement SaveSearch;
     @FindBy(xpath = "//span[text()='You saved the search term.']")
     WebElement successfullyMessage;
     String searchName=null;
 
-//for searchTerm
+    // Edit Search Term
 
     @FindBy(xpath = "//input[@id='catalog_search_grid_filter_search_query']")
      WebElement queryField;
@@ -63,7 +62,7 @@ public class CatalogPage {
     String updatedSearchQuery;
 
 
-    // for delete  search term
+    // Deleted Search Term
 
     @FindBy(xpath ="//span[text()='Catalog']" )
     WebElement CatalogDeleted;
@@ -76,15 +75,7 @@ public class CatalogPage {
     @FindBy(xpath = "//tbody/tr/td[9]//a[.='Edit']")
             WebElement editIconDeleted;
     @FindBy(xpath = "//span[text()='Delete Search']")
-            WebElement DeleteSearch;
-
-
-
-
-
-
-
-
+            WebElement deleteSearch;
 
     Faker faker=new Faker();
     public String generateName(){
@@ -104,8 +95,8 @@ public class CatalogPage {
     }
     public void addNewSearchTerm1(){
         testUtility.sleep(1);
-        testUtility.waitForElementPresent(addNewSearchtermButton);
-        addNewSearchtermButton.click();
+        testUtility.waitForElementPresent(CatalogButton);
+        CatalogButton.click();
         testUtility.sleep(1);
         testUtility.waitForElementPresent(SearchTerm);
         SearchTerm.click();
@@ -125,11 +116,11 @@ public class CatalogPage {
         testUtility.sleep(1);
         testUtility.waitForElementPresent(SynonymFor);
         SynonymFor.sendKeys(generateNumber()+System.currentTimeMillis());
-        Select select1=new Select(DisplayinSuggestedTerms);
+        Select select1=new Select(DisPlayingSuggestedTerms);
         select1.selectByValue("1");
-        DisplayinSuggestedTerms.click();
+        DisPlayingSuggestedTerms.click();
         SaveSearch.click();
-        //return searchQuery;
+
 
 
     }
@@ -151,8 +142,8 @@ public class CatalogPage {
         testUtility.sleep(1);
         testUtility.waitForElementPresent(searchQueryField);
         searchQueryField.clear();
-        updatedSearchQuery=testUtility.generateStateName()+System.currentTimeMillis();
-        searchQueryField.sendKeys(updatedSearchQuery);
+        DataHelper.setQueryName1(testUtility.generateStateName()+System.currentTimeMillis());
+        searchQueryField.sendKeys(DataHelper.getQueryName1());
         testUtility.sleep(1);
         testUtility.waitForElementPresent(editSaveButton);
         editSaveButton.click();
@@ -160,34 +151,31 @@ public class CatalogPage {
 
 
     }
-    public boolean verifyYousavedthesearchtermMessage(){
+    public boolean verifyYouSavedTheSearchTermMessage(){
         testUtility.waitForElementPresent(successfullyMessage);
         if (successfullyMessage.isDisplayed());
         return true;
     }
     public void deleteSearchTerm(){
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(CatalogDeleted);
-        CatalogDeleted.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(searchTermForDeleted);
-        searchTermForDeleted.click();
         testUtility.sleep(2);
-        testUtility.waitForElementPresent(query1);
-        query1.click();
+        testUtility.waitForElementPresent(SearchQueryFieldForEdit);
+        SearchQueryFieldForEdit.clear();
+        SearchQueryFieldForEdit.sendKeys(DataHelper.getQueryName1());
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(editIcon);
+        editIcon.click();
         testUtility.sleep(1);
-        query1.sendKeys(updatedSearchQuery);
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(searchDeleted);
-        searchDeleted.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(editIconDeleted);
-        editIconDeleted.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(DeleteSearch);
-        DeleteSearch.click();
+        testUtility.waitForElementPresent(deleteSearch);
+        deleteSearch.click();
         Alert alert=driver.switchTo().alert();
         alert.accept();
+
+
+
+
+
 
     }
 

@@ -19,8 +19,9 @@ import org.openqa.selenium.WebDriver;
         //tags ="@SeeSales-TotalInvoicedVsPaidReport or @CustomerByOrdersTotal")
         //tags  = "@MarketingManagerViewAllReviews")
         //tags="@MarketingManagerViewPendingReviews")
-        tags="@MarketingManagerUpdateExistingReviews")
+       // tags="@MarketingManagerUpdateExistingReviews")
         //tags="@MarektingManagerUpdateExistingPendingReviews")
+tags="@MarketingModuleTest")
 
 public class CucumberTestRunner {
 

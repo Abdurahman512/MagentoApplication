@@ -20,8 +20,8 @@ import org.openqa.selenium.WebDriver;
         //tags  = "@MarketingManagerViewAllReviews")
         //tags="@MarketingManagerViewPendingReviews")
        // tags="@MarketingManagerUpdateExistingReviews")
-        //tags="@MarektingManagerUpdateExistingPendingReviews")
-tags="@MarketingModuleTest")
+        tags="@MarektingManagerUpdateExistingPendingReviews")
+//tags="@MarketingModuleTest"))
 
 public class CucumberTestRunner {
 

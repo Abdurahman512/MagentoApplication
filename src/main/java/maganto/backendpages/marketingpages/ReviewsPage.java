@@ -19,6 +19,7 @@ public class ReviewsPage {
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
+    BackEndLogin backEndLogin;
 
 
     @FindBy(xpath = "//div[@class='wrapper']//span[text()='Catalog']")
@@ -51,8 +52,7 @@ public class ReviewsPage {
     @FindBy(xpath = "//span[text()='The review has been saved.']")
     public WebElement saveUpdateReviewsSuccessMessage;
 
-    @FindBy(xpath = "//table[@id='reviwGrid_table']//tbody//tr//td[contains(text(),'144')]")
-    public WebElement pendingReviewToUpdate;
+
 
     @FindBy(xpath = "//input[@id='title']")
     public WebElement summaryofReviewsField;
@@ -64,10 +64,10 @@ public class ReviewsPage {
     public WebElement pendingReviewSuccessMessage;
 
 
-    BackEndLogin backEndLogin;
 
 
-    @FindAll(@FindBy(xpath = "table[@id='reviwGrid_table']//tbody/tr"))
+
+    @FindAll(@FindBy(xpath = "//table[@id='reviwGrid_table']//tbody/tr"))
     List<WebElement>  pendingReviewsList;
 
 
@@ -159,6 +159,7 @@ public class ReviewsPage {
         actions.moveToElement(customerReviewsLink).click().perform();
         testUtility.waitForElementPresent(pendingReviewsLink);
         pendingReviewsLink.click();
+        testUtility.sleep(3);
         int i=(int)Math.random()*20;
         pendingReviewsList.get(i).click();
         testUtility.waitForElementPresent(summaryofReviewsField);
@@ -171,6 +172,8 @@ public class ReviewsPage {
     }
     public boolean verifyUpdatePendinReviews(){
         testUtility.waitForElementPresent(pendingReviewSuccessMessage);
+
+        testUtility.sleep(3);
         if(pendingReviewSuccessMessage.isDisplayed())
             return true;
         else return false;

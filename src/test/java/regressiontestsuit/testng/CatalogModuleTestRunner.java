@@ -33,11 +33,13 @@ public class CatalogModuleTestRunner extends TestBase {
     }
     @Test
 
+
     public void addNewAttributeTest(){
         attributesPage.clickOnAddNewAttributeButton();
         Assert.assertTrue(attributesPage.verifyAttributeAddedSuccessfully());
     }
     @Test
+
 
     public void filterSearchTerms(){
         attributesPage.filterSearchTerms();
@@ -45,11 +47,13 @@ public class CatalogModuleTestRunner extends TestBase {
     }
     @Test
 
+
     public void addRootCategoryTest(){
         categoriesPage.addRootCategories("TastData/TestData-M.xlsx","Category",1,0);
         Assert.assertTrue(categoriesPage.isRootCategoryAdded());
     }
     @Test(dependsOnMethods ={"addRootCategoryTest"})
+
 
     public void addSubCategoryTest(){
         categoriesPage.addSubCategories("TastData/TestData-M.xlsx","Category",1,1);
@@ -57,17 +61,20 @@ public class CatalogModuleTestRunner extends TestBase {
     }
     @Test(dependsOnMethods ={"addSubCategoryTest"})
 
+
     public void editRootCategoryTest(){
         categoriesPage.editRootCategory("TastData/TestData-M.xlsx","Category",1,2);
         Assert.assertTrue(categoriesPage.isRootCategoryEdited());
     }
     @Test(dependsOnMethods ={"editRootCategoryTest"})
 
+
     public void editSubCategoryTest(){
         categoriesPage.editSubCategory("TastData/TestData-M.xlsx","Category",1,2);
         Assert.assertTrue(categoriesPage.isSubCategoryEdited());
     }
     @Test(dependsOnMethods ={"editSubCategoryTest"})
+
 
     public void deleteSubCategoryTest(){
         categoriesPage.deleteSubCategory();
@@ -76,6 +83,7 @@ public class CatalogModuleTestRunner extends TestBase {
     }
 
     @Test(dependsOnMethods ={"deleteSubCategoryTest"})
+
 
     public void deleteRootCategoryTest(){
         categoriesPage.deleteRootCategory();

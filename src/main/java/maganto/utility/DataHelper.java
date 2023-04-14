@@ -20,5 +20,17 @@ public class DataHelper {
     public static void setQueryName(String queryName) {
         DataHelper.queryName = queryName;
     }
-}
+
+    private static String websiteName;
+
+        public static String getWebsiteName() {
+        return websiteName;
+    }
+
+        public static void setWebsiteName(String websiteName) {
+        DataHelper.websiteName = websiteName;
+    }
+
+
+    }
 

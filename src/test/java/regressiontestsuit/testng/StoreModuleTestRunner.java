@@ -99,7 +99,22 @@ public class StoreModuleTestRunner extends TestBase {
         Assert.assertTrue(storeViewPage.verifyViewAllStore());
     }
 
+    @Test(priority = 1)
+    public void addNewWebsite(){
+        storeWebsitePage.CreateNewWepsite();
+        Assert.assertTrue(storeWebsitePage.VerifySuccessfulMessage());
+    }
 
+    @Test(dependsOnMethods = {"addNewWebsite"},priority = 2)
+    public void updatedNewWebsite(){
+        storeWebsitePage.editWepsiye();
+        Assert.assertTrue(storeWebsitePage.VerifyEditWepsiteMessage());
+    }
+    @Test(dependsOnMethods = "updatedNewWebsite",priority = 3)
+    public void DeletedNewWebsite(){
+        storeWebsitePage.DeletedWepsite();
+        Assert.assertTrue(storeWebsitePage.DeletedWepsiteMessage());
+    }
 
     @AfterClass
     public void tearDown() {

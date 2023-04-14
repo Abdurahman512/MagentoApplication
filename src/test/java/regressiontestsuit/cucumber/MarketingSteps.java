@@ -1,4 +1,5 @@
 package regressiontestsuit.cucumber;
+import io.cucumber.java.en.And;
 import maganto.utility.TestBase;
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.marketingpages.*;
@@ -16,6 +17,7 @@ import org.testng.Assert;
 
         BackEndLogin login;
         CartPriceRulePage cartPriceRulePage;
+        NewsletterTemplatePage newsletterTemplatePage;
         ExcelUtility excelUtility;
 
         @Before("@MarketingModuleTest")
@@ -24,8 +26,12 @@ import org.testng.Assert;
             login = new BackEndLogin(driver);
             login.marketingPageLogin();
             cartPriceRulePage = new CartPriceRulePage(driver);
+            newsletterTemplatePage=new NewsletterTemplatePage(driver);
             excelUtility = new ExcelUtility();
         }
+        //marketing manager can add newsletterTemplate and update and delete
+
+
 
         //Marketing Manager can add new Cart Price Rule
         @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
@@ -69,5 +75,77 @@ import org.testng.Assert;
             }
             closeBrowser();
         }
-    }
+
+
+          @Given("Marketing manager on the dashboard page and marketing manager click on Newsletter template")
+          public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnNewsletterTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnNewsletterTemplate();
+          }
+
+          @When("click on Add new template")
+          public void clickOnAddNewTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnAddTemplate();
+
+          }
+
+          @And("Fill in Template information fields")
+          public void fillInTemplateInformationFields() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.fillInTemplateInformationfield();
+          }
+
+          @Then("Save the new template")
+          public void saveTheNewTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.saveTemplateButton();
+          }
+
+          @Given("Marketing manager on the newsletter templates page")
+          public void marketingManagerOnTheNewsletterTemplatesPage() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnNewsletterTemplate();
+          }
+
+          @When("click on template name field")
+          public void clickOnTemplateNameField() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnTemplateNameField();
+          }
+
+          @And("search the existing template and click")
+          public void searchTheExistingTemplateAndClick() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnSearchButton();
+          }
+
+          @And("change the subject name and save the template")
+          public void changeTheSubjectNameAndSaveTheTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.changeExistingSubjectNameAndSave();
+          }
+
+          @Then("The template successfully updated")
+          public void theTemplateSuccessfullyUpdated() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+//            newsletterTemplatePage.verifyUpdateNewsletterTemplate();
+          }
+
+          @Given("search the existing template click the template")
+          public void searchTheExistingTemplateClickTheTemplate() {
+           NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+           newsletterTemplatePage.searchTheExistingTemplate();
+          }
+
+          @When("click on the delete template button")
+          public void clickOnTheDeleteTemplateButton() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnTheDeleteTemplateButton();
+          }
+
+          @Then("the template should be successfully deleted")
+          public void theTemplateShouldBeSuccessfullyDeleted() {
+          }
+      }
 

@@ -1,8 +1,11 @@
 package maganto.backendpages.catalogpages;
 
 import com.github.javafaker.Faker;
+import maganto.utility.DataHelper;
 import maganto.utility.TestUtility;
 import org.apache.tools.ant.taskdefs.Sleep;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +17,7 @@ public class CatalogPage {
 
     TestUtility testUtility;
     WebDriver driver;
+    //String newSearchTerm;
 
 
 
@@ -22,16 +26,14 @@ public class CatalogPage {
         PageFactory.initElements(driver,this);
         testUtility =new TestUtility(driver);
     }
-    //@FindBy(xpath = "//span[text()='Catalog']")
-    //WebElement Catelog;
     @FindBy(xpath ="//span[text()='Catalog']" )
     WebElement addNewSearchtermButton;
     @FindBy(xpath = "//span[text()='Search Terms']")
     WebElement SearchTerm;
     @FindBy(xpath = "//span[text()='Add New Search Term']")
     WebElement addNewSearchTerm;
-    @FindBy(id = "query_text")
-    WebElement SearchQuery;
+    @FindBy(id ="query_text")
+    WebElement searchQueryField;
     @FindBy(id = "store_id")
    WebElement Store;
     @FindBy(id = "synonym_for")
@@ -42,20 +44,46 @@ public class CatalogPage {
     WebElement SaveSearch;
     @FindBy(xpath = "//span[text()='You saved the search term.']")
     WebElement successfullyMessage;
+    String searchName=null;
 
+//for searchTerm
 
-    //for searchTerm
-
-    @FindBy(id= "catalog_search_grid_filter_search_query")
+    @FindBy(xpath = "//input[@id='catalog_search_grid_filter_search_query']")
      WebElement queryField;
     @FindBy(css = ".scalable.task")
             WebElement searchButton;
     @FindBy(xpath ="//table[@id=\"catalog_search_grid_table\"]//tbody/tr/td[9]//a[.='Edit']" )
             WebElement editIcon;
-    @FindBy(id = "query_text")
+    @FindBy(id = "catalog_search_grid_filter_search_query")
             WebElement editSearchQueryField;
-    @FindBy(xpath ="(//span[text()='Save Search'])[1]")
+    @FindBy(xpath ="//span[text()='Save Search']")
             WebElement editSaveButton;
+    @FindBy(id = "catalog_search_grid_filter_search_query")
+            WebElement SearchQueryFieldForEdit;
+    String updatedSearchQuery;
+
+
+    // for delete  search term
+
+    @FindBy(xpath ="//span[text()='Catalog']" )
+    WebElement CatalogDeleted;
+    @FindBy(xpath = "//span[text()='Search Terms']")
+            WebElement searchTermForDeleted;
+    @FindBy(id = "catalog_search_grid_filter_search_query")
+            WebElement query1;
+    @FindBy(xpath = "(//span[text()='Search'])[1]")
+            WebElement searchDeleted;
+    @FindBy(xpath = "//tbody/tr/td[9]//a[.='Edit']")
+            WebElement editIconDeleted;
+    @FindBy(xpath = "//span[text()='Delete Search']")
+            WebElement DeleteSearch;
+
+
+
+
+
+
+
 
 
     Faker faker=new Faker();
@@ -68,8 +96,12 @@ public class CatalogPage {
         String searchNumber=faker.number().digit();
         return searchNumber;
     }
+    public String generateSearchQueryName() {
 
+        String searchQuery1=faker.book().title();
+        return searchQuery1;
 
+    }
     public void addNewSearchTerm1(){
         testUtility.sleep(1);
         testUtility.waitForElementPresent(addNewSearchtermButton);
@@ -77,16 +109,18 @@ public class CatalogPage {
         testUtility.sleep(1);
         testUtility.waitForElementPresent(SearchTerm);
         SearchTerm.click();
-        testUtility.sleep(1);
+       testUtility.sleep(1);
         testUtility.waitForElementPresent(addNewSearchTerm);
         addNewSearchTerm.click();
         testUtility.sleep(1);
-        testUtility.waitForElementPresent(SearchQuery);
-        SearchQuery.sendKeys(generateName()+System.currentTimeMillis());
+        searchName=generateSearchQueryName();
+        DataHelper.setQueryName(searchName);
+        testUtility.waitForElementPresent(searchQueryField);
+        searchQueryField.sendKeys(searchName);
         testUtility.sleep(1);
         testUtility.waitForElementPresent(Store);
         Select select=new Select(Store);
-        select.selectByValue("47");
+        select.selectByValue("159");
         Store.click();
         testUtility.sleep(1);
         testUtility.waitForElementPresent(SynonymFor);
@@ -95,6 +129,7 @@ public class CatalogPage {
         select1.selectByValue("1");
         DisplayinSuggestedTerms.click();
         SaveSearch.click();
+        //return searchQuery;
 
 
     }
@@ -105,27 +140,23 @@ public class CatalogPage {
         return true;
     }
     public void EditSearchTerm(){
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(addNewSearchtermButton);
-        addNewSearchtermButton.click();
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(SearchTerm);
-        SearchTerm.click();
-
-        testUtility.sleep(1);
-        testUtility.waitForElementPresent(queryField);
-        queryField.sendKeys("alkamar");
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(SearchQueryFieldForEdit);
+        SearchQueryFieldForEdit.sendKeys(DataHelper.getQueryName());
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(1);
+        testUtility.sleep(2);
         testUtility.waitForElementPresent(editIcon);
         editIcon.click();
         testUtility.sleep(1);
-        testUtility.waitForElementPresent(editSearchQueryField);
-        editSearchQueryField.sendKeys(generateName()+System.currentTimeMillis());
+        testUtility.waitForElementPresent(searchQueryField);
+        searchQueryField.clear();
+        updatedSearchQuery=testUtility.generateStateName()+System.currentTimeMillis();
+        searchQueryField.sendKeys(updatedSearchQuery);
         testUtility.sleep(1);
         testUtility.waitForElementPresent(editSaveButton);
         editSaveButton.click();
+
 
 
     }
@@ -133,6 +164,31 @@ public class CatalogPage {
         testUtility.waitForElementPresent(successfullyMessage);
         if (successfullyMessage.isDisplayed());
         return true;
+    }
+    public void deleteSearchTerm(){
+        testUtility.sleep(1);
+        testUtility.waitForElementPresent(CatalogDeleted);
+        CatalogDeleted.click();
+        testUtility.sleep(1);
+        testUtility.waitForElementPresent(searchTermForDeleted);
+        searchTermForDeleted.click();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(query1);
+        query1.click();
+        testUtility.sleep(1);
+        query1.sendKeys(updatedSearchQuery);
+        testUtility.sleep(1);
+        testUtility.waitForElementPresent(searchDeleted);
+        searchDeleted.click();
+        testUtility.sleep(1);
+        testUtility.waitForElementPresent(editIconDeleted);
+        editIconDeleted.click();
+        testUtility.sleep(1);
+        testUtility.waitForElementPresent(DeleteSearch);
+        DeleteSearch.click();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+
     }
 
 

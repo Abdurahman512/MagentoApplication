@@ -26,6 +26,7 @@ public class ExcelUtility {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //XSSFSheet sheet=workbook.getSheetAt(0);
         XSSFSheet sheet=workbook.getSheet(sheetName);
         XSSFRow row=sheet.getRow(rowNumber);
@@ -62,6 +63,7 @@ public class ExcelUtility {
         testDataHolder.setAdminName(excelUtility.readFromExcelCell(fileName,sheetName,0,1));
         return testDataHolder;
     }
+
 
     public TestDataHolder readStoreInfoFromExcel(String fileName, String sheetName){
         ExcelUtility excelUtility=new ExcelUtility();

@@ -18,6 +18,7 @@ public class StoreOrdersPage {
     StoreDashboardPage storeDashboardPage;
     CustomerPage customerPage;
     String orderNumber;
+    String updatedOrderNumber;
 
     public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -88,6 +89,7 @@ public class StoreOrdersPage {
     WebElement cancelButton;
     @FindBy(xpath = "//span[contains(text(),\"The order has been cancelled.\")]")
     WebElement deleteSuccessMassage;
+
     public void createNewOrder(){
         storeDashboardPage.clickOnOrdersLink();
         utility.waitForElementPresent(createNewOrderLink);
@@ -188,7 +190,7 @@ public class StoreOrdersPage {
         System.out.println("ordernumber:"+orderNumber);
         return orderNumber;
     }
-    public void updateOrder(){
+    public String updateOrder(){
         storeDashboardPage.clickOnOrdersLink();
         WebElement selectedOrder=driver.findElement(By.xpath(String.format("//table[@id=\"sales_order_grid_table\"]//tbody//tr//td[2][contains(text(),\"%s\")]",orderNumber)));
         utility.waitForElementPresent(selectedOrder);
@@ -212,10 +214,13 @@ public class StoreOrdersPage {
         actions.moveToElement(submitOrderButton).click().build().perform();
         Alert alt1=driver.switchTo().alert();
         alt1.accept();
+        updatedOrderNumber=createdOrderNumber.getText().substring(8,17);
+        System.out.println(updatedOrderNumber);
+        return updatedOrderNumber;
     }
     public void cancelOrder(){
         storeDashboardPage.clickOnOrdersLink();
-        WebElement selectedOrder=driver.findElement(By.xpath(String.format("//table[@id=\"sales_order_grid_table\"]//tbody//tr//td[2][contains(text(),\"%s\")]",orderNumber)));
+        WebElement selectedOrder=driver.findElement(By.xpath(String.format("//table[@id=\"sales_order_grid_table\"]//tbody//tr//td[2][contains(text(),\"%s\")]",updatedOrderNumber)));
         utility.waitForElementPresent(selectedOrder);
         selectedOrder.click();
         utility.waitForElementPresent(cancelButton);

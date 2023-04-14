@@ -66,7 +66,7 @@ public class StoreProductPage {
     @FindBy(xpath = "//button[@title='Submit']//span[contains(text(),'Submit')]")
     WebElement submitButton;
     @FindBy(xpath = "//div[@id='messages']//span[contains(text(),'Total of 1 record(s) have been deleted.')]")
-    WebElement confirmationMessageProductUpdated;
+    WebElement confirmationMessageProductDeleted;
 
 
     public void addProductsMethod(String name, String description, String shortDescription, String sku, String weight,String price){
@@ -143,7 +143,7 @@ public class StoreProductPage {
         driver.switchTo().alert().accept();
     }
     public boolean confirmationProductDeleted(){
-        if (confirmationMessageProductUpdated.isDisplayed())
+        if (confirmationMessageProductDeleted.isDisplayed())
             return true;
         else return false;
     }

@@ -79,6 +79,7 @@ public class AttributesPage {
     public void clickOnAddNewAttributeButton(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).moveToElement(attributes).moveToElement(manageAttributes).click().build().perform();
+        testUtility.sleep(2);
         testUtility.waitForElementPresent(addNewAttributeButton);
         addNewAttributeButton.click();
         testUtility.waitForElementPresent(attributeCode);

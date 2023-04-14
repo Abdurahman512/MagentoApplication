@@ -39,25 +39,22 @@ public class ReportingSteps extends TestBase {
         login.reportingPageLogin();
     }
 
+    //reporting manager can can see sales-total ordered report
     @Given("reporting manager is on the admin page")
     public void reportingManagerIsOnTheAdminPage() {
         dashboardPage.openOrdersPage();
     }
 
-    @When("reporting manager fills out report starting ending dates")
-    public void reportingManagerFillsOutReportStartingEndingDates() {
-        salesOrdersPage.viewTotalOrdersReport("TestData/TestData-M.xlsx","Reporting",1,0,1,1);
-
+    @When("reporting manager fills out report date {string} and{string}")
+    public void reportingManagerFillsOutReportAnd(String arg0, String arg1) {
+        salesOrdersPage.viewTotalOrdersReport(arg0, arg1);
     }
+
     @Then("total ordered report should display")
     public void totalOrderedReportShouldDisplay() {
         salesOrdersPage.isOrdersReportShowed();
     }
 
-    @After  ("@ReportingModuleTests")
-    public void tearDown(){
-        closeBrowser();
-    }
 
     //See Sales-Total Invoiced vs Paid Report
     @Given("Reporting manager is on the dashboard page and clicks on Invoiced Option")
@@ -116,9 +113,6 @@ public class ReportingSteps extends TestBase {
 
 
 
-
-
-
     @After("@ReportingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -127,6 +121,7 @@ public class ReportingSteps extends TestBase {
         }
         closeBrowser();
     }
+
 
 
 }

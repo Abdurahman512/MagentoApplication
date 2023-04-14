@@ -1,10 +1,14 @@
-@RegressionTest  @TotalOrderReportTest @ReportingModuleTests
-Feature:  Reporting Manager should be able to see Sales - Total Ordered Report
+@RegressionTest   @ReportingModuleTests
+Feature:  Reporting Manager should be able to see Reports
 
-  Scenario: reporting manager can can see sales-total ordered report
+  @TotalOrderReportTest
+  Scenario Outline: reporting manager can can see sales-total ordered report
     Given reporting manager is on the admin page
-    When reporting manager fills out report starting ending dates
+    When reporting manager fills out report date "<dateFrom>" and"<dateTo>"
     Then total ordered report should display
+    Examples:
+      |dateFrom  |dateTo    |
+      |2/26/2023|3/26/2023|
 
   @SeeSales-TotalInvoicedVsPaidReport
   Scenario Outline: Reporting Manager should be able to see sales- Total Invoiced Vs Paid Report

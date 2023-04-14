@@ -33,14 +33,15 @@ public class SalesSteps extends TestBase {
         login.salesPageLogin();
     }
 
+    //sales manager can create a new order
     @Given("sales manager is on the admin page")
     public void salesManagerIsOnTheAdminPage() {
         dashboardPage.openOrdersPage();
     }
 
-    @When("the sales manager fills out a new order form")
-    public void theSalesManagerFillsOutANewOrderForm() {
-        ordersPage.createOrder("TestData/TestData-M.xlsx","Sales",1,0);
+    @When("the sales manager fills out a new order form {string}")
+    public void theSalesManagerFillsOutANewOrderForm(String arg0) {
+        ordersPage.createOrder(arg0);
     }
 
     @Then("a new order should be created")

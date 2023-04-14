@@ -31,13 +31,10 @@ public class SalesOrdersPage {
         excelUtility=new ExcelUtility();
         actions=new Actions(driver);
     }
-    public void viewTotalOrdersReport(String fileName,String sheetName,int rowNo1,int clmnNo1,int rowNo2,int clmnNo2){
+    public void viewTotalOrdersReport(String dateFrom ,String dateTo ){
         utility.waitForElementPresent(reportDateFrom);
-        String dateFrom=excelUtility.readFromExcelCell(fileName,sheetName,rowNo1,clmnNo1);
-        utility.sleep(2);
         reportDateFrom.sendKeys(dateFrom);
         utility.waitForElementPresent(reportDateTo);
-        String dateTo=excelUtility.readFromExcelCell(fileName,sheetName,rowNo2,clmnNo2);
         utility.sleep(2);
         reportDateTo.sendKeys(dateTo);
         utility.waitForElementPresent(showReportButton);

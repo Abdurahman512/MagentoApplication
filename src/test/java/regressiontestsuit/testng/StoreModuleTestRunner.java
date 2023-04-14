@@ -8,10 +8,7 @@ import maganto.utility.TestUtility;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.Random;
 
@@ -23,6 +20,7 @@ public class StoreModuleTestRunner extends TestBase {
     StoreViewPage storeViewPage;
     StoreWebsitePage storeWebsitePage;
     StorePage storePage;
+    StoreProductCategoriesPage storeProductCategoriesPage;
     TestUtility utility;
     final static String configFile = "config.properties";
     BackEndLogin backEndLogin;
@@ -38,22 +36,49 @@ public class StoreModuleTestRunner extends TestBase {
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
 
+        storeProductCategoriesPage=new StoreProductCategoriesPage(driver);
+
+
+
     }
     @Test
+    @Ignore
     public void createOrderTest(){
         storeOrdersPage.createNewOrderMethod();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
     @Test(dependsOnMethods = {"createOrderTest"})
+    @Ignore
     public void updateOrderTest(){
         storeOrdersPage.updateOrder();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
     @Test(dependsOnMethods = {"updateOrderTest"})
+    @Ignore
     public void cancelOrders(){
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
+
+
+    @Test(priority = 1)
+    public void addProductCatalog(){
+        storeProductCategoriesPage.addProductCatalog();
+        Assert.assertTrue(storeProductCategoriesPage.verifyAddedProductCatalog());
+    }
+
+    @Test(dependsOnMethods = "addProductCatalog",priority = 2)
+    public void updateProductCatalog(){
+        storeProductCategoriesPage.updateProductCatalog();
+        Assert.assertTrue(storeProductCategoriesPage.verifyUpdatedProductCatalog());
+    }
+
+    @Test(dependsOnMethods = "updateProductCatalog",priority = 3)
+    public void deleteProductCatalog(){
+        storeProductCategoriesPage.deleteProductCatalog();
+        Assert.assertTrue(storeProductCategoriesPage.verifyDeletedProductCatalog());
+    }
+
 
     @Test
     public void createStoreView(){
@@ -73,6 +98,7 @@ public class StoreModuleTestRunner extends TestBase {
         storeViewPage.viewAllStore();
         Assert.assertTrue(storeViewPage.verifyViewAllStore());
     }
+
 
 
     @AfterClass

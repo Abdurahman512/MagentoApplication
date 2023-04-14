@@ -1,11 +1,11 @@
 package maganto.utility;
 
 import com.github.javafaker.Faker;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
 
 public class TestUtility {
     private int timeout = Integer.parseInt(ApplicationConfig.readFromConfigProperties(
@@ -14,7 +14,7 @@ public class TestUtility {
 
     WebDriver driver;
     Faker faker = new Faker();
-
+    
 
     public TestUtility(WebDriver driver) {
         this.driver = driver;
@@ -39,7 +39,15 @@ public class TestUtility {
         String adminName = faker.name().name();
         return adminName;
     }
+public String generateStoreName(){
+        String storeName=faker.name().name();
+        return storeName;
+}
+public String generateStoreSortOrder(){
+        String storeSortOrder=faker.name().name();
+        return storeSortOrder;
 
+}
     public String generateFirstName() {
         String firstName = faker.name().firstName();
         return firstName;
@@ -85,6 +93,14 @@ public class TestUtility {
         String telephoneNumber = faker.phoneNumber().phoneNumber();
         return telephoneNumber;
     }
+    public String generateRootCategory() {
+        String rootCategory = faker.commerce().department();
+        return rootCategory;
+    }
+    public String generateSubCategory() {
+        String rootCategory = faker.educator().course();
+        return rootCategory;
+    }
 
     public void waitForAlertPresent() {
         WebDriverWait wai = new WebDriverWait(driver, timeout);
@@ -101,9 +117,8 @@ public class TestUtility {
 
     public void unhandledAlertException(WebElement element) {
 
-    }
+    }}
 
 
-}
 
 

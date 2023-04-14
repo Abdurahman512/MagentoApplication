@@ -1,4 +1,6 @@
 package regressiontestsuit.cucumber;
+import io.cucumber.java.en.And;
+import maganto.utility.TestBase;
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.marketingpages.*;
 import maganto.utility.*;
@@ -9,64 +11,141 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+      public class MarketingSteps extends TestBase {
+        final static String configFile = "config.properties";
+        final static String url = ApplicationConfig.readFromConfigProperties(configFile, "backendurl");
 
-public class MarketingSteps extends TestBase{
-    final static String configFile = "config.properties";
-    final static String url = ApplicationConfig.readFromConfigProperties(configFile, "backendurl");
-    BackEndLogin login;
-    CartPriceRulePage cartPriceRulePage;
-    ExcelUtility excelUtility;
+        BackEndLogin login;
+        CartPriceRulePage cartPriceRulePage;
+        NewsletterTemplatePage newsletterTemplatePage;
+        ExcelUtility excelUtility;
 
-
-
-    @Before("@MarketingModuleTest")
-    public void setup() {
-        browserSetUp(url);
-        login = new BackEndLogin(driver);
-        login.marketingPageLogin();
-        cartPriceRulePage=new CartPriceRulePage(driver);
-        excelUtility = new ExcelUtility();
-    }
-    //Marketing Manager can add new Cart Price Rule
-    @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
-    public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
-        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
-        cartPriceRulePage.clickShoppingCartPriceRulesLink();
-    }
-
-    @When("click on Shopping Cart Price Rules link to fill out {string} {string} {string} and other information information")
-    public void clickOnShoppingCartPriceRulesLinkToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2) {
-        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
-        cartPriceRulePage.addNewShoppingCartPriceRule(arg0,arg1,arg2);
-
-    }
-
-    @Then("a new shopping cart price rule should be added successfully")
-    public void aNewShoppingCartPriceRuleShouldBeAddedSuccessfully() {
-        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
-        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
-    }
-
-    //updateCartPricerule
-
-    @When("select the {string} and change the {string}")
-    public void selectTheAndChangeThe(String arg0, String arg1) {
-        cartPriceRulePage=new CartPriceRulePage(driver);
-        cartPriceRulePage.updateCartPriceRule(arg0,arg1);
-    }
-
-    @Then("cart price rule should be updated successfully")
-    public void cartPriceRuleShouldBeUpdatedSuccessfully() {
-        CartPriceRulePage cartPriceRulePage= new CartPriceRulePage(driver);
-        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
-    }
-
-    @After("@MarketingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        @Before("@MarketingModuleTest")
+        public void setup() {
+            browserSetUp(url);
+            login = new BackEndLogin(driver);
+            login.marketingPageLogin();
+            cartPriceRulePage = new CartPriceRulePage(driver);
+            newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            excelUtility = new ExcelUtility();
         }
-        closeBrowser();
-    }
-}
+        //marketing manager can add newsletterTemplate and update and delete
+
+
+
+        //Marketing Manager can add new Cart Price Rule
+        @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
+        public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
+            CartPriceRulePage cartPriceRulePage = new CartPriceRulePage(driver);
+            cartPriceRulePage.clickShoppingCartPriceRulesLink();
+        }
+
+        @When("click on Shopping Cart Price Rules link to fill out {string} {string} {string} and other information information")
+        public void clickOnShoppingCartPriceRulesLinkToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2) {
+            CartPriceRulePage cartPriceRulePage = new CartPriceRulePage(driver);
+            cartPriceRulePage.addNewShoppingCartPriceRule(arg0, arg1, arg2);
+
+        }
+
+        @Then("a new shopping cart price rule should be added successfully")
+        public void aNewShoppingCartPriceRuleShouldBeAddedSuccessfully() {
+            CartPriceRulePage cartPriceRulePage = new CartPriceRulePage(driver);
+            Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+        }
+
+
+        @When("select the {string} and change the {string}")
+        public void selectTheAndChangeThe(String arg0, String arg1) {
+            cartPriceRulePage = new CartPriceRulePage(driver);
+            cartPriceRulePage.updateCartPriceRule(arg0, arg1);
+
+        }
+
+        @Then("cart price rule should be updated successfully")
+        public void cartPriceRuleShouldBeUpdatedSuccessfully() {
+            CartPriceRulePage cartPriceRulePage = new CartPriceRulePage(driver);
+            Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+        }
+
+        @After("@MarketingModuleTest")
+        public void tearDown(Scenario scenario) {
+            if (scenario.isFailed()) {
+                ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+                screenShotUtility.takeScreenshot("image", "failedTest", driver);
+            }
+            closeBrowser();
+        }
+
+
+          @Given("Marketing manager on the dashboard page and marketing manager click on Newsletter template")
+          public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnNewsletterTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnNewsletterTemplate();
+          }
+
+          @When("click on Add new template")
+          public void clickOnAddNewTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnAddTemplate();
+
+          }
+
+          @And("Fill in Template information fields")
+          public void fillInTemplateInformationFields() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.fillInTemplateInformationfield();
+          }
+
+          @Then("Save the new template")
+          public void saveTheNewTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.saveTemplateButton();
+          }
+
+          @Given("Marketing manager on the newsletter templates page")
+          public void marketingManagerOnTheNewsletterTemplatesPage() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnNewsletterTemplate();
+          }
+
+          @When("click on template name field")
+          public void clickOnTemplateNameField() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnTemplateNameField();
+          }
+
+          @And("search the existing template and click")
+          public void searchTheExistingTemplateAndClick() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnSearchButton();
+          }
+
+          @And("change the subject name and save the template")
+          public void changeTheSubjectNameAndSaveTheTemplate() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.changeExistingSubjectNameAndSave();
+          }
+
+          @Then("The template successfully updated")
+          public void theTemplateSuccessfullyUpdated() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+//
+          }
+
+          @Given("search the existing template click the template")
+          public void searchTheExistingTemplateClickTheTemplate() {
+           NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+           newsletterTemplatePage.searchTheExistingTemplate();
+          }
+
+          @When("click on the delete template button")
+          public void clickOnTheDeleteTemplateButton() {
+            NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
+            newsletterTemplatePage.clickOnTheDeleteTemplateButton();
+          }
+
+          @Then("the template should be successfully deleted")
+          public void theTemplateShouldBeSuccessfullyDeleted() {
+          }
+      }
+

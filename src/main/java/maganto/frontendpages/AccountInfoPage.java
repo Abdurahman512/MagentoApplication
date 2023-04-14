@@ -120,9 +120,9 @@ public class AccountInfoPage {
         utility.waitForElementPresent(changepasswordChechbox);
         changepasswordChechbox.click();
         utility.waitForElementPresent(newPassword);
-        newPassword.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
+        newPassword.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"newPassword"));
         utility.waitForElementPresent(getConfirmNewPassword);
-        getConfirmNewPassword.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"ConfirmNewPassword"));
+        getConfirmNewPassword.sendKeys(ApplicationConfig.readFromConfigProperties(configFile,"newPassword"));
         utility.waitForElementPresent(saveButton1);
         saveButton1.click();
 

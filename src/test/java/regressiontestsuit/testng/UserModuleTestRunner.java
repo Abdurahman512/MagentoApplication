@@ -1,4 +1,5 @@
 package regressiontestsuit.testng;
+
 import maganto.frontendpages.*;
 import maganto.frontendpages.AccountInfoPage;
 import maganto.frontendpages.OrdersPage;
@@ -24,89 +25,118 @@ public class UserModuleTestRunner extends TestBase {
     AddressBookPage addressBookPage;
 
 
-
     final static String configFile = "config.properties";
 
     @BeforeClass
     public void setUp(ITestContext context) {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "frontendurl"));
         accountInfoPage = new AccountInfoPage(driver);
-        shoppingCartPage=new ShoppingCartPage(driver);
-        productReviewsPage=new ProductReviewsPage(driver);
-        newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
+        shoppingCartPage = new ShoppingCartPage(driver);
+        productReviewsPage = new ProductReviewsPage(driver);
+        newsLetterSubscriptionsPage = new NewsLetterSubscriptionsPage(driver);
         utility = new TestUtility(driver);
-        wishListPage=new WishListPage(driver);
+        wishListPage = new WishListPage(driver);
         ordersPage = new OrdersPage(driver);
-        addressBookPage=new AddressBookPage(driver);
+        addressBookPage = new AddressBookPage(driver);
         ordersPage = new OrdersPage(driver);
-        context.setAttribute("driver",driver);
+        context.setAttribute("driver", driver);
     }
 
-    @Test(priority = 1)
+    @Test
     public void createAccount() {
         accountInfoPage.userCreateAccount(utility.generateFirstName(), utility.generateLastName(), utility.generateEmailAddress(), ApplicationConfig.readFromConfigProperties(configFile, "password"));
         Assert.assertTrue(accountInfoPage.isAccountCreated());
 
     }
-    @Test (dependsOnMethods ={"createAccount"})
-    public void editAccountInfo(){
-        accountInfoPage.editAccount(utility.generateFirstName(),ApplicationConfig.readFromConfigProperties(configFile,"password"));
+
+    @Test(dependsOnMethods = {"createAccount"}, priority = 1)
+    public void editAccountInfo() {
+        accountInfoPage.editAccount(utility.generateFirstName(), ApplicationConfig.readFromConfigProperties(configFile, "password"));
         Assert.assertTrue(accountInfoPage.isAccountEdited());
     }
-    @Test (dependsOnMethods ={"createAccount"})
-    public void viewAccountInfo(){
+
+    @Test(dependsOnMethods = {"createAccount"}, priority = 2)
+    public void viewAccountInfo() {
         accountInfoPage.viewAccount();
         Assert.assertTrue(accountInfoPage.isAccountViewed());
     }
-    @Test(dependsOnMethods ={"createAccount"})
-    public void addProductToShoppingCart(){
+
+    @Test(dependsOnMethods = {"createAccount"},priority = 10)
+    public void addProductToShoppingCart() {
         shoppingCartPage.addProductsToShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyAddedToShoppingCartSuccessfully());
     }
 
+    @Test(dependsOnMethods = {"addProductToShoppingCart"})
+    public void updateExistingShoppingCart() {
+        shoppingCartPage.updateShoppingCart();
+        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully());
 
-    @Test(dependsOnMethods = {"createAccount"})
+    }
+
+    @Test(dependsOnMethods = {"updateExistingShoppingCart"})
+    public void checkOutOrderTest() {
+        shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
+                utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
+        Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
+    }
+
+    @Test(dependsOnMethods = {"createAccount"}, priority = 3)
     public void viewOrders() {
         ordersPage.ViewMyOrders();
         Assert.assertTrue(ordersPage.MyOrdersPage());
     }
 
-    @Test(dependsOnMethods = {"createAccount"})
+    @Test(dependsOnMethods = {"createAccount"}, priority = 4)
     public void viewDownloadOrders() {
         ordersPage.viewDownloadOrders();
         Assert.assertTrue(ordersPage.DownloadOrdersPage());
     }
-    @Test(dependsOnMethods = {"createAccount"})
-    public void viewNewsLetterSubscription(){
+
+    @Test(dependsOnMethods = {"createAccount"}, priority = 5)
+    public void viewNewsLetterSubscription() {
         newsLetterSubscriptionsPage.viewNewsLetterSubscription();
         Assert.assertTrue((newsLetterSubscriptionsPage.verifyViewNewsletterContent()));
 
     }
-    @Test(dependsOnMethods = {"createAccount"})
-    public void changePassword(){
+
+    @Test(dependsOnMethods = {"createAccount"}, priority = 7)
+    public void changePassword() {
         accountInfoPage.changePassword();
         Assert.assertTrue((accountInfoPage.VerifyChangePassword()));
 
     }
-@Test(dependsOnMethods = {"createAccount"})
-public void ProductReviews(){
+
+    @Test(dependsOnMethods = {"createAccount"}, priority = 6)
+    public void ProductReviews() {
         productReviewsPage.ProductReviews();
         Assert.assertTrue(productReviewsPage.verifyProductReviews());
-}
-    @Test(dependsOnMethods = {"addProductToShoppingCart"},priority = 2)
-    public void updateExistingShoppingCart(){
-        shoppingCartPage.updateShoppingCart("5");
-        Assert.assertTrue(shoppingCartPage.verifyUpdateSuccessfully("5"));
+    }
+
+    @Test(dependsOnMethods = {"createAccount"},priority = 9)
+    public void viewWishList() {
+        wishListPage.viewMyWishList();
+        Assert.assertTrue(wishListPage.isMyWishListAbleToView());
+    }
+
+    @Test(dependsOnMethods = {"createAccount"},priority = 8)
+    public void addAddressBook() {
+        addressBookPage.addAddressBook(utility.generateFirstName(), utility.generateLastName(),
+                utility.generateTelephoneNumber(), utility.generateStreetAddress(),
+                utility.generateCityName(), utility.generateZipCode());
+        Assert.assertTrue(addressBookPage.verifyAddedAddressBook());
 
     }
-    @Test(dependsOnMethods = {"updateExistingShoppingCart"})
-    public void checkOutOrderTest(){
-        shoppingCartPage.checkOutOrder(utility.generateStreetAddress(),
-                utility.generateCityName(), utility.generateZipCode(), utility.generateTelephoneNumber());
-        Assert.assertTrue(shoppingCartPage.checkOutOrderSuccessfully());
+
+
+    @Test(dependsOnMethods = {"addAddressBook"})
+    public void updateAddressBook() {
+        addressBookPage.updateAddressBook("Wanda");
+        Assert.assertTrue(addressBookPage.verifyUpdateSuccessfully());
     }
+
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         closeBrowser();
     }
 

@@ -15,6 +15,13 @@ public class CatalogDashboardPage {
     @FindBy (css=".logo")
     WebElement dashBoardPageLink;
 
+    @FindBy(xpath ="//span[text()=\"Catalog\"]")
+    WebElement catalogLink;
+
+    @FindBy(xpath = "//span[text()=\"Manage Categories\"]")
+    WebElement manageCategoriesLink;
+
+
     public CatalogDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -24,5 +31,15 @@ public class CatalogDashboardPage {
     public void clickDashboardPage(){
         utility.waitForElementPresent(dashBoardPageLink);
         dashBoardPageLink.click();
+    }
+
+    public void clickOnCatalogLink(){
+        utility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+    }
+
+    public void clickOnManageCategoriesLink(){
+        utility.waitForElementPresent(manageCategoriesLink);
+        manageCategoriesLink.click();
     }
 }

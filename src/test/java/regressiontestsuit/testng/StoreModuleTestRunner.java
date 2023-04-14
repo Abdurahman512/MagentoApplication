@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
+import java.util.Random;
+
 @Listeners(TestResultListener.class)
 public class StoreModuleTestRunner extends TestBase {
     StoreOrdersPage storeOrdersPage;
@@ -30,9 +32,14 @@ public class StoreModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
         storeOrdersPage=new StoreOrdersPage(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
+        storeViewPage=new StoreViewPage(driver);
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
+
         storeProductCategoriesPage=new StoreProductCategoriesPage(driver);
+
+
+
     }
     @Test
     @Ignore
@@ -53,6 +60,7 @@ public class StoreModuleTestRunner extends TestBase {
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
 
+
     @Test(priority = 1)
     public void addProductCatalog(){
         storeProductCategoriesPage.addProductCatalog();
@@ -69,6 +77,26 @@ public class StoreModuleTestRunner extends TestBase {
     public void deleteProductCatalog(){
         storeProductCategoriesPage.deleteProductCatalog();
         Assert.assertTrue(storeProductCategoriesPage.verifyDeletedProductCatalog());
+    }
+
+
+    @Test
+    public void createStoreView(){
+        storeViewPage.createStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+
+    }
+
+    @Test
+    public void editStoreView(){
+        storeViewPage.editStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewEdit());
+
+    }
+    @Test
+    public void viewAllStore(){
+        storeViewPage.viewAllStore();
+        Assert.assertTrue(storeViewPage.verifyViewAllStore());
     }
 
 

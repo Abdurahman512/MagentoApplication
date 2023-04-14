@@ -14,11 +14,13 @@ import org.openqa.selenium.WebDriver;
                 "junit:target/cucumber-results.xml"},//for test report
         //features = {"src/test/resources/features/reporting.feature"},//feature file location
         features="src/test/resources/features",
-        dryRun = true
+        dryRun = false
         ,
         //tags ="@SeeSales-TotalInvoicedVsPaidReport or @CustomerByOrdersTotal")
-        //tags = "@MarketingManagerViewAllReviews")
-        tags="@MarketingManagerViewPendingReviews")
+        //tags  = "@MarketingManagerViewAllReviews")
+        //tags="@MarketingManagerViewPendingReviews")
+        tags="@MarketingManagerUpdateExistingReviews")
+        //tags="@MarektingManagerUpdateExistingPendingReviews")
 
 public class CucumberTestRunner {
 

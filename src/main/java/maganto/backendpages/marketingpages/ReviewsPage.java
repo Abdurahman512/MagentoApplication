@@ -15,7 +15,7 @@ public class ReviewsPage {
     //1.Marketing Manager can view All Reviews.
     //2.Marketing Manager can update existing Reviews.
     //3.Marketing Manager can view Pending Reviews.
-    //4.Marketing Manager can update Pending Reviews.
+    //4.Marketing Manager can update existing Pending Reviews.
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
@@ -35,9 +35,6 @@ public class ReviewsPage {
 
     @FindAll(@FindBy(xpath = "//table[@id=\"reviwGrid_table\"]//tbody//tr/td[2]"))
     public List<WebElement>  allReviewsList;
-
-    @FindBy(xpath = "//table[@id=\"reviwGrid_table\"]//tbody//tr/td[1]")
-   public WebElement theFirstInAllViewsList;
 
 
     @FindBy(xpath = "//span[text()=\"Pending Reviews\"]")
@@ -105,7 +102,7 @@ public class ReviewsPage {
 
 
     //2.Marketing manager can update existing reviews
-    public void updateExistingReviews(String nickName){
+    public void updateExistingReviews(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).click().perform();
         testUtility.waitForElementPresent(reviewsRatingsLink);
@@ -116,8 +113,6 @@ public class ReviewsPage {
         actions.moveToElement(allReviewsLink).click().perform();
         int i=(int)Math.random()*20;
         allReviewsList.get(i).click();
-        //testUtility.waitForElementPresent(reviewsToUpdate);
-       // reviewsToUpdate.click();
         testUtility.waitForElementPresent(nickNameField);
         nickNameField.clear();
         nickNameField.sendKeys(testUtility.generateFirstName());
@@ -155,7 +150,7 @@ public class ReviewsPage {
 
 
     // 4.Marketing manager can update pending reviews
-    public void updatePendingReviews(String summary){
+    public void updatePendingReviews(){
         testUtility.waitForElementPresent(catalogLink);
         actions.moveToElement(catalogLink).click().perform();
         testUtility.waitForElementPresent(reviewsRatingsLink);
@@ -166,12 +161,9 @@ public class ReviewsPage {
         pendingReviewsLink.click();
         int i=(int)Math.random()*20;
         pendingReviewsList.get(i).click();
-        //testUtility.waitForElementPresent(pendingReviewToUpdate);
-       // pendingReviewToUpdate.click();
         testUtility.waitForElementPresent(summaryofReviewsField);
         summaryofReviewsField.clear();
         summaryofReviewsField.sendKeys(testUtility.generateFirstName());
-        //summaryofReviewsField.sendKeys("Excellent");
         testUtility.waitForElementPresent(pendingReviewSaveButton);
         pendingReviewSaveButton.click();
 

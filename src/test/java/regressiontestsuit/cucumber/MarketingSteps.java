@@ -67,6 +67,7 @@ import org.testng.Assert;
             Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
         }
 
+        //1,Marketing manager can view All Reviews and Verification
           @When("click on the CatalogLink select Reviews and Rating and move to Customer Reviews and Select All Views")
           public void click_on_the_catalog_link_select_reviews_and_rating_and_move_to_customer_reviews_and_select_all_views() {
             reviewsPage.clickAllReviewsLink();
@@ -77,16 +78,42 @@ import org.testng.Assert;
             reviewsPage.verifyViewAllReviews();
 
           }
+          //2.Marketing manager can edit existing reviews
+
+          @When("select the existing reviews and edit the nickname field")
+          public void selectTheExistingReviewsAndEditTheNicknameField() {
+            reviewsPage.updateExistingReviews();
+
+          }
+
+          @Then("existing reviews should  be updated successfully")
+          public void existingReviewsShouldBeUpdatedSuccessfully() {
+            reviewsPage.verifyUpdateReviews();
+          }
+
+
+          //3.Marketing Manager can view Pending Reviews and Verification
           @When("select Reviews and Rating and move to Customer Review and select Pending Reviews")
           public void selectReviewsAndRatingAndMoveToCustomerReviewAndSelectPendingReviews() {
-            reviewsPage.viewPendingReviews();
+              reviewsPage.viewPendingReviews();
           }
 
           @Then("Pending Reviews page should display with the Review information")
           public void pendingReviewsPageShouldDisplayWithTheReviewInformation() {
-            reviewsPage.verifViewPendingViews();
+              reviewsPage.verifViewPendingViews();
           }
-        
+
+          //4.Marketing Manager can edit the existing Pending Reviews
+          @Then("existing pending reviews should be updated successfully")
+          public void existingPendingReviewsShouldBeUpdatedSuccessfully() {
+            reviewsPage.updatePendingReviews();
+          }
+
+          @When("select the existing pending reviews and edit the summary of reviews filed")
+          public void selectTheExistingPendingReviewsAndEditTheSummaryOfReviewsFiled() {
+            reviewsPage.verifyUpdatePendinReviews();
+          }
+
 
 
           @After("@MarketingModuleTest")

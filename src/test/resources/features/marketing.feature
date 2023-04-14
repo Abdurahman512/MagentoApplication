@@ -20,12 +20,14 @@ Feature:Marketing Manager can manage market
       |RuleName          |description                               |
       |30% Sales(istanbulTeam)  | validate until the end of this year      |
 
+
     @MarketingManagerCanAddNewsletterTemplate
     Scenario: Marketing manager can add newsletter template
       Given Marketing manager on the dashboard page and marketing manager click on Newsletter template
       When click on Add new template
       And Fill in Template information fields
       Then Save the new template
+
 
       @MarketingManagerCanUpdateExistingTemplate
       Scenario: Marketing manager can update existing template
@@ -34,6 +36,7 @@ Feature:Marketing Manager can manage market
         And search the existing template and click
         And change the subject name and save the template
         Then The template successfully updated
+
 
         @MarketingManagerCanDeleteExistingTemplate
         Scenario: Marketing manager can delete existing template

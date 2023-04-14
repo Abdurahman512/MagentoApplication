@@ -129,7 +129,7 @@ import org.testng.Assert;
           @Then("The template successfully updated")
           public void theTemplateSuccessfullyUpdated() {
             NewsletterTemplatePage newsletterTemplatePage=new NewsletterTemplatePage(driver);
-//            newsletterTemplatePage.verifyUpdateNewsletterTemplate();
+//
           }
 
           @Given("search the existing template click the template")

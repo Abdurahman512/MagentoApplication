@@ -124,11 +124,6 @@ public class NewsletterTemplatePage {
         testUtility.waitForElementPresent(saveTemplateButton);
         saveTemplateButton.click();
     }
-//    public boolean verifyUpdateNewsletterTemplate() {
-//        testUtility.waitForElementPresent(successfulTemplateName);
-//        return successfulTemplateName.getText().equals(ApplicationConfig
-//                .readFromConfigProperties("config.properties", "templateSubject1"));
-//    }
 
 
     public void deleteNewsletterTemplate(){
@@ -146,7 +141,6 @@ public class NewsletterTemplatePage {
 
     }
 
-
     public void searchTheExistingTemplate(){
         testUtility.waitForElementPresent(newsletterLink);
         actions.moveToElement(newsletterLink).moveToElement(newsletterTemplatesLink).click().build().perform();
@@ -163,7 +157,6 @@ public class NewsletterTemplatePage {
         testUtility.waitForElementPresent(deleteTemplateButton);
         deleteTemplateButton.click();
     }
-
 
 }
 

@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import maganto.backendpages.BackEndLogin;
+import maganto.backendpages.salespages.InvoicesPage;
 import maganto.backendpages.salespages.OrdersPage;
 import maganto.backendpages.salespages.SalesDashboardPage;
 import maganto.backendpages.salespages.SalesShipmentsPage;
@@ -20,6 +21,7 @@ public class SalesSteps extends TestBase {
     SalesDashboardPage dashboardPage;
     BackEndLogin login;
     SalesShipmentsPage salesShipmentsPage;
+    InvoicesPage invoicesPage;
 
     final static String configFile = "config.properties";
     @Before ("@SalesModuleTests")
@@ -31,6 +33,7 @@ public class SalesSteps extends TestBase {
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
         login.salesPageLogin();
+        invoicesPage=new InvoicesPage(driver);
     }
 
     //sales manager can create a new order
@@ -73,12 +76,32 @@ public class SalesSteps extends TestBase {
         salesShipmentsPage.verifyUpdateShipmentsHistorySuccessfully();
         salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();
     }
+    @When("the sales manager view the invoice history")
+    public void theSalesManagerViewTheInvoiceHistory() {
+        dashboardPage.openInvoicePage();
+        invoicesPage.viewInvoiceCommentHistory();
 
+    }
+    @Then("sales manager should be able to view comment history")
+    public void salesManagerShouldBeAbleToViewCommentHistory() {
+        invoicesPage.verifyViewInvoiceCommentHistorySuccessfully();
+    }
 
+    @When("the sales manager fills out {string} field and click on submit comment button")
+    public void theSalesManagerFillsOutFieldAndClickOnSubmitCommentButton(String arg0) {
+        dashboardPage.openInvoicePage();
+        invoicesPage.addInvoiceComment(arg0);
+
+    }
+    @Then("the comment should be display on the frontend page")
+    public void theCommentShouldBeDisplayOnTheFrontendPage() {
+        invoicesPage.verifyAddInvoiceCommentSuccessfully();
+    }
     @After ("@SalesModuleTests")
     public void tearDown(){
         closeBrowser();
     }
+
 
 
 }

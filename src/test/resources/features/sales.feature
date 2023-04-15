@@ -20,3 +20,16 @@ Feature: Sales Module Functions
     Examples:
       | commentHistory       | number   |
       | Shipped completed | 04082023 |
+
+    Scenario : Sales Manager Can View Invoice Comment History
+      Given sales manager is on the admin page
+      When the sales manager view the invoice history
+      Then  sales manager should be able to view comment history
+
+      Scenario Outline: Sales Manager Can Add Invoice Comment In The History Page
+        Given sales manager is on the admin page
+        When  the sales manager fills out "<commentHistory>" field and click on submit comment button
+        Then  the comment should be display on the frontend page
+        Examples:
+          |commentHistory  |
+          |   HelloWorldTeam1 |

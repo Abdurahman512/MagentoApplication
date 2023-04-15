@@ -140,7 +140,7 @@ public class CatalogPage {
     public void EditSearchTerm(){
         utility.sleep(2);
         utility.waitForElementPresent(SearchQueryFieldForEdit);
-        SearchQueryFieldForEdit.sendKeys(DataHelper.getQueryName());
+        SearchQueryFieldForEdit.sendKeys(DataHelper.getQueryName1());
         utility.waitForElementPresent(searchButton);
         searchButton.click();
         utility.sleep(2);

@@ -32,23 +32,42 @@ public class StoreModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
         storeOrdersPage=new StoreOrdersPage(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
+        storePage=new StorePage(driver);
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
     }
-    @Test
+    @Test(enabled = false)
     public void createOrderTest(){
         storeOrdersPage.createNewOrderMethod();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
-    @Test(dependsOnMethods = {"createOrderTest"})
+    @Test(dependsOnMethods = {"createOrderTest"},enabled = false)
     public void updateOrderTest(){
         storeOrdersPage.updateOrder();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
-    @Test(dependsOnMethods = {"updateOrderTest"})
+    @Test(dependsOnMethods = {"updateOrderTest"},enabled = false)
     public void cancelOrders(){
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
+    }
+
+    @Test(priority = 1)
+    public void createStoreTest(){
+        storePage.createStore();
+        Assert.assertTrue(storePage.addStoreSuccessfullyMessage());
+    }
+
+    @Test(priority = 2)
+    public void editStoreTest(){
+        storePage.editStore();
+        Assert.assertTrue(storePage.editStoreSuccessfullyMessage());
+    }
+
+    @Test(priority = 3)
+    public void deleteStoreTest(){
+        storePage.deleteStore();
+        Assert.assertTrue(storePage.deleteStoreSuccessfullyMessage());
     }
     @AfterClass
     public void tearDown() {

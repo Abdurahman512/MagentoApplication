@@ -2,6 +2,7 @@ package regressiontestsuit.testng;
 
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.catalogpages.AttributesPage;
+import maganto.backendpages.catalogpages.CatalogPage;
 import maganto.backendpages.catalogpages.CategoriesPage;
 import maganto.backendpages.catalogpages.ProductPage;
 import maganto.utility.ApplicationConfig;
@@ -19,7 +20,11 @@ public class CatalogModuleTestRunner extends TestBase {
     CategoriesPage categoriesPage;
     AttributesPage attributesPage;
 
+    CatalogPage catalogPage;
+
+
     ProductPage productPage;
+
     final static String configFile = "config.properties";
 
     @BeforeClass
@@ -36,6 +41,7 @@ public class CatalogModuleTestRunner extends TestBase {
 
 
     @Test
+
     public void addProduct(){
         productPage.userAddProduct();
 
@@ -64,16 +70,20 @@ public class CatalogModuleTestRunner extends TestBase {
         Assert.assertTrue(categoriesPage.verifyFilter());
     }
     @Test(priority =3)
+
     public void addNewAttributeTest(){
         attributesPage.clickOnAddNewAttributeButton();
         Assert.assertTrue(attributesPage.verifyAttributeAddedSuccessfully());
     }
+
     @Test (dependsOnMethods = {"addNewAttributeTest"})
+
     public void filterSearchTerms(){
         attributesPage.filterSearchTerms();
         Assert.assertTrue(attributesPage.verifyFilterSearchTerms());
     }
     @Test(priority =4)
+
     public void addRootCategoryTest(){
         categoriesPage.addRootCategories();
         Assert.assertTrue(categoriesPage.isRootCategoryAdded());
@@ -107,10 +117,32 @@ public class CatalogModuleTestRunner extends TestBase {
 
     }
 
+    @Test(description = "addNewSearchTerm",priority = 1)
+    public void addNewSearchTerm(){
+        BackEndLogin login=new BackEndLogin(driver);
+        login.VerifyLoginSuccessfully();
+        catalogPage=new CatalogPage(driver);
+        catalogPage.addNewSearchTerm1();
+        Assert.assertTrue(catalogPage.verifySuccessfullyMessage());
+
+    }
+    @Test(description = "editNewSearchTerm",dependsOnMethods ={"addNewSearchTerm"},priority = 2)
+    public void editSearchTerm(){
+        catalogPage=new CatalogPage(driver);
+        catalogPage.EditSearchTerm();
+        Assert.assertTrue(catalogPage.verifyYouSavedTheSearchTermMessage());
+    }
+    @Test(description = "deletedSearchTerm",priority = 3)
+    public void deletedSearchTerm(){
+        catalogPage=new CatalogPage(driver);
+        catalogPage.deleteSearchTerm();
+        Assert.assertTrue(catalogPage.verifySuccessfullyMessage());
+    }
+
     @AfterClass
     public void tearDown(){
         closeBrowser();
-    }
+   }
 
 
 

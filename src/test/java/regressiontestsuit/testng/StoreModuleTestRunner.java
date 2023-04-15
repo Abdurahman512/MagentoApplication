@@ -5,13 +5,10 @@ import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestResultListener;
 import maganto.utility.TestUtility;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 
 @Listeners(TestResultListener.class)
 public class StoreModuleTestRunner extends TestBase {
@@ -21,6 +18,7 @@ public class StoreModuleTestRunner extends TestBase {
     StoreViewPage storeViewPage;
     StoreWebsitePage storeWebsitePage;
     StorePage storePage;
+    StoreProductCategoriesPage storeProductCategoriesPage;
     TestUtility utility;
     final static String configFile = "config.properties";
     BackEndLogin backEndLogin;
@@ -32,46 +30,122 @@ public class StoreModuleTestRunner extends TestBase {
         context.setAttribute("driver",driver);
         storeOrdersPage=new StoreOrdersPage(driver);
         storeDashboardPage=new StoreDashboardPage(driver);
-        storePage=new StorePage(driver);
+        storeViewPage=new StoreViewPage(driver);
+        storeProductPage=new StoreProductPage(driver);
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
+        storeProductCategoriesPage=new StoreProductCategoriesPage(driver);
     }
-    @Test(enabled = false)
+    @Test
+    @Ignore
     public void createOrderTest(){
         storeOrdersPage.createNewOrderMethod();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
-    @Test(dependsOnMethods = {"createOrderTest"},enabled = false)
+    @Test(dependsOnMethods = {"createOrderTest"})
+    @Ignore
     public void updateOrderTest(){
         storeOrdersPage.updateOrder();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
-    @Test(dependsOnMethods = {"updateOrderTest"},enabled = false)
+    @Test(dependsOnMethods = {"updateOrderTest"})
+    @Ignore
     public void cancelOrders(){
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
     }
-
-    @Test(priority = 1)
-    public void createStoreTest(){
-        storePage.createStore();
-        Assert.assertTrue(storePage.addStoreSuccessfullyMessage());
+    @Test(dataProvider = "productData", groups = "regression test", description = "add product")
+    public void addProduct(String name, String description, String shortDescription, String sku,
+                           String weight, String price){
+        storeDashboardPage.clickOnCatalogLink();
+        storeProductPage.addProductsMethod(name, description, shortDescription, sku, weight, price);
+        Assert.assertTrue(storeProductPage.confirmationProductAdded());
+    }
+    @Test(dataProvider = "productUpdate",groups = "regression test", description = "update product",dependsOnMethods = {"addProduct"})
+    public void updateProduct(String name,String description){
+        storeProductPage.updateProductMethod(name, description);
+        Assert.assertTrue(storeProductPage.confirmationProductAdded());
+    }
+    @Test(groups = "regression test",description = "delete product",dependsOnMethods = {"addProduct"})
+    public void deleteProduct(){
+        storeProductPage.deleteProductMethod();
+        Assert.assertTrue(storeProductPage.confirmationProductDeleted());
     }
 
-    @Test(priority = 2)
-    public void editStoreTest(){
-        storePage.editStore();
-        Assert.assertTrue(storePage.editStoreSuccessfullyMessage());
+    @Test()
+    public void addProductCatalog(){
+        storeProductCategoriesPage.addProductCatalog();
+        Assert.assertTrue(storeProductCategoriesPage.verifyAddedProductCatalog());
     }
 
-    @Test(priority = 3)
-    public void deleteStoreTest(){
-        storePage.deleteStore();
-        Assert.assertTrue(storePage.deleteStoreSuccessfullyMessage());
+    @Test(dependsOnMethods = "addProductCatalog")
+    public void updateProductCatalog(){
+        storeProductCategoriesPage.updateProductCatalog();
+        Assert.assertTrue(storeProductCategoriesPage.verifyUpdatedProductCatalog());
     }
+
+    @Test(dependsOnMethods = "updateProductCatalog")
+    public void deleteProductCatalog(){
+        storeProductCategoriesPage.deleteProductCatalog();
+        Assert.assertTrue(storeProductCategoriesPage.verifyDeletedProductCatalog());
+    }
+
+
+    @Test
+    public void createStoreView(){
+        storeViewPage.createStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+
+    }
+
+    @Test
+    public void editStoreView(){
+        storeViewPage.editStoreView();
+        Assert.assertTrue(storeViewPage.verifyStoreViewEdit());
+
+    }
+    @Test
+    public void viewAllStore(){
+        storeViewPage.viewAllStore();
+        Assert.assertTrue(storeViewPage.verifyViewAllStore());
+    }
+
+    @Test()
+    public void addNewWebsite(){
+        storeWebsitePage.CreateNewWepsite();
+        Assert.assertTrue(storeWebsitePage.VerifySuccessfulMessage());
+    }
+
+    @Test(dependsOnMethods = {"addNewWebsite"})
+    public void updatedNewWebsite(){
+        storeWebsitePage.editWepsiye();
+        Assert.assertTrue(storeWebsitePage.VerifyEditWepsiteMessage());
+    }
+    @Test(dependsOnMethods = "updatedNewWebsite")
+    public void DeletedNewWebsite(){
+        storeWebsitePage.DeletedWepsite();
+        Assert.assertTrue(storeWebsitePage.DeletedWepsiteMessage());
+    }
+
     @AfterClass
     public void tearDown() {
         closeBrowser();
+    }
+
+    @DataProvider
+    public Object[][] productData(){
+        Object[][] data=new Object[][]{
+                {"Ring","Diamond Ring 40kr ",
+                        "Diamond Ring",utility.generateZipCode(),"15","1200"},
+        };
+        return data;
+    }
+    @DataProvider
+    public Object[][] productUpdate(){
+        Object[][] data2=new Object[][]{
+                {"Ring",utility.generateZipCode()},
+        };
+        return data2;
     }
 
 }

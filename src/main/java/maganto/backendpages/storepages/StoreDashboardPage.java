@@ -24,12 +24,10 @@ public class StoreDashboardPage {
     WebElement ordersLink;
     @FindBy(xpath = "//span[contains(text(),\"The order has been created.\")]")
     WebElement orderSuccessfullyCreated;
-
-    @FindBy(xpath = "//span[text()=\"System\"]")
-    WebElement systemLink;
-    @FindBy(xpath = "//span[text()=\"Manage Stores\"]")
-    WebElement managerStoresLink;
-
+    @FindBy(xpath = "//ul[@id=\"nav\"]//li/a/span[contains(text(),\"Catalog\")]")
+    WebElement catalogLink;
+    @FindBy(xpath = "//ul[@id=\"nav\"]//li/a/span[contains(text(),\"Manage Products\")]")
+    WebElement manageProductsLink;
 
     public void clickOnOrdersLink(){
         utility.waitForElementPresent(salesLink);
@@ -44,12 +42,12 @@ public class StoreDashboardPage {
             return false;
     }
 
-    public void clickOnManagerStoreLink(){
-        utility.waitForElementPresent(systemLink);
-        systemLink.click();
-        utility.waitForElementPresent(managerStoresLink);
-        managerStoresLink.click();
-    }
+    public void clickOnCatalogLink(){
+        utility.waitForElementPresent(catalogLink);
+        actions.moveToElement(catalogLink).click().build().perform();
+        utility.waitForElementPresent(manageProductsLink);
+        actions.moveToElement(manageProductsLink).click().build().perform();
 
+    }
 
 }

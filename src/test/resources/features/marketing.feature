@@ -44,7 +44,11 @@ Feature:Marketing Manager can manage market
           When click on the delete template button
           Then the template should be successfully deleted
 
-
+      @MarketingManagerCanViewNewsletterSubscribersLink
+      Scenario: Marketing manager can view newsletter subscribers
+        Given marketing manager on the dashboard page and can click on Newsletter link
+        When marketing manager can click on Newsletter Subscribers link
+        Then marketing manager can view newsletter subscribers successfully
 
        # 1.Marketing Manager can view All Reviews
 

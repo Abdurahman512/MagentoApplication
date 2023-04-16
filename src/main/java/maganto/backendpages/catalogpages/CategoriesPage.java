@@ -83,6 +83,7 @@ public class CategoriesPage {
     public void addRootCategories(){
         utility.waitForElementPresent(catalogLink);
         catalogLink.click();
+        utility.sleep(2);
         utility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
         utility.sleep(2);
@@ -106,7 +107,8 @@ public class CategoriesPage {
         categoriesLink.click();
         addedRootCategory= driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",rootCategoryName)));
         utility.waitForElementPresent(addedRootCategory);
-        addedRootCategory.click();
+        utility.sleep(1);
+        utility.javaScriptClick(addedRootCategory);
         utility.sleep(3);
         utility.waitForElementPresent(addSubCategoryLink);
         utility.javaScriptClick(addSubCategoryLink);
@@ -181,6 +183,7 @@ public class CategoriesPage {
         utility.sleep(2);
         utility.javaScriptClick(addedRootCategory);
         utility.waitForElementPresent(deleteCategoryButton);
+        utility.sleep(2);
         utility.javaScriptClick(deleteCategoryButton);
         utility.sleep(2);
         Alert alert = driver.switchTo().alert();

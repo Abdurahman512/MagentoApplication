@@ -127,6 +127,25 @@ public class StoreModuleTestRunner extends TestBase {
         Assert.assertTrue(storeWebsitePage.DeletedWepsiteMessage());
     }
 
+    @Test(description = "Store Manager can create a store")
+    public void createStoreTest(){
+        storePage.createStore();
+        Assert.assertTrue(storePage.addStoreSuccessfullyMessage());
+    }
+
+    @Test(dependsOnMethods = "createStoreTest")
+    public void editStoreTest(){
+        storePage.editStore();
+        Assert.assertTrue(storePage.editStoreSuccessfullyMessage());
+    }
+
+    @Test(dependsOnMethods = "createStoreTest")
+    public void deleteStoreTest(){
+        storePage.deleteStore();
+        Assert.assertTrue(storePage.deleteStoreSuccessfullyMessage());
+    }
+
+
     @AfterClass
     public void tearDown() {
         closeBrowser();

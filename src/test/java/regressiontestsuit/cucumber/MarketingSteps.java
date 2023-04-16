@@ -20,6 +20,7 @@ import org.testng.Assert;
           NewsletterTemplatePage newsletterTemplatePage;
           NewsletterPage newsletterPage;
           ExcelUtility excelUtility;
+          ReviewsPage reviewsPage;
 
           @Before("@MarketingModuleTest")
           public void setup() {
@@ -29,6 +30,7 @@ import org.testng.Assert;
               cartPriceRulePage = new CartPriceRulePage(driver);
               newsletterTemplatePage = new NewsletterTemplatePage(driver);
               excelUtility = new ExcelUtility();
+              reviewsPage=new ReviewsPage(driver);
           }
           //marketing manager can add newsletterTemplate and update and delete
 
@@ -166,6 +168,52 @@ import org.testng.Assert;
               NewsletterPage newsletterPage = new NewsletterPage(driver);
               Assert.assertTrue(newsletterPage.viewNewsLetterSubscribersSuccessfully());
           }
+           //1.Marketing manager can view All Reviews
+          @When("click on the CatalogLink select Reviews and Rating and move to Customer Reviews and Select All Views")
+          public void clickOnTheCatalogLinkSelectReviewsAndRatingAndMoveToCustomerReviewsAndSelectAllViews() {
+              reviewsPage.clickAllReviewsLink();
+          }
+
+
+
+          @Then("All Reviews page should display with the Reviews InformationMa")
+          public void allReviewsPageShouldDisplayWithTheReviewsInformationMa() {
+              reviewsPage.verifyViewAllReviews();
+          }
+
+          //2.Marketing manager can update Existing Reviews
+          @When("select the existing reviews and edit the nickname field")
+          public void selectTheExistingReviewsAndEditTheNicknameField() {
+              reviewsPage.updateExistingReviews();
+          }@Then("existing reviews should  be updated successfully")
+          public void existingReviewsShouldBeUpdatedSuccessfully() {
+              reviewsPage.verifyUpdateReviews();
+
+          }
+          //3. Marketing manager can view Pending Reviews
+          @When("select Reviews and Rating and move to Customer Review and select Pending Reviews")
+          public void selectReviewsAndRatingAndMoveToCustomerReviewAndSelectPendingReviews() {
+              reviewsPage.viewPendingReviews();
+          }
+          @Then("Pending Reviews page should display with the Review information")
+          public void pendingReviewsPageShouldDisplayWithTheReviewInformation() {
+              reviewsPage.verifViewPendingViews();
+          }
+
+
+
+          //4. Marketing manager can update the Existing Pending Reviews
+
+          @When("select the existing pending reviews and edit the summary of reviews filed")
+          public void selectTheExistingPendingReviewsAndEditTheSummaryOfReviewsFiled() {
+              reviewsPage.updatePendingReviews();
+          }
+
+          @Then("existing pending reviews should be updated successfully")
+          public void existingPendingReviewsShouldBeUpdatedSuccessfully() {
+              reviewsPage.verifyUpdatePendinReviews();
+          }
+
 
       }
 

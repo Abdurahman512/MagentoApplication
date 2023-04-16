@@ -73,12 +73,23 @@ public class SalesSteps extends TestBase {
         salesShipmentsPage.verifyUpdateShipmentsHistorySuccessfully();
         salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();
     }
+    @When("Sales manager Click on Reports move to reports and move to Sales and select refunds")
+    public void salesManagerClickOnReportsMoveToReportsAndMoveToSalesAndSelectRefunds() {
+
+    }
+    @And("fill in {string} and {string} field")
+    public void fillInAndField(String arg0, String arg1) {
+    }
+    @Then("Total Refunded Report page should display with information")
+    public void totalRefundedReportPageShouldDisplayWithInformation() {
+    }
 
 
     @After ("@SalesModuleTests")
     public void tearDown(){
         closeBrowser();
     }
+
 
 
 }

@@ -20,3 +20,14 @@ Feature: Sales Module Functions
     Examples:
       | commentHistory       | number   |
       | Shipped completed | 04082023 |
+
+    @viewRefundsInReports
+    Scenario Outline: Sales Manager can view Refunds in Reports
+      Given  Sales manager is on the dashboard page and clicks on shipmentsOption
+      When Sales manager Click on Reports move to reports and move to Sales and select refunds
+      And fill in "<FROM>" and "<To>" field
+      Then Total Refunded Report page should display with information
+
+      Examples:
+      | from | to |
+      | 3/15/2023 | 4/15/2023 |

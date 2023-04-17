@@ -16,7 +16,10 @@ public class CustomerDashboardPage {
     Actions actions;
     String config="config.properties";
     String email;
-
+    @FindBy(xpath = "//img[@alt='Magento Logo']")
+    WebElement customerMagentoDashboard;
+    @FindBy(id = "anchor-content")
+    WebElement manageCustomersTable;
 
     @FindBy(xpath = "//span[text()='Customers']")
     WebElement customersLink;
@@ -106,6 +109,15 @@ public class CustomerDashboardPage {
         testUtility.waitForElementPresent(searchButton);
         actions.click(searchButton).perform();
         testUtility.sleep(2);
+    }
+    public boolean clickOnMagentoLogoBackDashboard() {
+        testUtility.waitForElementPresent(customerMagentoDashboard);
+        customerMagentoDashboard.click();
+        testUtility.waitForElementPresent(manageCustomersTable);
+        if (manageCustomersTable.isDisplayed()) {
+            return true;
+        } else
+            return false;
     }
 
 

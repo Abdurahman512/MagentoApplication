@@ -23,9 +23,8 @@ Feature: Sales Module Functions
 
     @viewRefundsInReports
     Scenario Outline: Sales Manager can view Refunds in Reports
-      Given  Sales manager is on the dashboard page and clicks on shipmentsOption
-      When Sales manager Click on Reports move to reports and move to Sales and select refunds
-      And fill in "<FROM>" and "<To>" field
+      Given  sales manager is on the admin page
+      When Sales manager Click on Reports move to reports and move to Sales and select refunds fill in "<from>" and "<to>" field
       Then Total Refunded Report page should display with information
 
       Examples:

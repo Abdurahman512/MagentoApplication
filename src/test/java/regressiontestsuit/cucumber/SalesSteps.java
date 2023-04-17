@@ -7,12 +7,15 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import maganto.backendpages.BackEndLogin;
+import maganto.backendpages.marketingpages.ReviewsPage;
 import maganto.backendpages.salespages.OrdersPage;
+import maganto.backendpages.salespages.RefundsPage;
 import maganto.backendpages.salespages.SalesDashboardPage;
 import maganto.backendpages.salespages.SalesShipmentsPage;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestUtility;
+import org.testng.Assert;
 
 public class SalesSteps extends TestBase {
     TestUtility utility;
@@ -20,6 +23,7 @@ public class SalesSteps extends TestBase {
     SalesDashboardPage dashboardPage;
     BackEndLogin login;
     SalesShipmentsPage salesShipmentsPage;
+    RefundsPage refundsPage;
 
     final static String configFile = "config.properties";
     @Before ("@SalesModuleTests")
@@ -27,6 +31,7 @@ public class SalesSteps extends TestBase {
         browserSetUp(ApplicationConfig.readFromConfigProperties(configFile, "backendurl"));
         ordersPage = new OrdersPage(driver);
         salesShipmentsPage=new SalesShipmentsPage(driver);
+        refundsPage=new RefundsPage(driver);
         dashboardPage=new SalesDashboardPage(driver);
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
@@ -71,17 +76,19 @@ public class SalesSteps extends TestBase {
     @Then("the shipments update successfully")
     public void theShipmentsUpdateSuccessfully() {
         salesShipmentsPage.verifyUpdateShipmentsHistorySuccessfully();
-        salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();
-    }
-    @When("Sales manager Click on Reports move to reports and move to Sales and select refunds")
-    public void salesManagerClickOnReportsMoveToReportsAndMoveToSalesAndSelectRefunds() {
+        salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();}
 
+    //Sales Manager should be able to view refunds in the Reports
+    @When("Sales manager Click on Reports move to reports and move to Sales and select refunds fill in {string} and {string} field")
+    public void salesManagerClickOnReportsMoveToReportsAndMoveToSalesAndSelectRefundsFillInAndField(String arg0, String arg1) {
+        refundsPage.viewRefundsReports(arg0,arg1);
     }
-    @And("fill in {string} and {string} field")
-    public void fillInAndField(String arg0, String arg1) {
-    }
+
     @Then("Total Refunded Report page should display with information")
     public void totalRefundedReportPageShouldDisplayWithInformation() {
+        refundsPage.verifyMessageRefunds();
+        Assert.assertTrue(refundsPage.verifyMessageRefunds());
+
     }
 
 

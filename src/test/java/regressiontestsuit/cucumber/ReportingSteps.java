@@ -18,6 +18,8 @@ import io.cucumber.java.Scenario;
 
 public class ReportingSteps extends TestBase {
     TestUtility utility;
+    DownloadsPage downloadsPage;
+    ReportReviewsPage reportReviewsPage;
     ReportingDashboardPage dashboardPage;
     SalesOrdersPage salesOrdersPage;
     BackEndLogin login;
@@ -37,6 +39,7 @@ public class ReportingSteps extends TestBase {
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
+        downloadsPage=new DownloadsPage(driver);
     }
 
     //reporting manager can can see sales-total ordered report
@@ -123,5 +126,30 @@ public class ReportingSteps extends TestBase {
     }
 
 
+    @Given("Reporting manager is on the dashboard page click on the reports")
+    public void reportingManagerIsOnTheDashboardPageClickOnTheReports() {
+
+        downloadsPage.seeProductsDownloadsReport();
+    }
+
+    @When("click on downloadsLink")
+    public void clickOnDownloadsLink() {
+        downloadsPage.seeProductsDownloadsReport();
+    }
+
+    @Then("downloadsProductPage should display")
+    public void downloadsproductpageShouldDisplay() {
+        downloadsPage.verifySeeProductsDownloadsReport();
+    }
+
+    @When("click on the products review link")
+    public void clickOnTheProductsReviewLink() {
+        downloadsPage.seeProductsReviews();
+    }
+
+    @Then("review products page should display")
+    public void reviewProductsPageShouldDisplay() {
+        downloadsPage.verifySeeProductsReview();
+    }
 
 }

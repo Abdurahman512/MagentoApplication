@@ -44,5 +44,41 @@ Feature:Marketing Manager can manage market
           When click on the delete template button
           Then the template should be successfully deleted
 
+      @MarketingManagerCanViewNewsletterSubscribersLink
+      Scenario: Marketing manager can view newsletter subscribers
+        Given marketing manager on the dashboard page and can click on Newsletter link
+        When marketing manager can click on Newsletter Subscribers link
+        Then marketing manager can view newsletter subscribers successfully
+
+       # 1.Marketing Manager can view All Reviews
+
+    @MarketingManagerViewAllReviews
+  Scenario: Marketing manger can view All Reviews
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When click on the CatalogLink select Reviews and Rating and move to Customer Reviews and Select All Views
+    Then All Reviews page should display with the Reviews InformationMa
+
+  #2.Marketing Manager can edit Existing Reviews
+  @MarketingManagerUpdateExistingReviews
+  Scenario: MarketingManagerUpdateExistingReviews
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When select the existing reviews and edit the nickname field
+    Then existing reviews should  be updated successfully
+
+
+    #3.Marketing Manager can view Pending Reviews
+  @MarketingManagerViewPendingReviews
+  Scenario: Marketing manager can view Pending Reviews
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When select Reviews and Rating and move to Customer Review and select Pending Reviews
+    Then Pending Reviews page should display with the Review information
+
+      #4.Marketing Manager can edit existing Pending Reviews
+  @MarektingManagerUpdateExistingPendingReviews
+  Scenario: Marketing manager can edit existing Pending Reviews
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When select the existing pending reviews and edit the summary of reviews filed
+    Then existing pending reviews should be updated successfully
+
 
 

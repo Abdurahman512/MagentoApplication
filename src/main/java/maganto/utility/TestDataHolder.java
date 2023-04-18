@@ -27,7 +27,19 @@ public class TestDataHolder {
     private static String products;
 
 
+    public TestDataHolder(String customerGroupName) {
+        this.customerGroupName = customerGroupName;
+    }
 
+    public String getCustomerGroupName() {
+        return customerGroupName;
+    }
+    @Override
+    public String toString() {
+        return "TestDataHolder{" +
+                "customerGroupName='" + customerGroupName + '\'' +
+                '}';
+    }
 
     public static String getCategoryID() {
         return categoryID;
@@ -65,12 +77,7 @@ public class TestDataHolder {
         TestDataHolder.products = Products;
     }
 
-    @Override
-    public String toString() {
-        return "TestDataHolder{" +
-                "customerGroupName='" + customerGroupName + '\'' +
-                '}';
-    }
+
 
     public TestDataHolder() {
     }
@@ -83,9 +90,7 @@ public class TestDataHolder {
         this.adminName = adminName;
     }
 
-    public TestDataHolder(String customerGroupName) {
-        this.customerGroupName = customerGroupName;
-    }
+
 
     public TestDataHolder(String rootCategoryName, String rootCategoryDescription) {
         this.rootCategoryName = rootCategoryName;
@@ -104,9 +109,6 @@ public class TestDataHolder {
 
     private String newRootCategoryDescription;
 
-    public String getCustomerGroupName() {
-        return customerGroupName;
-    }
 
     public String getSubCategoriesName() {
         return subCategoriesName;
@@ -244,6 +246,8 @@ public class TestDataHolder {
     public void setEndTo (String endTo){
         this.endTo = endTo;
     }
+
+
 
 
 }

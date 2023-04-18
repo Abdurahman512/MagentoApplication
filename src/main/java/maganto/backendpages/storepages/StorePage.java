@@ -47,7 +47,7 @@ public class StorePage {
 
 
 
-    public void createStore(){
+    public String createStore(){
         storeDashboardPage.clickOnManagerStoreLink();
           utility.waitForElementPresent(createStoreButton);
           createStoreButton.click();
@@ -55,12 +55,14 @@ public class StorePage {
           Select select1=new Select(websiteMenu);
           select1.selectByVisibleText("Magento eCommerce Application");
           utility.waitForElementPresent(nameFiled);
-          nameFiled.sendKeys(storeName=utility.generateAdminName());
+          storeName=utility.generateAdminName();
+          nameFiled.sendKeys(storeName);
           utility.waitForElementPresent(rootCategoryFiled);
           Select select2=new Select(rootCategoryFiled);
           select2.selectByVisibleText("ShoesFar From the Madding Crowd");
           utility.waitForElementPresent(saveButton);
           saveButton.click();
+          return storeName;
     }
 
     public boolean addStoreSuccessfullyMessage(){

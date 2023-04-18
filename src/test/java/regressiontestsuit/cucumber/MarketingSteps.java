@@ -11,7 +11,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
-      public class MarketingSteps extends TestBase {
+      public class       MarketingSteps extends TestBase {
           final static String configFile = "config.properties";
           final static String url = ApplicationConfig.readFromConfigProperties(configFile, "backendurl");
 

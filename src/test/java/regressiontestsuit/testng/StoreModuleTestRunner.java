@@ -35,26 +35,11 @@ public class StoreModuleTestRunner extends TestBase {
         backEndLogin=new BackEndLogin(driver);
         backEndLogin.storePageLogin();
         storeProductCategoriesPage=new StoreProductCategoriesPage(driver);
+        storeWebsitePage=new StoreWebsitePage(driver);
+        storePage=new StorePage(driver);
     }
-    @Test
-    @Ignore
-    public void createOrderTest(){
-        storeOrdersPage.createNewOrderMethod();
-        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
-    }
-    @Test(dependsOnMethods = {"createOrderTest"})
-    @Ignore
-    public void updateOrderTest(){
-        storeOrdersPage.updateOrder();
-        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
-    }
-    @Test(dependsOnMethods = {"updateOrderTest"})
-    @Ignore
-    public void cancelOrders(){
-        storeOrdersPage.cancelOrder();
-        Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
-    }
-    @Test(dataProvider = "productData", groups = "regression test", description = "add product")
+
+    @Test(dataProvider = "productData", groups = "regression test", description = "add product",priority = 1)
     public void addProduct(String name, String description, String shortDescription, String sku,
                            String weight, String price){
         storeDashboardPage.clickOnCatalogLink();
@@ -66,13 +51,35 @@ public class StoreModuleTestRunner extends TestBase {
         storeProductPage.updateProductMethod(name, description);
         Assert.assertTrue(storeProductPage.confirmationProductAdded());
     }
-    @Test(groups = "regression test",description = "delete product",dependsOnMethods = {"addProduct"})
+    @Test(groups = "regression test",description = "delete product",dependsOnMethods = {"updateProduct"})
     public void deleteProduct(){
         storeProductPage.deleteProductMethod();
         Assert.assertTrue(storeProductPage.confirmationProductDeleted());
     }
 
-    @Test()
+
+
+    @Test(description = "createorder",priority = 2)
+    //@Ignore
+    public void createOrderTest(){
+        storeOrdersPage.createNewOrderMethod();
+        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
+    }
+    @Test(dependsOnMethods = {"createOrderTest"})
+   // @Ignore
+    public void updateOrderTest(){
+        storeOrdersPage.updateOrder();
+        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
+    }
+    @Test(dependsOnMethods = {"updateOrderTest"})
+    //@Ignore
+    public void cancelOrders(){
+        storeOrdersPage.cancelOrder();
+        Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());
+    }
+
+
+    @Test(description = "addcatalog",priority = 3)
     public void addProductCatalog(){
         storeProductCategoriesPage.addProductCatalog();
         Assert.assertTrue(storeProductCategoriesPage.verifyAddedProductCatalog());
@@ -91,26 +98,26 @@ public class StoreModuleTestRunner extends TestBase {
     }
 
 
-    @Test
+    @Test(description = "createstoreview",priority = 4)
     public void createStoreView(){
         storeViewPage.createStoreView();
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
 
     }
 
-    @Test
+    @Test(priority = 5)
     public void editStoreView(){
         storeViewPage.editStoreView();
         Assert.assertTrue(storeViewPage.verifyStoreViewEdit());
 
     }
-    @Test
+    @Test(priority = 6)
     public void viewAllStore(){
         storeViewPage.viewAllStore();
         Assert.assertTrue(storeViewPage.verifyViewAllStore());
     }
 
-    @Test()
+    @Test(priority = 7)
     public void addNewWebsite(){
         storeWebsitePage.CreateNewWepsite();
         Assert.assertTrue(storeWebsitePage.VerifySuccessfulMessage());
@@ -127,7 +134,7 @@ public class StoreModuleTestRunner extends TestBase {
         Assert.assertTrue(storeWebsitePage.DeletedWepsiteMessage());
     }
 
-    @Test(description = "Store Manager can create a store")
+    @Test(description = "Store Manager can create a store",priority = 8)
     public void createStoreTest(){
         storePage.createStore();
         Assert.assertTrue(storePage.addStoreSuccessfullyMessage());
@@ -139,7 +146,7 @@ public class StoreModuleTestRunner extends TestBase {
         Assert.assertTrue(storePage.editStoreSuccessfullyMessage());
     }
 
-    @Test(dependsOnMethods = "createStoreTest")
+    @Test(dependsOnMethods = "editStoreTest")
     public void deleteStoreTest(){
         storePage.deleteStore();
         Assert.assertTrue(storePage.deleteStoreSuccessfullyMessage());
@@ -168,3 +175,5 @@ public class StoreModuleTestRunner extends TestBase {
     }
 
 }
+
+

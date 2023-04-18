@@ -68,15 +68,15 @@ public class ShoppingCartPage {
     WebElement countryDropDown;
     @FindBy(id = "billing:telephone")
     WebElement telephoneField;
-    @FindBy(xpath = "(//span[contains(text(),\"Continue\")])[1]")
+    @FindBy(xpath = "//div[@id=\"billing-buttons-container\"]//button")
     WebElement continueButton1;
     @FindBy(xpath = "//input[@id=\"s_method_freeshipping_freeshipping\"]")
     WebElement freeShippingCheckBox;
     @FindBy(xpath = "//input[@id=\"p_method_cashondelivery\"]")
     WebElement cashOnDeliveryCheckBox;
-    @FindBy(xpath = "//div[@id=\"shipping-method-buttons-container\"]//button//span/span")
+    @FindBy(xpath = "//div[@id=\"shipping-method-buttons-container\"]//button")
     WebElement continueButton2;
-    @FindBy(xpath = "//div[@id=\"payment-buttons-container\"]//button//span/span")
+    @FindBy(xpath = "//div[@id=\"payment-buttons-container\"]//button")
     WebElement continueButton3;
     @FindBy(xpath = "//button[@class=\"button btn-checkout\"]//span[contains(text(),\"Place Order\")]")
     WebElement placeOrderButton;
@@ -147,19 +147,6 @@ public class ShoppingCartPage {
         utility.javaScriptClick(cartLink);
         utility.waitForElementPresent(checkoutLink);
         checkoutLink.click();
-         utility.waitForElementPresent(addressField);
-        addressField.sendKeys(address);
-        utility.waitForElementPresent(cityField);
-        cityField.sendKeys(city);
-        Select select1=new Select(stateDropDown);
-        select1.selectByValue("18");
-        utility.waitForElementPresent(zipCodeField);
-        zipCodeField.sendKeys(zipCode);
-        utility.waitForElementPresent(countryDropDown);
-        Select select2=new Select(countryDropDown);
-        select2.selectByValue("US");
-        utility.waitForElementPresent(telephoneField);
-        telephoneField.sendKeys(telephone);
         utility.waitForElementPresent(continueButton1);
         continueButton1.click();
         utility.waitForElementPresent(freeShippingCheckBox);
@@ -172,6 +159,7 @@ public class ShoppingCartPage {
         continueButton3.click();
         utility.waitForElementPresent(placeOrderButton);
         placeOrderButton.click();
+
     }
 
     public boolean checkOutOrderSuccessfully(){

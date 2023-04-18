@@ -1,6 +1,4 @@
 package maganto.backendpages.salespages;
-
-import maganto.utility.TestDataHolder;
 import maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,7 +14,7 @@ public class InvoicesPage {
     TestUtility utility;
     Actions actions;
     SalesDashboardPage dashboardPage;
-    String text;
+    String commentText;
     public InvoicesPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -34,19 +32,21 @@ public class InvoicesPage {
     @FindBy(xpath = "//ul[@class=\"note-list\"]//li")
     WebElement addedInvoiceCommentHistory;
 
-    @FindBy(tagName = "#history_comment")
+    @FindBy(css = "textarea#history_comment")
     WebElement invoiceCommentHistoryField;
     @FindBy(xpath = "//span[text()=\"Submit Comment\"]")
     WebElement submitCommentButton;
     @FindBy(xpath = "//input[@id=\"history_visible\"]")
     WebElement visibleOnFrontendCheckBox;
-    public String getText() {
-        return text;
+
+    public String getCommentText() {
+        return commentText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
     }
+
     public void viewInvoiceCommentHistory(){
         int i= (int) ((Math.random()*20)+1);
         allInvoice.get(i).click();
@@ -58,10 +58,11 @@ public class InvoicesPage {
             return false;
     }
     public String addInvoiceComment(String invoiceComment){
-        int i= (int) ((Math.random()*20)+1);
+        int i= (int) (Math.random()*20);
         allInvoice.get(i).click();
         utility.waitForElementPresent(invoiceCommentHistoryField);
-        setText(invoiceComment);
+        setCommentText(invoiceComment);
+        invoiceCommentHistoryField.sendKeys(invoiceComment);
         utility.waitForElementPresent(visibleOnFrontendCheckBox);
         visibleOnFrontendCheckBox.click();
         utility.waitForElementPresent(submitCommentButton);
@@ -69,7 +70,7 @@ public class InvoicesPage {
         return invoiceComment;
     }
     public boolean verifyAddInvoiceCommentSuccessfully(){
-        if (addedInvoiceCommentHistory.getText().contains(getText()))
+        if (addedInvoiceCommentHistory.getText().contains(getCommentText()))
             return true;
         else return false;
 

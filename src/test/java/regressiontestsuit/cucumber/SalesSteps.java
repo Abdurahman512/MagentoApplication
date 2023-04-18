@@ -76,32 +76,32 @@ public class SalesSteps extends TestBase {
         salesShipmentsPage.verifyUpdateShipmentsHistorySuccessfully();
         salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();
     }
-    @When("the sales manager view the invoice history")
-    public void theSalesManagerViewTheInvoiceHistory() {
+    @Given("Sales Manager is on the Invoice Dashboard Page")
+    public void salesManagerIsOnTheInvoiceDashboardPage() {
         dashboardPage.openInvoicePage();
-        invoicesPage.viewInvoiceCommentHistory();
-
     }
-    @Then("sales manager should be able to view comment history")
-    public void salesManagerShouldBeAbleToViewCommentHistory() {
+
+    @When("Sales Manager View the Invoice Comment Field")
+    public void salesManagerViewTheInvoiceCommentField() {
+        invoicesPage.viewInvoiceCommentHistory();
+    }
+
+    @Then("Sales Manager Can See The Invoice Comment History")
+    public void salesManagerCanSeeTheInvoiceCommentHistory() {
         invoicesPage.verifyViewInvoiceCommentHistorySuccessfully();
     }
-
-    @When("the sales manager fills out {string} field and click on submit comment button")
-    public void theSalesManagerFillsOutFieldAndClickOnSubmitCommentButton(String arg0) {
-        dashboardPage.openInvoicePage();
+    @When("Sales Manager fills out {string}")
+    public void salesManagerFillsOut(String arg0) {
         invoicesPage.addInvoiceComment(arg0);
-
     }
-    @Then("the comment should be display on the frontend page")
-    public void theCommentShouldBeDisplayOnTheFrontendPage() {
+    @Then("The Comment List Should Be Updated")
+    public void theCommentListShouldBeUpdated() {
         invoicesPage.verifyAddInvoiceCommentSuccessfully();
     }
     @After ("@SalesModuleTests")
     public void tearDown(){
         closeBrowser();
     }
-
 
 
 }

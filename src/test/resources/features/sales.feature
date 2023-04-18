@@ -20,16 +20,19 @@ Feature: Sales Module Functions
     Examples:
       | commentHistory       | number   |
       | Shipped completed | 04082023 |
+  @ViewInvoiceCommentHistory
+  Scenario: Sales Manager Can View Invoice Comment History
+    Given Sales Manager is on the Invoice Dashboard Page
+    When Sales Manager View the Invoice Comment Field
+    Then Sales Manager Can See The Invoice Comment History
 
-    Scenario : Sales Manager Can View Invoice Comment History
-      Given sales manager is on the admin page
-      When the sales manager view the invoice history
-      Then  sales manager should be able to view comment history
+   @AddInvoiceComment
+   Scenario Outline: Sales Manager Can Add Invoice Comment In History Page
+     Given Sales Manager is on the Invoice Dashboard Page
+     When Sales Manager fills out "<commentField>"
+     Then The Comment List Should Be Updated
+     Examples:
+       | commentField |
+       | HelloWorldIstanbulTeam|
 
-      Scenario Outline: Sales Manager Can Add Invoice Comment In The History Page
-        Given sales manager is on the admin page
-        When  the sales manager fills out "<commentHistory>" field and click on submit comment button
-        Then  the comment should be display on the frontend page
-        Examples:
-          |commentHistory  |
-          |   HelloWorldTeam1 |
+

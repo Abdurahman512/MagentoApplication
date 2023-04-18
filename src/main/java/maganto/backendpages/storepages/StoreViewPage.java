@@ -70,11 +70,11 @@ public class StoreViewPage {
         createStoreViewLink.click();
 
         testUtility.waitForElementPresent(storeNameField);
-        storeNameField.sendKeys(testUtility.generateStoreName());
+        storeNameField.sendKeys(testUtility.generateStoreName()+(int)(Math.random()*100));
 
         testUtility.waitForElementPresent(storeCodeField);
 
-        storeCodeField.sendKeys("a"+testUtility.generateNumber());
+        storeCodeField.sendKeys("a"+testUtility.generateNumber()+(int)(Math.random()*100));
 
         testUtility.waitForElementPresent(storeSortOrderField);
         storeSortOrderField.sendKeys(testUtility.generateStoreSortOrder());

@@ -42,9 +42,7 @@ public class CustomerModuleTestRunner extends TestBase {
             login.VerifyLoginSuccessfully();
             customerPage.addNewCustomerMethod();
             Assert.assertTrue(customerPage.verifyNewCustomerAdded());
-
         }
-
         @Test(groups = "regression test", description = "Customer Manager can add new customer groups.")
         public void addNewCustomerGroups() {
             customerDashboardPage.clickCustomerGroupsLink();

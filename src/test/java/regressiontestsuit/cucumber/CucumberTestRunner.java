@@ -15,13 +15,15 @@ import org.openqa.selenium.WebDriver;
         //features = {"src/test/resources/features/reporting.feature"},//feature file location
         features="src/test/resources/features",
         dryRun = false
-        ,
+       ,
         //tags ="@SeeSales-TotalInvoicedVsPaidReport or @CustomerByOrdersTotal")
         //tags  = "@MarketingManagerViewAllReviews")
         //tags="@MarketingManagerViewPendingReviews")
        //tags="@MarketingManagerUpdateExistingReviews")
-        tags="@MarektingManagerUpdateExistingPendingReviews")
-//tags="@MarketingModuleTest"))
+        //tags="@MarektingManagerUpdateExistingPendingReviews")
+     // tags="@viewRefundsInReports")
+        tags = "@viewCouponsReports")
+// tags="@MarketingModuleTest"))
 
 public class CucumberTestRunner {
 

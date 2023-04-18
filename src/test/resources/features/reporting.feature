@@ -45,3 +45,15 @@ Feature:  Reporting Manager should be able to see Reports
     Examples:
       |from data |to data|
       |02/01/2023|02/20/2023|
+
+    @SeeDownloadsProducts
+    Scenario: Reporting Manager should be able to see Products - Products Downloads Report
+      Given Reporting manager is on the dashboard page click on the reports
+      When  click on downloadsLink
+      Then downloadsProductPage should display
+
+  @SeeReviewProducts
+  Scenario: Reporting Manager should be able to see Reviews - Product Reviews Report
+        Given Reporting manager is on the dashboard page click on the reports
+        When click on the products review link
+        Then review products page should display

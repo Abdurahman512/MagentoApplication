@@ -42,7 +42,7 @@ public class CustomerModuleTestRunner extends TestBase {
 
     }
 
-    @Test(dependsOnMethods = {"addNewCustomer"}, groups = "regression test", description = "Customer Manager can update an existing customer ")
+    @Test(dependsOnMethods = {"addNewCustomer"},priority = 1,groups = "regression test", description = "Customer Manager can update an existing customer ")
     public void updateCustomer() {
         customerPage.updateCustomer();
         Assert.assertTrue(customerPage.verifyUpdateCustomer());

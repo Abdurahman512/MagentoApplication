@@ -48,7 +48,8 @@ public class CustomerDashboardPage {
     WebElement verifyNoRecordsFound;
     @FindBy(xpath = "//td[contains(text(),\"Istanbul Team\")]")
     WebElement verifyCustomerByGroup;
-
+    @FindBy(xpath = "//span[text()='Customers']")
+    WebElement CustomersLink;
 
     public CustomerDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -119,7 +120,14 @@ public class CustomerDashboardPage {
         } else
             return false;
     }
+    public void clickCustomerGroupsLink(){
+        testUtility.waitForElementPresent(CustomersLink);
+        actions.moveToElement(CustomersLink).perform();
+        testUtility.waitForElementPresent(customerGroupsLink);
+        customerGroupsLink.click();
 
+
+    }
 
 
 

@@ -8,10 +8,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import maganto.backendpages.BackEndLogin;
 import maganto.backendpages.marketingpages.ReviewsPage;
-import maganto.backendpages.salespages.OrdersPage;
-import maganto.backendpages.salespages.RefundsPage;
-import maganto.backendpages.salespages.SalesDashboardPage;
-import maganto.backendpages.salespages.SalesShipmentsPage;
+import maganto.backendpages.salespages.*;
 import maganto.utility.ApplicationConfig;
 import maganto.utility.TestBase;
 import maganto.utility.TestUtility;
@@ -24,6 +21,7 @@ public class SalesSteps extends TestBase {
     BackEndLogin login;
     SalesShipmentsPage salesShipmentsPage;
     RefundsPage refundsPage;
+    CouponsPage couponsPage;
 
     final static String configFile = "config.properties";
     @Before ("@SalesModuleTests")
@@ -32,6 +30,7 @@ public class SalesSteps extends TestBase {
         ordersPage = new OrdersPage(driver);
         salesShipmentsPage=new SalesShipmentsPage(driver);
         refundsPage=new RefundsPage(driver);
+        couponsPage=new CouponsPage(driver);
         dashboardPage=new SalesDashboardPage(driver);
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
@@ -82,6 +81,7 @@ public class SalesSteps extends TestBase {
     @When("Sales manager Click on Reports move to reports and move to Sales and select refunds fill in {string} and {string} field")
     public void salesManagerClickOnReportsMoveToReportsAndMoveToSalesAndSelectRefundsFillInAndField(String arg0, String arg1) {
         refundsPage.viewRefundsReports(arg0,arg1);
+
     }
 
     @Then("Total Refunded Report page should display with information")
@@ -89,6 +89,16 @@ public class SalesSteps extends TestBase {
         refundsPage.verifyMessageRefunds();
         Assert.assertTrue(refundsPage.verifyMessageRefunds());
 
+    }
+    //Sales Manager should be able to view coupons in the Reports
+    @When("Sales manager Click on Reports move to reports and move to Sales and select coupons fill in {string}and{string}field")
+    public void salesManagerClickOnReportsMoveToReportsAndMoveToSalesAndSelectCouponsFillInAndField(String arg0, String arg1) {
+        couponsPage.couponsReports(arg0, arg1);
+    }
+    @Then("Total coupons Report page should display with information")
+    public void totalCouponsReportPageShouldDisplayWithInformation() {
+        couponsPage.verifyCouponsReports();
+        Assert.assertTrue(couponsPage.verifyCouponsReports());
     }
 
 

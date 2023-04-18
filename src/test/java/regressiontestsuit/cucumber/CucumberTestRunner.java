@@ -21,8 +21,9 @@ import org.openqa.selenium.WebDriver;
         //tags="@MarketingManagerViewPendingReviews")
        //tags="@MarketingManagerUpdateExistingReviews")
         //tags="@MarektingManagerUpdateExistingPendingReviews")
-      tags="@viewRefundsInReports")
-        // tags="@MarketingModuleTest"))
+     // tags="@viewRefundsInReports")
+        tags = "@viewCouponsReports")
+// tags="@MarketingModuleTest"))
 
 public class CucumberTestRunner {
 

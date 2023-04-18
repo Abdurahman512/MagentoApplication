@@ -30,3 +30,14 @@ Feature: Sales Module Functions
       Examples:
       | from | to |
       | 3/15/2023 | 4/15/2023 |
+
+      @viewCouponsReports
+      Scenario Outline:Sales Manager should be able to view coupons in the Reports
+        Given sales manager is on the admin page
+        When Sales manager Click on Reports move to reports and move to Sales and select coupons fill in "<fromname>"and"<toname>"field
+        Then Total coupons Report page should display with information
+
+        Examples:
+        | fromname | toname  |
+        | 3/20/2023 | 4/15/2023 |
+

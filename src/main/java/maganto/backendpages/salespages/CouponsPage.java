@@ -11,60 +11,56 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-
-public class RefundsPage {
-
-    public RefundsPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-        testUtility=new TestUtility(driver);
-        actions=new Actions(driver);
-        backEndLogin=new BackEndLogin(driver);
-    }
+public class CouponsPage {
 
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
     BackEndLogin backEndLogin;
 
-
+    public CouponsPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver,this);
+        testUtility=new TestUtility(driver);
+        actions=new Actions(driver);
+        backEndLogin=new BackEndLogin(driver);
+    }
     @FindBy(xpath = "//span[text()='Reports']")
     WebElement Reports;
     @FindBy(xpath = "(//span[text()='Sales'])[2]")
     WebElement Sales;
-    @FindBy(xpath = "//span[text()='Refunds']")
-    WebElement Refunds;
+    @FindBy(xpath = "//span[text()='Coupons']")
+    WebElement Coupons;
     @FindBy(id = "sales_report_from")
     WebElement fromName;
-    @FindBy(id = "sales_report_to")
+    @FindBy(id ="sales_report_to")
     WebElement toName;
-    @FindBy(xpath = "(//span[text()='Show Report'])[1]")
+    @FindBy(xpath = "//span[text()='Show Report']")
     WebElement ShowReport;
-   @FindAll( @FindBy(xpath = "//td[@class=' a-right ']"))
-     public List <WebElement>verifyShowReport;
+    @FindAll(@FindBy(xpath = "(//span[contains(text(),'Show Report')])[1]"))
+    public List<WebElement> verifyShowReport1;
 
 
-    public void  viewRefundsReports(String from,String to){
+    public void  couponsReports(String fromname,String toname){
         testUtility.waitForElementPresent(Reports);
-        Reports.click();
+        actions.moveToElement(Reports).click().perform();
         testUtility.waitForElementPresent(Sales);
-        Sales.click();
-        testUtility.waitForElementPresent(Refunds);
-        Refunds.click();
+        actions.moveToElement(Sales).click().perform();
+        testUtility.waitForElementPresent(Coupons);
+        Coupons.click();
         testUtility.waitForElementPresent(fromName);
-        fromName.sendKeys(from);
+        fromName.sendKeys(fromname);
         testUtility.waitForElementPresent(toName);
-        toName.sendKeys(to);
-        testUtility.sleep(2);
+        toName.sendKeys(toname);
         testUtility.waitForElementPresent(ShowReport);
         ShowReport.click();
     }
-public boolean verifyMessageRefunds(){
-        if (verifyShowReport.size()>=1);
+    public boolean verifyCouponsReports(){
+        if (verifyShowReport1.size()>=1);
         testUtility.sleep(2);
-    System.out.println("Total Refunded Report is display");
+        System.out.println("Coupons Usage Report is disply");
         return true;
-}
+    }
+    }
 
 
-}

@@ -16,7 +16,10 @@ public class CustomerDashboardPage {
     Actions actions;
     String config="config.properties";
     String email;
-
+    @FindBy(xpath = "//img[@alt='Magento Logo']")
+    WebElement customerMagentoDashboard;
+    @FindBy(id = "anchor-content")
+    WebElement manageCustomersTable;
 
     @FindBy(xpath = "//span[text()='Customers']")
     WebElement customersLink;
@@ -45,7 +48,8 @@ public class CustomerDashboardPage {
     WebElement verifyNoRecordsFound;
     @FindBy(xpath = "//td[contains(text(),\"Istanbul Team\")]")
     WebElement verifyCustomerByGroup;
-
+    @FindBy(xpath = "//span[text()='Customers']")
+    WebElement CustomersLink;
 
     public CustomerDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -107,7 +111,23 @@ public class CustomerDashboardPage {
         actions.click(searchButton).perform();
         testUtility.sleep(2);
     }
+    public boolean clickOnMagentoLogoBackDashboard() {
+        testUtility.waitForElementPresent(customerMagentoDashboard);
+        customerMagentoDashboard.click();
+        testUtility.waitForElementPresent(manageCustomersTable);
+        if (manageCustomersTable.isDisplayed()) {
+            return true;
+        } else
+            return false;
+    }
+    public void clickCustomerGroupsLink(){
+        testUtility.waitForElementPresent(CustomersLink);
+        actions.moveToElement(CustomersLink).perform();
+        testUtility.waitForElementPresent(customerGroupsLink);
+        customerGroupsLink.click();
 
+
+    }
 
 
 

@@ -21,6 +21,22 @@ Feature: Sales Module Functions
       | commentHistory       | number   |
       | Shipped completed | 04082023 |
 
+  @ViewInvoiceCommentHistory
+  Scenario: Sales Manager Can View Invoice Comment History
+    Given Sales Manager is on the Invoice Dashboard Page
+    When Sales Manager View the Invoice Comment Field
+    Then Sales Manager Can See The Invoice Comment History
+
+   @AddInvoiceComment
+   Scenario Outline: Sales Manager Can Add Invoice Comment In History Page
+     Given Sales Manager is on the Invoice Dashboard Page
+     When Sales Manager fills out "<commentField>"
+     Then The Comment List Should Be Updated
+     Examples:
+       | commentField |
+       | HelloWorldIstanbulTeam|
+
+
     @viewRefundsInReports
     Scenario Outline: Sales Manager can view Refunds in Reports
       Given  sales manager is on the admin page
@@ -40,4 +56,5 @@ Feature: Sales Module Functions
         Examples:
         | fromname | toname  |
         | 3/20/2023 | 4/15/2023 |
+
 

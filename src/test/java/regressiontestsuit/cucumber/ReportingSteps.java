@@ -26,6 +26,7 @@ public class ReportingSteps extends TestBase {
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     CustomersByOrdersTotal customersByOrdersTotal;
     CustomersByNumberOfOrders customersByNumberOfOrders;
+    ShippedReportPage shippedReportPage;
     final static String configFile = "config.properties";
 
     @Before ("@ReportingModuleTests")
@@ -36,6 +37,7 @@ public class ReportingSteps extends TestBase {
         invoicedVsPaidReportPage=new InvoicedVsPaidReportPage(driver);
         customersByOrdersTotal=new CustomersByOrdersTotal(driver);
         customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        shippedReportPage=new ShippedReportPage(driver);
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
@@ -113,19 +115,6 @@ public class ReportingSteps extends TestBase {
         org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
     }
 
-
-
-
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
-
-
     @Given("Reporting manager is on the dashboard page click on the reports")
     public void reportingManagerIsOnTheDashboardPageClickOnTheReports() {
 
@@ -150,6 +139,30 @@ public class ReportingSteps extends TestBase {
     @Then("review products page should display")
     public void reviewProductsPageShouldDisplay() {
         downloadsPage.verifySeeProductsReview();
+    }
+
+    @Given("reporting manager is on the admin page and clicks shipping report")
+    public void reportingManagerIsOnTheAdminPageAndClicksShippingReport() {
+        dashboardPage.openShippingPage();
+    }
+
+    @When("reporting manager fills out report date for the shipped orders {string} and{string}")
+    public void reportingManagerFillsOutReportDateForTheShippedOrdersAnd(String arg0, String arg1) {
+        shippedReportPage.viewTotalShippedReport(arg0,arg1);
+    }
+
+    @Then("total shipped report should appear")
+    public void totalShippedReportShouldAppear() {
+        shippedReportPage.confirmIsReportAppeared();
+    }
+
+    @After("@ReportingModuleTests")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
     }
 
 }

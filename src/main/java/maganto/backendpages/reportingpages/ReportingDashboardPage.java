@@ -24,6 +24,8 @@ public class ReportingDashboardPage {
     WebElement customerByNumberOfOrdersLink;
     @FindBy(xpath = "(//span[contains(text(),'Invoiced')])[1]")
     WebElement invoicedOption;
+    @FindBy(xpath = "//span[contains(text(),'Shipping')]")
+    WebElement shippingLink;
     TestUtility utility;
     Actions actions;
 
@@ -60,6 +62,10 @@ public class ReportingDashboardPage {
         actions.moveToElement(salesLink).click().perform();
         utility.waitForElementPresent(invoicedOption);
         actions.moveToElement(invoicedOption).click().perform();
+    }
+    public void openShippingPage(){
+        utility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).moveToElement(salesLink).moveToElement(shippingLink).click().perform();
     }
 
 }

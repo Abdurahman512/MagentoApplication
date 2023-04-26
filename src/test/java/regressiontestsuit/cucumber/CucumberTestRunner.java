@@ -11,10 +11,12 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber.json",
                 "junit:target/cucumber-results.xml"},
         dryRun = false,//for test report
-        features = {"src/test/resources/features/sales.feature"},//feature file location
+        features = {"src/test/resources/features/reporting.feature"},//feature file location
         // tags ="@SeeSales-TotalInvoicedVsPaidReport or @CustomerByOrdersTotal")
         //tags = "@ViewInvoiceCommentHistory")
-          tags="@AddInvoiceComment")
+        // tags="@AddInvoiceComment"
+        tags="@ReportingModuleTests"
+)
 
 
 public class CucumberTestRunner {

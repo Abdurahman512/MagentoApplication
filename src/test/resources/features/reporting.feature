@@ -57,3 +57,12 @@ Feature:  Reporting Manager should be able to see Reports
         Given Reporting manager is on the dashboard page click on the reports
         When click on the products review link
         Then review products page should display
+
+    @TotalShippedOrdersReport
+    Scenario Outline: Reporting Manager should be able to see total shipped orders report
+      Given reporting manager is on the admin page and clicks shipping report
+      When reporting manager fills out report date for the shipped orders "<dateFrom>" and"<dateTo>"
+      Then total shipped report should appear
+      Examples:
+      |dateFrom|dateTo|
+      |03/21/2023|03/25/2023|

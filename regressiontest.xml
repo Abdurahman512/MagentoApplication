@@ -4,12 +4,11 @@
 <suite name="All Test Suite">
     <test verbose="1" name="Regression Test">
         <classes>
-<!--            <class name="regressiontestsuit.testng.UserModuleTestRunner"></class>-->
-<!--            <class name="regressiontestsuit.testng.CatalogModuleTestRunner"></class>-->
+            <class name="regressiontestsuit.testng.UserModuleTestRunner"></class>
+            <class name="regressiontestsuit.testng.CatalogModuleTestRunner"></class>
             <class name="regressiontestsuit.testng.CustomerModuleTestRunner"></class>
+            <class name="regressiontestsuit.testng.StoreModuleTestRunner"></class>
 
-
-            
         </classes>
     </test>
 </suite>

@@ -22,7 +22,7 @@ public class StoreDashboardPage {
     WebElement salesLink;
     @FindBy(xpath = "//span[contains(text(),\"Orders\")]")
     WebElement ordersLink;
-    @FindBy(xpath = "//span[contains(text(),\"The order has been created.\")]")
+    @FindBy(xpath = "//span[text()='The order has been created.']")
     WebElement orderSuccessfullyCreated;
     @FindBy(xpath = "//ul[@id=\"nav\"]//li/a/span[contains(text(),\"Catalog\")]")
     WebElement catalogLink;

@@ -35,7 +35,7 @@ public class CategoriesPage {
     WebElement activeSelection;
 
     //delete category
-    @FindBy(css = ".scalable.delete")
+    @FindBy(xpath = "//span[text()='Delete Category']")
     WebElement deleteCategoryButton;
     @FindBy(xpath = "//span[text()='The category has been deleted.']")
     WebElement deleteCategoryMessage;
@@ -183,7 +183,7 @@ public class CategoriesPage {
         utility.sleep(2);
         utility.javaScriptClick(addedRootCategory);
         utility.waitForElementPresent(deleteCategoryButton);
-        utility.sleep(2);
+        utility.sleep(3);
         utility.javaScriptClick(deleteCategoryButton);
         utility.sleep(2);
         Alert alert = driver.switchTo().alert();

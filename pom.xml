@@ -193,7 +193,7 @@
                     <configuration>
                         <suiteXmlFiles>
                             <!--suppress UnresolvedMavenProperty -->
-                            <suiteXmlFile>${suiteXMLFile}</suiteXmlFile>
+                            <suiteXmlFile>regressiontest.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>

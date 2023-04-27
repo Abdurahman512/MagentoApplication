@@ -77,10 +77,12 @@ public class StoreOrdersPage {
     WebElement saveInAddressBookCheckBox;
     @FindBy(xpath = "//input[@id=\"p_method_checkmo\"]")
     WebElement checkMoneyOrderCheckBox;
-    @FindBy(xpath = "(//span[contains(text(),\"Submit Order\")])[2]")
+    @FindBy(xpath = "//button[contains(@class,'scalable save')]")
     WebElement submitOrderButton;
     @FindBy(xpath = "//h3[starts-with(text(),\"Order #\")]")
     WebElement createdOrderNumber;
+    @FindBy (xpath = "//span[text()='The order has been created.']")
+    WebElement successMessage;
     //update Order
     @FindBy(xpath = "(//span[contains(text(),\"Edit\")])[1]")
     WebElement editIcon;
@@ -141,10 +143,13 @@ public class StoreOrdersPage {
         String orderNumber=createdOrderNumber.getText().substring(8,17);
         System.out.println("ordernumber:"+orderNumber);
     }
-    public String createNewOrderMethod(){
+    public void createNewOrderMethod(){
         storeDashboardPage.clickOnOrdersLink();
+        utility.sleep(3);
         utility.waitForElementPresent(createNewOrderLink);
+        utility.sleep(3);
         actions.moveToElement(createNewOrderLink).click().build().perform();
+        utility.sleep(3);
         utility.waitForElementPresent(createNewCustomer);
         utility.javaScriptClick(createNewCustomer);
         utility.waitForElementPresent(selectedStore);
@@ -185,12 +190,12 @@ public class StoreOrdersPage {
         utility.waitForElementPresent(checkMoneyOrderCheckBox);
         checkMoneyOrderCheckBox.click();
         utility.waitForElementPresent(submitOrderButton);
-        submitOrderButton.click();
-        orderNumber=createdOrderNumber.getText().substring(8,17);
-        System.out.println("ordernumber:"+orderNumber);
-        return orderNumber;
-    }
-    public String updateOrder(){
+        submitOrderButton.click();}
+//        orderNumber=createdOrderNumber.getText().substring(8,17);
+//        System.out.println("ordernumber:"+orderNumber);
+//        return orderNumber;
+
+    public void updateOrder(){
         storeDashboardPage.clickOnOrdersLink();
         WebElement selectedOrder=driver.findElement(By.xpath(String.format("//table[@id=\"sales_order_grid_table\"]//tbody//tr//td[2][contains(text(),\"%s\")]",orderNumber)));
         utility.waitForElementPresent(selectedOrder);
@@ -214,9 +219,9 @@ public class StoreOrdersPage {
         actions.moveToElement(submitOrderButton).click().build().perform();
         Alert alt1=driver.switchTo().alert();
         alt1.accept();
-        updatedOrderNumber=createdOrderNumber.getText().substring(8,17);
-        System.out.println(updatedOrderNumber);
-        return updatedOrderNumber;
+//        updatedOrderNumber=createdOrderNumber.getText().substring(8,17);
+//        System.out.println(updatedOrderNumber);
+//        return updatedOrderNumber;
     }
     public void cancelOrder(){
         storeDashboardPage.clickOnOrdersLink();
@@ -228,11 +233,24 @@ public class StoreOrdersPage {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
-    public boolean deleteOrderSuccessfully(){
-        if(deleteSuccessMassage.isDisplayed()){
+    public boolean verifyCreateNewOrder() {
+        utility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("The order has been created.")) {
+            System.out.println("Store manager create new order test passed!");
             return true;
-        }else
+
+        } else {
+            System.out.println("Store manager create new order test failed!");
             return false;
+        }
     }
+
+        public boolean deleteOrderSuccessfully () {
+            if (deleteSuccessMassage.isDisplayed()) {
+                return true;
+            } else
+                return false;
+        }
+
 
 }

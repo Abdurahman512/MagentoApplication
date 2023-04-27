@@ -24,6 +24,12 @@ public class ReportingDashboardPage {
     WebElement customerByNumberOfOrdersLink;
     @FindBy(xpath = "(//span[contains(text(),'Invoiced')])[1]")
     WebElement invoicedOption;
+    @FindBy(xpath = "//span[contains(text(),'Shipping')]")
+    WebElement shippingLink;
+    @FindBy(xpath = "//span[contains(text(),'Shopping Cart')]")
+    WebElement shoppingCartLink;
+    @FindBy(xpath = "//span[contains(text(),'Abandoned carts')]")
+    WebElement AbandonedCartsLink;
     TestUtility utility;
     Actions actions;
 
@@ -60,6 +66,21 @@ public class ReportingDashboardPage {
         actions.moveToElement(salesLink).click().perform();
         utility.waitForElementPresent(invoicedOption);
         actions.moveToElement(invoicedOption).click().perform();
+    }
+    public void openShippingPage(){
+        utility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).moveToElement(salesLink).moveToElement(shippingLink).click().perform();
+    }
+
+    public void openAbandonedCartsPage(){
+        utility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click(reportsLink).build().perform();
+        utility.sleep(2);
+        utility.waitForElementPresent(shoppingCartLink);
+        actions.moveToElement(shoppingCartLink).click(shoppingCartLink).build().perform();
+        utility.sleep(2);
+        utility.waitForElementPresent(AbandonedCartsLink);
+        AbandonedCartsLink.click();
     }
 
 }

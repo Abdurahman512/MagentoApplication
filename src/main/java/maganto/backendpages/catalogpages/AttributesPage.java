@@ -56,7 +56,7 @@ public class AttributesPage {
     WebElement searchQueryField;
     @FindBy(xpath ="//*[@class='scalable task']" )
     WebElement searchButton;
-    @FindBy(xpath = "//*[contains(text(),'Tea Cup')]")
+    @FindBy(xpath = "//input[@value='tea cup']")
     WebElement filterSearchSuccessMessage;
 
 
@@ -78,7 +78,11 @@ public class AttributesPage {
 
     public void clickOnAddNewAttributeButton(){
         testUtility.waitForElementPresent(catalogLink);
-        actions.moveToElement(catalogLink).moveToElement(attributes).moveToElement(manageAttributes).click().build().perform();
+        actions.moveToElement(catalogLink).build().perform();
+        testUtility.waitForElementPresent(attributes);
+        actions.moveToElement(attributes).build().perform();
+        testUtility.waitForElementPresent(manageAttributes);
+        actions.moveToElement(manageAttributes).click(manageAttributes).build().perform();
         testUtility.sleep(2);
         testUtility.waitForElementPresent(addNewAttributeButton);
         addNewAttributeButton.click();

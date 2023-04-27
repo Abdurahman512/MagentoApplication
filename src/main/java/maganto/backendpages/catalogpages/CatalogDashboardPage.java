@@ -21,6 +21,7 @@ public class CatalogDashboardPage {
     @FindBy(xpath = "//span[text()=\"Manage Categories\"]")
     WebElement manageCategoriesLink;
 
+
     public CatalogDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);

@@ -10,13 +10,15 @@ import org.openqa.selenium.support.PageFactory;
 public class SalesDashboardPage {
 
     WebDriver driver;
+    TestUtility utility;
+    Actions actions;
     @FindBy(xpath = "//span[contains(text(),'Sales')]")
     WebElement salesLink;
     @FindBy(xpath = "//span[contains(text(),'Orders')]")
     WebElement ordersLink;
+    @FindBy(xpath = "//span[contains(text(),\"Invoices\")]")
+    WebElement invoiceLink;
 
-    TestUtility utility;
-    Actions actions;
     public SalesDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -32,6 +34,13 @@ public class SalesDashboardPage {
         utility.waitForElementPresent(ordersLink);
         ordersLink.click();
     }
-
+      public void openInvoicePage(){
+          utility.waitForElementPresent(salesLink);
+          actions.moveToElement(salesLink).build().perform();
+          utility.javaScriptClick(salesLink);
+          utility.sleep(2);
+          utility.waitForElementPresent(invoiceLink);
+          invoiceLink.click();
+      }
 
 }

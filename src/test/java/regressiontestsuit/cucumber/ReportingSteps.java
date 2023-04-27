@@ -18,12 +18,17 @@ import io.cucumber.java.Scenario;
 
 public class ReportingSteps extends TestBase {
     TestUtility utility;
+    DownloadsPage downloadsPage;
+    ReportReviewsPage reportReviewsPage;
     ReportingDashboardPage dashboardPage;
     SalesOrdersPage salesOrdersPage;
     BackEndLogin login;
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     CustomersByOrdersTotal customersByOrdersTotal;
     CustomersByNumberOfOrders customersByNumberOfOrders;
+    ShippedReportPage shippedReportPage;
+    ShoppingCartPage shoppingCartPage;
+    SalesPage salesPage;
     final static String configFile = "config.properties";
 
     @Before ("@ReportingModuleTests")
@@ -34,9 +39,13 @@ public class ReportingSteps extends TestBase {
         invoicedVsPaidReportPage=new InvoicedVsPaidReportPage(driver);
         customersByOrdersTotal=new CustomersByOrdersTotal(driver);
         customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        shippedReportPage=new ShippedReportPage(driver);
+        shoppingCartPage=new ShoppingCartPage(driver);
+        salesPage=new SalesPage(driver);
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
+        downloadsPage=new DownloadsPage(driver);
     }
 
     //reporting manager can can see sales-total ordered report
@@ -110,10 +119,74 @@ public class ReportingSteps extends TestBase {
         org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
     }
 
+    @Given("Reporting manager is on the dashboard page click on the reports")
+    public void reportingManagerIsOnTheDashboardPageClickOnTheReports() {
 
+        downloadsPage.seeProductsDownloadsReport();
+    }
 
+    @When("click on downloadsLink")
+    public void clickOnDownloadsLink() {
+        downloadsPage.seeProductsDownloadsReport();
+    }
 
-    @After("@ReportingModuleTest")
+    @Then("downloadsProductPage should display")
+    public void downloadsproductpageShouldDisplay() {
+        downloadsPage.verifySeeProductsDownloadsReport();
+    }
+
+    @When("click on the products review link")
+    public void clickOnTheProductsReviewLink() {
+        downloadsPage.seeProductsReviews();
+    }
+
+    @Then("review products page should display")
+    public void reviewProductsPageShouldDisplay() {
+        downloadsPage.verifySeeProductsReview();
+    }
+
+    @Given("reporting manager is on the admin page and clicks shipping report")
+    public void reportingManagerIsOnTheAdminPageAndClicksShippingReport() {
+        dashboardPage.openShippingPage();
+    }
+
+    @When("reporting manager fills out report date for the shipped orders {string} and{string}")
+    public void reportingManagerFillsOutReportDateForTheShippedOrdersAnd(String arg0, String arg1) {
+        shippedReportPage.viewTotalShippedReport(arg0,arg1);
+    }
+
+    @Then("total shipped report should appear")
+    public void totalShippedReportShouldAppear() {
+        shippedReportPage.confirmIsReportAppeared();
+    }
+
+    @When("reporting manager fills out the report date {string} and{string}")
+    public void reportingManagerFillsOutTheReportDateAnd(String arg0, String arg1) {
+        salesPage.showRefundsReport(arg0,arg1);
+    }
+
+    @Then("total Refunds Report should display")
+    public void totalRefundsReportShouldDisplay() {
+        salesPage.isTotalRefundedReportShowed();
+    }
+
+    // Abandoned carts Report
+    @Given("Reporting manager is on the admin page and clicks on Abandoned carts page")
+    public void reportingManagerIsOnTheAdminPageAndClicksOnAbandonedCartsPage() {
+        dashboardPage.openAbandonedCartsPage();
+    }
+
+    @When("Reporting manager choose shopping website for report")
+    public void reportingManagerChooseShoppingWebsiteForReport() {
+        shoppingCartPage.viewAbandonedCartsReport();
+    }
+
+    @Then("Abandoned carts report should display")
+    public void abandonedCartsReportShouldDisplay() {
+        shoppingCartPage.isAbandonedCartsReportShowed();
+    }
+
+    @After("@ReportingModuleTests")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             ScreenShotUtility screenShotUtility = new ScreenShotUtility();
@@ -121,7 +194,6 @@ public class ReportingSteps extends TestBase {
         }
         closeBrowser();
     }
-
 
 
 }

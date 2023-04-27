@@ -19,47 +19,34 @@ public class CustomerGroupsPage {
 
     @FindBy(xpath = "(//span[.='Customers'])[1]")
     public WebElement customersLink;
-
     @FindBy(xpath = "//a[.='Customer Groups']")
     public WebElement customerGroupsLink;
-
     @FindBy(xpath = "(//span[.='Add New Customer Group'])[1]")
     public WebElement addNewCustomerGroupButton;
-
     @FindBy(id = "customer_group_code")
     public WebElement groupNameField;
-
     @FindBy(xpath = "(//span[.='Save Customer Group'])[1]")
     public WebElement saveCustomerGroupButton;
-
     @FindBy(xpath = "//span[.='The customer group has been saved.']")
     public WebElement successMessage;
-
     @FindBy(xpath = "//span[.='The customer group has been deleted.']")
     public WebElement deleteSuccessMessage;
-
     @FindBy(xpath = ("(//span[.='Delete Customer Group'])[1]"))
     public WebElement deleteCustomerGroupButton;
-
     @FindBy(css = "#customerGroupGrid_filter_type")
     WebElement groupNameField1;
-
     @FindBy(xpath = "//button[@class='scalable task']")
     WebElement searchBtn;
-
     @FindBy(xpath = "//table[@id='customerGroupGrid_table']//tbody/tr[1]/td[2]")
     WebElement addedCustomerGroup;
-
     @FindBy(xpath = "//td[@class='pager']//select")
     WebElement viewSelectDropdown;
-
     public CustomerGroupsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
         actions = new Actions(driver);
     }
-
     public void clickOnManageCustomers() {
         testUtility.waitForElementPresent(customersLink);
         actions.moveToElement(customersLink).perform();

@@ -107,10 +107,6 @@ public class TestUtility {
         }
     }
 
-    public void unhandledAlertException(WebElement element) {
-
-    }
-
 
 }
 

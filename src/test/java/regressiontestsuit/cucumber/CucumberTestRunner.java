@@ -15,7 +15,8 @@ import org.junit.runner.RunWith;
         // tags ="@SeeSales-TotalInvoicedVsPaidReport or @CustomerByOrdersTotal")
         //tags = "@ViewInvoiceCommentHistory")
         // tags="@AddInvoiceComment"
-        tags="@ReportingModuleTests"
+       // tags="@ReportingModuleTests"
+        tags = "@SeeSalesTotalRefundsReport"
 )
 
 

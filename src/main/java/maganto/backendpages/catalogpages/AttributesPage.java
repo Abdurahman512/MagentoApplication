@@ -56,7 +56,7 @@ public class AttributesPage {
     WebElement searchQueryField;
     @FindBy(xpath ="//*[@class='scalable task']" )
     WebElement searchButton;
-    @FindBy(xpath = "//*[contains(text(),'Tea Cup')]")
+    @FindBy(xpath = "//input[@value='tea cup']")
     WebElement filterSearchSuccessMessage;
 
 

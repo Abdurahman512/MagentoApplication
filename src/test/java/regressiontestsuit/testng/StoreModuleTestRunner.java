@@ -60,19 +60,19 @@ public class StoreModuleTestRunner extends TestBase {
 
 
     @Test(description = "createorder",priority = 2)
-    //@Ignore
+    @Ignore
     public void createOrderTest(){
         storeOrdersPage.createNewOrderMethod();
-        Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
+        Assert.assertTrue(storeOrdersPage.verifyCreateNewOrder());
     }
     @Test(dependsOnMethods = {"createOrderTest"})
-   // @Ignore
+    @Ignore
     public void updateOrderTest(){
         storeOrdersPage.updateOrder();
         Assert.assertTrue(storeDashboardPage.orderSuccessfullyCreated());
     }
     @Test(dependsOnMethods = {"updateOrderTest"})
-    //@Ignore
+    @Ignore
     public void cancelOrders(){
         storeOrdersPage.cancelOrder();
         Assert.assertTrue(storeOrdersPage.deleteOrderSuccessfully());

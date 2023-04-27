@@ -27,6 +27,7 @@ public class ReportingSteps extends TestBase {
     CustomersByOrdersTotal customersByOrdersTotal;
     CustomersByNumberOfOrders customersByNumberOfOrders;
     ShippedReportPage shippedReportPage;
+    ShoppingCartPage shoppingCartPage;
     final static String configFile = "config.properties";
 
     @Before ("@ReportingModuleTests")
@@ -38,6 +39,7 @@ public class ReportingSteps extends TestBase {
         customersByOrdersTotal=new CustomersByOrdersTotal(driver);
         customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
         shippedReportPage=new ShippedReportPage(driver);
+        shoppingCartPage=new ShoppingCartPage(driver);
         utility = new TestUtility(driver);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
@@ -154,6 +156,22 @@ public class ReportingSteps extends TestBase {
     @Then("total shipped report should appear")
     public void totalShippedReportShouldAppear() {
         shippedReportPage.confirmIsReportAppeared();
+    }
+
+    // Abandoned carts Report
+    @Given("Reporting manager is on the admin page and clicks on Abandoned carts page")
+    public void reportingManagerIsOnTheAdminPageAndClicksOnAbandonedCartsPage() {
+        dashboardPage.openAbandonedCartsPage();
+    }
+
+    @When("Reporting manager choose shopping website for report")
+    public void reportingManagerChooseShoppingWebsiteForReport() {
+        shoppingCartPage.viewAbandonedCartsReport();
+    }
+
+    @Then("Abandoned carts report should display")
+    public void abandonedCartsReportShouldDisplay() {
+        shoppingCartPage.isAbandonedCartsReportShowed();
     }
 
     @After("@ReportingModuleTests")

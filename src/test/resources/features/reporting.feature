@@ -2,7 +2,7 @@
 Feature:  Reporting Manager should be able to see Reports
 
   @TotalOrderReportTest
-  Scenario Outline: reporting manager can can see sales-total ordered report
+  Scenario Outline: Reporting manager can see sales-total ordered report
     Given reporting manager is on the admin page
     When reporting manager fills out report date "<dateFrom>" and"<dateTo>"
     Then total ordered report should display
@@ -66,3 +66,9 @@ Feature:  Reporting Manager should be able to see Reports
       Examples:
       |dateFrom|dateTo|
       |03/21/2023|03/25/2023|
+
+  @AbandonedCartsReportTest
+  Scenario: Reporting manager should be able to see Shopping Cart - Abandoned carts report
+    Given Reporting manager is on the admin page and clicks on Abandoned carts page
+    When Reporting manager choose shopping website for report
+    Then Abandoned carts report should display

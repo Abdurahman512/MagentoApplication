@@ -14,9 +14,9 @@ import org.openqa.selenium.WebDriver;
 
                 "junit:target/cucumber-results.xml"},// for test report
         features="src/test/resources/features", // feature file location
-        //tags = "@CatalogPriceRule"
+        tags = "@CatalogPriceRule"
         //tags = "@updateexistingCatalogPriceRule"
-        tags = "@searchByIdAndRule"
+        //tags = "@searchByIdAndRule"
 )
 
 

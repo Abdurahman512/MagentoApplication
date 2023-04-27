@@ -66,3 +66,14 @@ Feature:  Reporting Manager should be able to see Reports
       Examples:
       |dateFrom|dateTo|
       |03/21/2023|03/25/2023|
+
+      @SeeSalesTotalRefundsReport
+      Scenario Outline: Reporting Manager should be able to see Total Refunds Report
+        Given reporting manager is on the admin page
+        When reporting manager fills out the report date "<dateFrom>" and"<dateTo>"
+        Then total Refunds Report should display
+        Examples:
+          |dateFrom  |dateTo    |
+          |2/26/2023|3/26/2023|
+
+
